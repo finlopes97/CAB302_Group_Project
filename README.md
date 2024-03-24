@@ -14,9 +14,11 @@
 
 ## Technology Stack:
 - Programming Language: Java
-- Frameworks: (Specify any Java frameworks you plan to use, e.g., Spring, Hibernate)
-- Database: (Specify the database technology, e.g., MySQL, PostgreSQL)
-- Other Technologies: (Any other technologies, libraries, or APIs?)
+- Frameworks: JavaFX 
+- Database: SQLite (works well with android and have previous experience with)
+- Other Technologies: 
+  • google maps API: For anything location based
+  • Can consider using Android studio IDE instead of IntelliJ
 
 ## Development Methodology:
 (What development methodology will you follow? Agile, Waterfall, etc.)
