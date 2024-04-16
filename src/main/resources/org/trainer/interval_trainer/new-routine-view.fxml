@@ -6,12 +6,11 @@
 
 <?import javafx.scene.control.Button?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.trainer.interval_trainer.HelloController">
+      fx:controller="org.trainer.interval_trainer.NewRoutineController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-    <Button text="New Routine" onAction="#onNewRoutineButton"/>
+    <Label text="hello" fx:id="welcomeText"/>
+
 </VBox>
