@@ -5,6 +5,4 @@ module org.trainer.interval_trainer {
 
     opens org.trainer.interval_trainer to javafx.fxml;
     exports org.trainer.interval_trainer;
-    exports org.trainer.interval_trainer.NewRoutine;
-    opens org.trainer.interval_trainer.NewRoutine to javafx.fxml;
 }
