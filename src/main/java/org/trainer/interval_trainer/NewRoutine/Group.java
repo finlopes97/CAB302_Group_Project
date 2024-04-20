@@ -49,6 +49,48 @@ public class Group extends Block  {
         delete.setOnAction(event -> {
             Delete();
         });
+
+        setOnDragDetected((MouseEvent event) -> {
+            Dragboard db = startDragAndDrop(TransferMode.MOVE);
+
+            ClipboardContent content = new ClipboardContent();
+            content.putString("obama");
+            db.setContent(content);
+            event.consume();
+        });
+        setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
+
+        Group me = this;
+
+        setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    System.out.println(db.getString());
+                    success = true;
+                }
+                System.out.println(event.getGestureSource());
+
+                ((Block) event.getGestureSource()).Delete();
+                ((Block) event.getGestureSource()).parent = me;
+
+
+                list.addFirst((Block) event.getGestureSource());
+                event.setDropCompleted(success);
+                event.consume();
+
+            }
+        });
     }
 
     @Override
@@ -61,5 +103,7 @@ public class Group extends Block  {
     @Override
     public void deleteChild(Node child) {
         list.remove(child);
+        System.out.println("list: ");
+        System.out.println(list);
     }
 }

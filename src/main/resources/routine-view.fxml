@@ -28,10 +28,11 @@
         <Separator />
         <Text />
 
-
+        <Text fx:id="startOfList" text="start of list"/>
         <VBox fx:id="children">
 
         </VBox>
+        <Text fx:id="endOfList" text="end of List"/>
         <Text />
         <Button fx:id="addChild" text="addChild"/>
         <Button fx:id="addItem" text="addItem"/>

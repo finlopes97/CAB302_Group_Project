@@ -4,12 +4,17 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -21,6 +26,8 @@ public class Routine extends Block {
     @FXML private Button addItem;
     @FXML private TextField routineName = new TextField();
     @FXML private Button save;
+    @FXML private Text startOfList;
+    @FXML private Text endOfList;
 
     ObservableList<Node> list = FXCollections.<Node>observableArrayList();
 
@@ -47,7 +54,73 @@ public class Routine extends Block {
             System.out.println(routineName.getText());
         });
 
+        Routine me = this;
+
+        startOfList.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
+        startOfList.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    System.out.println(db.getString());
+                    success = true;
+                }
+                System.out.println(event.getGestureSource());
+
+                ((Block) event.getGestureSource()).Delete();
+                ((Block) event.getGestureSource()).parent = me;
+
+
+                list.addFirst((Block) event.getGestureSource());
+                event.setDropCompleted(success);
+                event.consume();
+
+            }
+        });
+        endOfList.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
+        endOfList.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    System.out.println(db.getString());
+                    success = true;
+                }
+                System.out.println(event.getGestureSource());
+
+                ((Block) event.getGestureSource()).Delete();
+                ((Block) event.getGestureSource()).parent = me;
+
+
+                list.add((Block) event.getGestureSource());
+                event.setDropCompleted(success);
+                event.consume();
+
+            }
+        });
+
+
+
     }
+
 
 
     @Override
@@ -58,5 +131,6 @@ public class Routine extends Block {
     @Override
     public void deleteChild(Node child) {
         list.remove(child);
+        System.out.println("deleteChild routine");
     }
 }

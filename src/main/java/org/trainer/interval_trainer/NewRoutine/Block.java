@@ -19,9 +19,11 @@ public abstract class Block extends VBox {
 
     public void Delete() {
         parent.deleteChild(this);
+        System.out.println("delete");
     }
 
     public void AddAfter(Block block) {
+        System.out.println(this);
         parent.addAfterChild(this, block);
     }
 
