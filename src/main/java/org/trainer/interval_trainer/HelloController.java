@@ -1,10 +1,8 @@
 package org.trainer.interval_trainer;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import org.trainer.interval_trainer.NewRoutine.Routine;
 
 import java.io.IOException;
 
@@ -19,6 +17,6 @@ public class HelloController {
 
 
     public void onNewRoutineButton() throws IOException {
-        HelloApplication.changeScene("new-routine-view.fxml");
+        HelloApplication.setRoot(new Routine());
     }
 }

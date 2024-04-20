@@ -2,6 +2,7 @@ package org.trainer.interval_trainer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,5 +26,8 @@ public class HelloApplication extends Application {
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(fxml)));
         primaryStage.getScene().setRoot(pane);
+    }
+    public static void setRoot(Node node) {
+        primaryStage.getScene().setRoot((Parent) node);
     }
 }
