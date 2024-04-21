@@ -1,7 +1,8 @@
 package org.trainer.interval_trainer.test;
 import org.trainer.interval_trainer.validation.UserRegistrationValidator;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class UserRegistrationValidatorTest {
     @Test
@@ -13,25 +14,25 @@ public class UserRegistrationValidatorTest {
     @Test
     public void isValidUsername() {
         UserRegistrationValidator userRegistrationValidator = new UserRegistrationValidator();
-        assertTrue(userRegistrationValidator.isvalidUsername("username123"));
+        assertTrue(userRegistrationValidator.isValidUsername("username123"));
     }
 
     @Test
     public void isInvalidUsername() {
         UserRegistrationValidator userRegistrationValidator = new UserRegistrationValidator();
-        assertFalse(userRegistrationValidator.isvalidUsername("<!special!>"));
+        assertFalse(userRegistrationValidator.isValidUsername("<!special!>"));
     }
 
     @Test
     public void isUsernameTooLong() {
         UserRegistrationValidator userRegistrationValidator = new UserRegistrationValidator();
-        assertFalse(userRegistrationValidator.isvalidUsername("hack the planet!!!"));
+        assertFalse(userRegistrationValidator.isValidUsername("hack the planet!!!"));
     }
 
     @Test
     public void isUsernameTooShort() {
         UserRegistrationValidator userRegistrationValidator = new UserRegistrationValidator();
-        assertFalse(userRegistrationValidator.isvalidUsername("UwU"));
+        assertFalse(userRegistrationValidator.isValidUsername("UwU"));
     }
 
     @Test

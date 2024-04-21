@@ -7,9 +7,9 @@ public class UserRegistrationValidator {
         return address != null && address.contains("@");
     }
 
-    public boolean isvalidUsername(String username) {
+    public boolean isValidUsername(String username) {
         // Username must be made up of alphanumeric characters and be at least four characters long
-        return username.matches("^[a-zA-Z0-9_-]{3,15}$");
+        return username.matches("^[a-zA-Z0-9_-]{4,15}$");
     }
 
     public boolean isValidPassword(String password) {

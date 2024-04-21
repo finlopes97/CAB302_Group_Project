@@ -1,15 +1,16 @@
 module org.trainer.interval_trainer {
     requires javafx.controls;
     requires javafx.fxml;
-//    requires junit;
-//    requires org.testng;
-    requires org.junit.jupiter.api;
-    requires org.junit.jupiter.engine;
     requires java.sql;
+    requires junit;
+//    requires org.junit.jupiter.api;
+//    requires org.junit.jupiter.params;
+//    requires org.junit.jupiter.engine;
 
     opens org.trainer.interval_trainer to javafx.fxml;
     exports org.trainer.interval_trainer;
     exports org.trainer.interval_trainer.NewRoutine;
+    exports org.trainer.interval_trainer.test to junit;
     opens org.trainer.interval_trainer.NewRoutine to javafx.fxml;
 
 }
