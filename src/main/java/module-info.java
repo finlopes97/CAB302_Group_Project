@@ -5,6 +5,7 @@ module org.trainer.interval_trainer {
 //    requires org.testng;
     requires org.junit.jupiter.api;
     requires org.junit.jupiter.engine;
+    requires java.sql;
 
     opens org.trainer.interval_trainer to javafx.fxml;
     exports org.trainer.interval_trainer;
