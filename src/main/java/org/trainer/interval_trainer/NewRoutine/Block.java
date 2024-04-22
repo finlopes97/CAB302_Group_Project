@@ -11,7 +11,6 @@ public abstract class Block extends VBox {
 
     public Block parent;
 
-    public String path;
 
     public Block(Block parent, String path) {
         this.parent = parent;
@@ -27,20 +26,20 @@ public abstract class Block extends VBox {
 
     }
 
+
     public void Delete() {
         parent.deleteChild(this);
-        System.out.println("delete");
+
     }
 
     public void AddAfter(Block block) {
-        System.out.println(this);
         parent.addAfterChild(this, block);
     }
 
 
-    public  void addAfterChild(Block child, Block newBlock) {};
+    public  void addAfterChild(Block child, Block newBlock) {}
 
-    public  void deleteChild(Node child) {};
+    public  void deleteChild(Node child) {}
 
 
 }

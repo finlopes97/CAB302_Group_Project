@@ -5,32 +5,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="154.0" prefWidth="264.0" style="-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-width: 2;" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox prefHeight="100.0" prefWidth="200.0">
+<fx:root id="group" prefHeight="154.0" prefWidth="588.0" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="564.0" spacing="10.0">
       <children>
-         <Label text="Repititions" />
-         <TextField />
+         <TextField minWidth="-Infinity" prefHeight="26.0" prefWidth="267.0" promptText="Name" />
+         <Region prefHeight="25.0" prefWidth="345.0" HBox.hgrow="ALWAYS" />
+         <Label alignment="CENTER" text="X" />
+         <TextField minWidth="-Infinity" prefHeight="26.0" prefWidth="60.0" promptText="Reps" />
+            <Button fx:id="delete" minWidth="-Infinity" prefHeight="26.0" prefWidth="89.0" text="delete" />
       </children>
    </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
+   <HBox alignment="TOP_CENTER" prefHeight="89.0" prefWidth="564.0">
       <children>
-         <Label text="Name" />
-            <TextField alignment="CENTER_RIGHT" text="" />
+            <Button fx:id="addchild" text="Add Group">
+            <HBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </HBox.margin></Button>
+            <Button fx:id="addItem" text="add item">
+            <HBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </HBox.margin></Button>
       </children>
    </HBox>
-   <HBox prefHeight="100.0" prefWidth="200.0">
-      <children>
-            <Button fx:id="addchild" text="Add Group" />
-            <Button fx:id="addItem" text="add item" />
-            <Button fx:id="delete" text="delete" />
-      </children>
-   </HBox>
-     <VBox fx:id="children">
+     <VBox id="childrens" fx:id="children" prefHeight="90.0" prefWidth="564.0" spacing="3.0">
          <padding>
-             <Insets left="30" />
+             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
+      <VBox.margin>
+         <Insets />
+      </VBox.margin>
      </VBox>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

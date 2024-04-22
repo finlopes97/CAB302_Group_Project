@@ -26,17 +26,12 @@ public class Group extends ChildBlock  {
 
         Bindings.bindContentBidirectional(list, children.getChildren());
 
-        addchild.setOnAction(event -> {
-            list.add(new Group(this));
-        });
-        addItem.setOnAction(event -> {
-            list.add(new Item(this));
-        });
-
+        addchild.setOnAction(event -> list.add(new Group(this)));
+        addItem.setOnAction(event -> list.add(new Item(this)));
 
         Group me = this;
 
-        setOnDragDropped(new EventHandler<DragEvent>() {
+        setOnDragDropped(new EventHandler<>() {
             @Override
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
@@ -57,7 +52,6 @@ public class Group extends ChildBlock  {
 
             }
         });
-
 
     }
 

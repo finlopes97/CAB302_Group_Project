@@ -22,8 +22,8 @@ public class Routine extends Block {
     @FXML private Button addItem;
     @FXML private TextField routineName = new TextField();
     @FXML private Button save;
-    @FXML private Text startOfList;
-    @FXML private Text endOfList;
+    @FXML private VBox startOfList;
+    @FXML private VBox endOfList;
 
 
 
@@ -122,6 +122,5 @@ public class Routine extends Block {
     @Override
     public void deleteChild(Node child) {
         list.remove(child);
-        System.out.println("deleteChild routine");
     }
 }

@@ -11,13 +11,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class HelloApplication extends Application {
-    private static Stage primaryStage;
+    public static Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 700);
+        scene.getStylesheets().add("/stylesheet.css");
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
