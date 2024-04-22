@@ -19,8 +19,8 @@
     </padding>
 
     <Label text="START" />
-    <Button text="<--" onAction="#onArrowButtonCLick"/>
-    <Button text="||" onAction="#onPauseButtonCLick"/>
+    <Button text="Back" onAction="#onArrowButtonCLick"/>
+    <Button text="Pause" onAction="#onPauseButtonCLick"/>
 </VBox>
 
 </AnchorPane>

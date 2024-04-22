@@ -21,4 +21,8 @@ public class HelloController {
     public void onNewRoutineButton() throws IOException {
         HelloApplication.changeScene("new-routine-view.fxml");
     }
+
+    public void onActivity(ActionEvent actionEvent) throws IOException {
+        HelloApplication.changeScene("activity-page-view.fxml");
+    }
 }
