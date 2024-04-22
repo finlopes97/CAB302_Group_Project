@@ -3,10 +3,8 @@ package org.trainer.interval_trainer.NewRoutine;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -15,8 +13,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import java.io.IOException;
 
 public class Routine extends Block {
 
@@ -29,18 +25,14 @@ public class Routine extends Block {
     @FXML private Text startOfList;
     @FXML private Text endOfList;
 
+
+
+
     ObservableList<Node> list = FXCollections.<Node>observableArrayList();
 
     public Routine() {
-        super(null);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/routine-view.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        super(null, "/org/trainer/interval_trainer/new_routine/routine-view.fxml");
+
 
         Bindings.bindContentBidirectional(list, children.getChildren());
 
@@ -120,7 +112,6 @@ public class Routine extends Block {
 
 
     }
-
 
 
     @Override

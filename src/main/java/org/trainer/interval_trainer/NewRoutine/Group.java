@@ -5,18 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-
-public class Group extends Block  {
+public class Group extends ChildBlock  {
     @FXML private Button addchild;
     @FXML private Button addItem;
-    @FXML private Button delete;
+
     @FXML private VBox children;
 
 
@@ -24,18 +21,7 @@ public class Group extends Block  {
 
 
     public Group(Block par) {
-        super(par);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/group-view.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-
-
-
+        super(par, "/org/trainer/interval_trainer/new_routine/group-view.fxml");
 
 
         Bindings.bindContentBidirectional(list, children.getChildren());
@@ -46,27 +32,7 @@ public class Group extends Block  {
         addItem.setOnAction(event -> {
             list.add(new Item(this));
         });
-        delete.setOnAction(event -> {
-            Delete();
-        });
 
-        setOnDragDetected((MouseEvent event) -> {
-            Dragboard db = startDragAndDrop(TransferMode.MOVE);
-
-            ClipboardContent content = new ClipboardContent();
-            content.putString("obama");
-            db.setContent(content);
-            event.consume();
-        });
-        setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                if (event.getGestureSource() != this && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.MOVE);
-                }
-                event.consume();
-            }
-        });
 
         Group me = this;
 
@@ -91,6 +57,8 @@ public class Group extends Block  {
 
             }
         });
+
+
     }
 
     @Override

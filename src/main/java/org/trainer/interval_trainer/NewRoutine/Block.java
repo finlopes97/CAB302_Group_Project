@@ -1,20 +1,30 @@
 package org.trainer.interval_trainer.NewRoutine;
 
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public abstract class Block extends VBox {
 
 
     public Block parent;
-    public Block(Block parent) {
+
+    public String path;
+
+    public Block(Block parent, String path) {
         this.parent = parent;
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
     }
 
     public void Delete() {
@@ -28,9 +38,9 @@ public abstract class Block extends VBox {
     }
 
 
-    public abstract void addAfterChild(Block child, Block newBlock);
+    public  void addAfterChild(Block child, Block newBlock) {};
 
-    public abstract void deleteChild(Node child);
+    public  void deleteChild(Node child) {};
 
 
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="122.0" prefWidth="227.0" style="-fx-background-color: lightgrey;" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="154.0" prefWidth="264.0" style="-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-width: 2;" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <HBox prefHeight="100.0" prefWidth="200.0">
       <children>
          <Label text="Repititions" />
@@ -27,10 +27,13 @@
             <Button fx:id="delete" text="delete" />
       </children>
    </HBox>
-     <VBox fx:id="children" style="-fx-background-color: lightblue;">
+     <VBox fx:id="children">
          <padding>
              <Insets left="30" />
          </padding>
      </VBox>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 
 </fx:root>
