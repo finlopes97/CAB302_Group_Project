@@ -3,7 +3,6 @@ import org.trainer.interval_trainer.validation.UserRegistrationValidator;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 public class UserRegistrationValidatorTest {
     @Test
     public void isValidEmail() {
