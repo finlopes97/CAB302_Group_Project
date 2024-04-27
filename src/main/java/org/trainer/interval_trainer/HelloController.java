@@ -5,10 +5,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.trainer.interval_trainer.Model.IRoutinesDAO;
+import org.trainer.interval_trainer.Model.SqliteRoutinesDAO;
+import org.trainer.interval_trainer.Model.Routine;
 
 import java.io.IOException;
 
 public class HelloController {
+    private IRoutinesDAO routinesDAO;
+
     @FXML
     private Label welcomeText;
 
@@ -24,5 +29,8 @@ public class HelloController {
 
     public void onActivity(ActionEvent actionEvent) throws IOException {
         HelloApplication.changeScene("activity-page-view.fxml");
+    }
+    public HelloController() {
+        routinesDAO = new SqliteRoutinesDAO();
     }
 }

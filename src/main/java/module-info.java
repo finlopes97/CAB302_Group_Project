@@ -1,6 +1,7 @@
 module org.trainer.interval_trainer {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens org.trainer.interval_trainer to javafx.fxml;
