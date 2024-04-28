@@ -8,12 +8,13 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.Button?>
 <BorderPane fx:id="helloRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.HelloController" style="-fx-font-family: 'Arial'">
     <!--    Header-->
     <top>
