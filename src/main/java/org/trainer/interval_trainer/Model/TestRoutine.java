@@ -1,4 +1,4 @@
-package org.trainer.interval_trainer.object;
+package org.trainer.interval_trainer.Model;
 
 import java.sql.Timestamp;
 import java.util.List;

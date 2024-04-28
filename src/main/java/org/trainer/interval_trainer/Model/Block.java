@@ -1,4 +1,4 @@
-package org.trainer.interval_trainer.object;
+package org.trainer.interval_trainer.Model;
 
 public class Block {
     private int Id;
