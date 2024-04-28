@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class implements the Data Access Object (DAO) for managing Block entities in the database.
+ * This class implements the Data Access Object (DAO) for managing Group entities in the database.
  */
 public class GroupDAO implements IGenericDAO<Group> {
     private final Connection connection;
 
     /**
-     * Constructor for the BlockDAO class. It initializes the database connection and creates the blocks table if it doesn't exist.
+     * Constructor for the GroupDAO class. It initializes the database connection and creates the groups table if it doesn't exist.
      */
     public GroupDAO() {
         connection = DebugConnection.getInstance();
@@ -44,7 +44,7 @@ public class GroupDAO implements IGenericDAO<Group> {
     public void add(Group group) {
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO blocks (routine_id, intervals)");
+                    "INSERT INTO groups (routine_id, intervals)");
             statement.setInt(1, group.getRoutineId());
             statement.setInt(2, group.getIntervals());
             statement.executeUpdate();
@@ -54,9 +54,9 @@ public class GroupDAO implements IGenericDAO<Group> {
     }
 
     /**
-     * Updates an existing block in the database.
+     * Updates an existing group in the database.
      *
-     * @param group The block to be updated.
+     * @param group The group to be updated.
      */
     @Override
     public void update(Group group) {
@@ -73,9 +73,9 @@ public class GroupDAO implements IGenericDAO<Group> {
     }
 
     /**
-     * Deletes a block from the database.
+     * Deletes a group from the database.
      *
-     * @param group The block to be deleted.
+     * @param group The group to be deleted.
      */
     @Override
     public void delete(Group group) {
@@ -107,7 +107,6 @@ public class GroupDAO implements IGenericDAO<Group> {
                 int intervals = resultSet.getInt("intervals");
                 List<Block> blocks = getBlocksByGroupId(id);
                 Group group = new Group(id, routineId, intervals, blocks);
-                group.setId(id);
                 return group;
             }
         } catch (SQLException sqlException) {
