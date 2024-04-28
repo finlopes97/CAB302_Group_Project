@@ -2,14 +2,13 @@ package org.trainer.interval_trainer.Model;
 
 import java.util.List;
 
-public class Group {
-    private int Id;
+public class Group extends BaseItem {
     private int RoutineId;
     private int Intervals;
     private List<Block> Blocks;
 
     public Group(int Id, int RoutineId, int Intervals, List<Block> Blocks) {
-        this.Id = Id;
+        setId(Id);
         this.RoutineId = RoutineId;
         this.Intervals = Intervals;
         this.Blocks = Blocks;

@@ -3,8 +3,7 @@ package org.trainer.interval_trainer.Model;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class TestRoutine {
-    private int Id;
+public class TestRoutine extends BaseItem {
     private String Name;
     private String CreatedBy;
     private Timestamp CreatedOn;
@@ -13,15 +12,16 @@ public class TestRoutine {
     private List<Group> Groups;
     private List<Block> Blocks;
 
-    public TestRoutine(int Id,
-                       String Name,
-                       String CreatedBy,
-                       Timestamp CreatedOn,
-                       String Description,
-                       int TotalTime,
-                       List<Group> Groups,
-                       List<Block> Blocks) {
-        this.Id = Id;
+    public TestRoutine(
+            int Id,
+            String Name,
+            String CreatedBy,
+            Timestamp CreatedOn,
+            String Description,
+            int TotalTime,
+            List<Group> Groups,
+            List<Block> Blocks) {
+        setId(Id);
         this.Name = Name;
         this.CreatedBy = CreatedBy;
         this.CreatedOn = CreatedOn;

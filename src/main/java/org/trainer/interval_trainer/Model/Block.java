@@ -1,14 +1,13 @@
 package org.trainer.interval_trainer.Model;
 
-public class Block {
-    private int Id;
+public class Block extends BaseItem {
     private int RoutineId;
     private int GroupId;
     private String Type;
     private int TimeInSeconds;
 
     public Block(int Id, int RoutineId, int GroupId, String Type, int TimeInSeconds) {
-        this.Id = Id;
+        setId(Id);
         this.RoutineId = RoutineId;
         this.GroupId = GroupId;
         this.Type = Type;
