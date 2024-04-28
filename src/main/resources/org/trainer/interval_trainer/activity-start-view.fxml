@@ -11,8 +11,11 @@
             fx:controller="org.trainer.interval_trainer.Activity.ActivityController"
             prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+
 
 <VBox alignment="CENTER">
+<Button text="Back" onAction="#onArrowButtonClick"/>
+<Button text="Pause" onAction="#onPauseButtonClick"/>
 
 </VBox>
+</AnchorPane>

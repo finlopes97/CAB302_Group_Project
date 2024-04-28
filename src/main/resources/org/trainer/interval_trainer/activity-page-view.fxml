@@ -20,7 +20,6 @@
 
     <Button text="START" onAction="#onStartButtonClick" />
     <Button text="Back" onAction="#onArrowButtonClick"/>
-    <Button text="Pause" onAction="#onPauseButtonClick"/>
 </VBox>
 
 </AnchorPane>

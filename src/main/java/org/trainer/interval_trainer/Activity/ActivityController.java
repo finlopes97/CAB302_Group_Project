@@ -10,7 +10,7 @@ public class ActivityController {
 
     @FXML
     protected void onArrowButtonClick() throws IOException {
-        HelloApplication.changeScene("new-routine-view");
+        HelloApplication.changeScene("new-routine-view.fxml");
     }
 
     @FXML
@@ -19,7 +19,7 @@ public class ActivityController {
     }
     @FXML
     protected void onStartButtonClick() throws IOException {
-    HelloApplication.changeScene("activity-start-view");
+        HelloApplication.changeScene("activity-start-view.fxml");
     }
 
 }
