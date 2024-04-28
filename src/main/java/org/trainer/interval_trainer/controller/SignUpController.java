@@ -6,25 +6,25 @@ import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.validation.UserRegistrationValidator;
 
 import java.io.IOException;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-public class SignUpController {
 
+public class SignUpController {
     @FXML
     private TextField emailField;
-
     @FXML
     private TextField usernameField;
-
     @FXML
     private TextField passwordField;
 
+    // JDBC connection details (update with your actual database info)
+    private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
+
     // Other methods and logic...
 
-    public void onSignUpButton() throws ClassNotFoundException, IOException {
+    public void onSignUpButton() {
         String email = emailField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -32,40 +32,24 @@ public class SignUpController {
         // Validate email, username, and password
         UserRegistrationValidator validator = new UserRegistrationValidator();
         if (!validator.isValidEmail(email) || !validator.isValidUsername(username) || !validator.isValidPassword(password)) {
-            showErrorMessage("Invalid input. Please check your email, username, and password.");
+            // Show an error message (you can customize this)
+            System.out.println("Invalid input. Please check your email, username, and password.");
             return;
         }
 
-        // Create or connect to the users.db file
-//        String dbUrl = "jdbc:sqlite:users.db";
-//        Class.forName("org.sqlite.JDBC"); // Load the driver
-//        try (Connection connection = DriverManager.getConnection(dbUrl)) {
-//            // Create the users table if it doesn't exist
-//            String createTableSQL = "CREATE TABLE IF NOT EXISTS users ("
-//                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-//                    + "email VARCHAR(100) NOT NULL,"
-//                    + "username VARCHAR(50) NOT NULL,"
-//                    + "password VARCHAR(50) NOT NULL)";
-//            try (PreparedStatement statement = connection.prepareStatement(createTableSQL)) {
-//                statement.executeUpdate();
-//            }
-//
-//            // Insert user data
-//            String insertUserSQL = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
-//            try (PreparedStatement statement = connection.prepareStatement(insertUserSQL)) {
-//                statement.setString(1, email);
-//                statement.setString(2, username);
-//                statement.setString(3, password);
-//                statement.executeUpdate();
-//            }
-
-        System.out.println("User registered successfully!");
-
-        HelloApplication.changeScene("hello-view.fxml");
-
-//        } catch (SQLException | IOException e) {
-//            e.printStackTrace();
-//        }
+        // Insert user data into SQLite database
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement(
+                     "INSERT INTO User (Email, Name, Password) VALUES (?, ?, ?)")) {
+            statement.setString(1, email);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            statement.executeUpdate();
+            System.out.println("User registered successfully!");
+            HelloApplication.changeScene("hello-view.fxml");
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Helper method to display error message (you can implement this)
@@ -76,5 +60,4 @@ public class SignUpController {
     public void onBackHomeButton() throws IOException {
         HelloApplication.changeScene("login-view.fxml");
     }
-
 }

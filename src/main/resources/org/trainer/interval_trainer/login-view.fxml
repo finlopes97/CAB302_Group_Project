@@ -21,10 +21,10 @@
 <Label text="Login" style="-fx-font-size: 24px;"/>
 
 <!-- Email Entry -->
-<TextField promptText="Email" style="-fx-border-radius: 10px;"/>
+<TextField fx:id="EmailInput" promptText="Email" style="-fx-border-radius: 10px;"/>
 
 <!-- Password Entry -->
-<TextField promptText="Password" style="-fx-border-radius: 10px;"/>
+<TextField fx:id="PasswordInput" promptText="Password" style="-fx-border-radius: 10px;"/>
 
 <!-- Buttons Container -->
 <HBox spacing="20.0" alignment="CENTER">
