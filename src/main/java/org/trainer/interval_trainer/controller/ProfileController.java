@@ -12,6 +12,9 @@ import org.trainer.interval_trainer.HelloApplication;
 import java.io.IOException;
 
 public class ProfileController {
+    public Label nameLabel;
+    public Label emailLabel;
+    public Label fitnessGoalLabel;
     @FXML
     private Label welcomeText;
     @FXML
@@ -30,6 +33,11 @@ public class ProfileController {
     @FXML
     protected void initialize() {
         welcomeText.setText("Profile");
+        nameLabel.setText("Name: Test Name");
+        emailLabel.setText("Email: Email@gmail.com");
+        fitnessGoalLabel.setText("Fitness Goal:" +
+                "" +
+                "Doing 70 million jumps in the air with a backflip mixed in");
         header.setText("Interval Training App");
     }
 
