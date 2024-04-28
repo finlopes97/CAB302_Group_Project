@@ -1,4 +1,4 @@
-package org.trainer.interval_trainer.UserRegistration;
+package org.trainer.interval_trainer.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -59,9 +59,9 @@ public class SignUpController {
 //                statement.executeUpdate();
 //            }
 
-            System.out.println("User registered successfully!");
+        System.out.println("User registered successfully!");
 
-            HelloApplication.changeScene("profile-view.fxml");
+        HelloApplication.changeScene("hello-view.fxml");
 
 //        } catch (SQLException | IOException e) {
 //            e.printStackTrace();
@@ -74,7 +74,7 @@ public class SignUpController {
     }
 
     public void onBackHomeButton() throws IOException {
-        HelloApplication.changeScene("hello-view.fxml");
+        HelloApplication.changeScene("login-view.fxml");
     }
 
 }
