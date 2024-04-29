@@ -86,6 +86,7 @@
             <Button fx:id="searchButton" text="Search" onAction="#onSearchButtonClick"/>
             <Button fx:id="profileButton" text="Profile" onAction="#onProfileButtonClick"/>
             <Button fx:id="settingsButton" text="Settings" onAction="#onSettingsButtonClick"/>
+            <Button fx:id="activityButton" text="Activity" onAction="#onActivityButtonClick"/>
         </HBox>
     </bottom>
 </BorderPane>
