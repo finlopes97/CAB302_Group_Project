@@ -21,7 +21,7 @@
 <Label text="Login" style="-fx-font-size: 24px;"/>
 
 <!-- Error Message -->
-<Label fx:id="ErrorText" style="-fx-font-size: 18px;"></Label>
+<Label fx:id="ErrorText" style="-fx-font-size: 18px;"/>
 
 <!-- Email Entry -->
 <TextField fx:id="EmailInput" promptText="Email" style="-fx-border-radius: 10px;"/>
