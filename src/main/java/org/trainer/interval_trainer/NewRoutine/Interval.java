@@ -12,5 +12,4 @@ public class Interval {
         this.Time = Time;
         this.Title = Title;
     }
-
 }
