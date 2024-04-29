@@ -54,7 +54,6 @@ public class ActivityController {
     @FXML
     protected void onStartButtonClick() throws IOException {
         HelloApplication.changeScene("activity-start-view.fxml");
-        timer();
     }
 
 
