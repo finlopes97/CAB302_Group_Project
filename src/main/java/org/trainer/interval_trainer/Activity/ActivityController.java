@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.util.Duration;
 import org.trainer.interval_trainer.HelloApplication;
-import org.trainer.interval_trainer.NewRoutine.Interval;
 import java.io.IOException;
 import javafx.scene.control.Label;
 
