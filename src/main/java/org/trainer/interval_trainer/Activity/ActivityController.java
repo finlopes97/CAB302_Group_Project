@@ -25,23 +25,28 @@ public class ActivityController {
     }
     }
     private Timeline timeline;
+    //change later
+    private static Integer minutes = 1;
     private static Integer seconds = 30;
     @FXML
     private Label timerLabel;
     @FXML
     protected void timer() {
-
-        timerLabel.setText(seconds.toString());
+        timerLabel.setText(minutes.toString()+":"+seconds.toString());
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
                             seconds--;
-                            timerLabel.setText(seconds.toString());
-                            if (seconds <= 0) {
+                            if (minutes <= 0 && seconds <= 0) {
                                 timeline.stop();
                             }
+                            else if(seconds <0){
+                                minutes--;
+                                seconds=59;
+                            }
+                            timerLabel.setText(minutes.toString()+":"+seconds.toString());
                         })
         );
         timeline.playFromStart();
