@@ -31,6 +31,8 @@ public class HelloController {
     @FXML
     private Button settingsButton;
     @FXML
+    private Button activityButton;
+    @FXML
     private GridPane routinesGrid;
     @FXML
     private GridPane suggestedRoutinesGrid;
@@ -161,6 +163,21 @@ public class HelloController {
         }
         Stage stage = (Stage) profileButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("settings-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+    @FXML
+    protected void onActivityButtonClick() throws IOException {
+        // Get the current scene
+        Scene currentScene = searchButton.getScene();
+
+        // Check if the current scene is already the "create-routine-view.fxml"
+        if (currentScene.getRoot().getId().equals("activityRoot")) {
+            // Already on the new routine page, no need to reload
+            return;
+        }
+        Stage stage = (Stage) searchButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("activity-page-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
