@@ -14,7 +14,7 @@ public class ActivityController {
 
     @FXML
     protected void onArrowButtonClick() throws IOException {
-        HelloApplication.changeScene("new-routine-view.fxml");
+        HelloApplication.changeScene("create-routine-view.fxml");
     }
 
     @FXML
