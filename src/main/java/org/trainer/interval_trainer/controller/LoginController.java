@@ -18,7 +18,7 @@ public class LoginController {
     @FXML
     private TextField PasswordInput;
     @FXML
-    private Label welcomeText;
+    private Label ErrorText;
 
     // JDBC connection details (update with your actual database info)
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
@@ -29,6 +29,7 @@ public class LoginController {
     public void onLoginButton() {
         String email = EmailInput.getText();
         String password = PasswordInput.getText();
+        ErrorText.setText("Logging in...");
 
         // Validate user credentials against the database
         if (validateCredentials(email, password)) {
@@ -40,7 +41,7 @@ public class LoginController {
             }
         } else {
             // Credentials are invalid, show an error message (you can customize this)
-            welcomeText.setText("Invalid credentials. Please try again.");
+            ErrorText.setText("Invalid credentials. Please try again.");
         }
     }
 
