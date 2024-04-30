@@ -50,8 +50,8 @@ public class BlockDAO implements IGenericDAO<Block> {
                     "INSERT INTO blocks (routine_id, group_id, type, time_in_seconds)");
             statement.setInt(1, block.getRoutineId());
             statement.setInt(2, block.getGroupId());
-            statement.setString(3, block.getType());
-            statement.setInt(4, block.getTimeInSeconds());
+            statement.setString(3, "");
+            statement.setInt(4, block.getTimeinSeconds().get());
             statement.executeUpdate();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -70,8 +70,8 @@ public class BlockDAO implements IGenericDAO<Block> {
                     "UPDATE blocks SET routine_id = ?, group_id = ?, type = ?, time_in_seconds = ? WHERE id = ?");
             statement.setInt(1, block.getRoutineId());
             statement.setInt(2, block.getGroupId());
-            statement.setString(3, block.getType());
-            statement.setInt(4, block.getTimeInSeconds());
+            statement.setString(3, "");
+            statement.setInt(4, block.getTimeinSeconds().get());
             statement.setInt(5, block.getId());
             statement.executeUpdate();
         } catch (SQLException sqlException) {

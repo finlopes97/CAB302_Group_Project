@@ -117,6 +117,7 @@ public class HelloController {
         Stage stage = (Stage) createRoutinesButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("create-routine-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        scene.getStylesheets().add("/stylesheet.css");
         stage.setScene(scene);
     }
 
@@ -181,5 +182,7 @@ public class HelloController {
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
+
+
 
 }

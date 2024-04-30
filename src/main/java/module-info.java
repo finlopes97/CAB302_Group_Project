@@ -27,4 +27,6 @@ module org.trainer.interval_trainer {
     opens org.trainer.interval_trainer.NewRoutine to javafx.fxml;
     opens org.trainer.interval_trainer.controller to javafx.fxml;
     opens org.trainer.interval_trainer.Activity to javafx.fxml;
+    exports org.trainer.interval_trainer.controller.new_routine;
+    opens org.trainer.interval_trainer.controller.new_routine to javafx.fxml;
 }

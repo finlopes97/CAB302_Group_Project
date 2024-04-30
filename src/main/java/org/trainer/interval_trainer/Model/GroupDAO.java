@@ -46,7 +46,7 @@ public class GroupDAO implements IGenericDAO<Group> {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO groups (routine_id, intervals)");
             statement.setInt(1, group.getRoutineId());
-            statement.setInt(2, group.getIntervals());
+            statement.setInt(2, group.getReps().get());
             statement.executeUpdate();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -64,7 +64,7 @@ public class GroupDAO implements IGenericDAO<Group> {
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE groups SET routine_id = ?, intervals = ? WHERE id = ?");
             statement.setInt(1, group.getRoutineId());
-            statement.setInt(2, group.getIntervals());
+            statement.setInt(2, group.getReps().get());
             statement.setInt(3, group.getId());
             statement.executeUpdate();
         } catch (SQLException sqlException) {
@@ -105,7 +105,7 @@ public class GroupDAO implements IGenericDAO<Group> {
             while (resultSet.next()) {
                 int routineId = resultSet.getInt("routine_id");
                 int intervals = resultSet.getInt("intervals");
-                List<Block> blocks = getBlocksByGroupId(id);
+                List<BaseItem> blocks = getBlocksByGroupId(id);
                 Group group = new Group(id, routineId, intervals, blocks);
                 return group;
             }
@@ -132,7 +132,7 @@ public class GroupDAO implements IGenericDAO<Group> {
                 int id = resultSet.getInt("id");
                 int routineId = resultSet.getInt("routine_id");
                 int intervals = resultSet.getInt("intervals");
-                List<Block> blocks = getBlocksByGroupId(id);
+                List<BaseItem> blocks = getBlocksByGroupId(id);
                 Group group = new Group(id, routineId, intervals, blocks);
             }
             return groups;
@@ -147,8 +147,8 @@ public class GroupDAO implements IGenericDAO<Group> {
      *
      * @return The retrieved list of blocks, or null if not found.
      */
-    private List<Block> getBlocksByGroupId(int Id) {
-        List<Block> blocks = new ArrayList<>();
+    private List<BaseItem> getBlocksByGroupId(int Id) {
+        List<BaseItem> blocks = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM blocks WHERE group_id = ?");
