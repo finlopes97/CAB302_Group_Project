@@ -1,5 +1,6 @@
 package org.trainer.interval_trainer.controller.new_routine;
 
+import javafx.beans.property.Property;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -7,35 +8,120 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.util.converter.IntegerStringConverter;
+import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.BaseItem;
 import org.trainer.interval_trainer.Model.Block;
 import org.trainer.interval_trainer.Model.Group;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 public class RoutinesController {
 
+    @FXML public VBox startOfList;
+    @FXML public VBox endOfList;
     @FXML private VBox children;
 
     @FXML private TextField name;
+    @FXML private TextField reps;
+    @FXML private Button openPopup;
 
 
 
 
     private final Group group1 = new Group();
 
-    public RoutinesController() {
+    private final PopupController popup = new PopupController(this);
 
+
+
+    public void Update() {
+        updateGroup(group1);
+    }
+
+    @FXML
+    public void initialize() {
+
+
+
+        startOfList.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != startOfList && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
+        startOfList.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    System.out.println(db.getString());
+                    success = true;
+                }
+                System.out.println(event.getGestureSource());
+                BaseItem firstBlock = (BaseItem) ((Node) event.getGestureSource()).getUserData();
+                firstBlock.getParent().getChildren().remove(firstBlock);
+
+                firstBlock.setParent(group1);
+
+                group1.getChildren().addFirst(firstBlock);
+
+                event.setDropCompleted(success);
+                event.consume();
+                updateGroup(group1);
+
+            }
+        });
+        endOfList.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
+        endOfList.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    System.out.println(db.getString());
+                    success = true;
+                }
+                System.out.println(event.getGestureSource());
+
+                BaseItem firstBlock = (BaseItem) ((Node) event.getGestureSource()).getUserData();
+                firstBlock.getParent().getChildren().remove(firstBlock);
+
+                firstBlock.setParent(group1);
+
+                group1.getChildren().add(firstBlock);
+                event.setDropCompleted(success);
+                event.consume();
+                updateGroup(group1);
+
+            }
+        });
     }
 
     /**
      * recursive function to update the view
      */
-    void updateGroup (Group group) {
+    private void updateGroup (Group group) {
         children.getChildren().clear();
         for (BaseItem child : group.getChildren()) {
             if (child instanceof Block) {
@@ -44,26 +130,15 @@ public class RoutinesController {
                 try {
                     Node node = blockLoader.load();
                     node.setUserData(child);
+
+                    int timeinsec = ((Block) child).getTimeinSeconds().get();
+                    int mins = timeinsec / 60;
+                    int secs = timeinsec % 60;
+
+                    openPopup.setText(String.format("%02d:%02d", mins, secs));
                     name.textProperty().bindBidirectional(((Block) child).getName());
 
-                    node.setOnDragDetected((MouseEvent event) -> {
-                        Dragboard db = ((Node) event.getSource()).startDragAndDrop(TransferMode.MOVE);
-
-                        ClipboardContent content = new ClipboardContent();
-                        content.putString("obama");
-                        db.setContent(content);
-                        event.consume();
-                    });
-
-                    node.setOnDragOver(new EventHandler<>() {
-                        @Override
-                        public void handle(DragEvent event) {
-                            if (event.getGestureSource() != node && event.getDragboard().hasString()) {
-                                event.acceptTransferModes(TransferMode.MOVE);
-                            }
-                            event.consume();
-                        }
-                    });
+                    setup(node);
                     node.setOnDragDropped(new EventHandler<>() {
                         @Override
                         public void handle(DragEvent event) {
@@ -103,25 +178,17 @@ public class RoutinesController {
                 try {
                     Node node = groupLoader.load();
                     node.setUserData(child);
+                    name.textProperty().bindBidirectional(((Group) child).getName());
 
-                    node.setOnDragDetected((MouseEvent event) -> {
-                        Dragboard db = ((Node) event.getSource()).startDragAndDrop(TransferMode.MOVE);
+                    TextFormatter<Integer> formatter = new TextFormatter<>(
+                            new IntegerStringConverter(),
+                            0,
+                            c -> Pattern.matches("\\d*", c.getText()) ? c : null );
+                    formatter.valueProperty().bindBidirectional(((Group) child).getRepsObject());
 
-                        ClipboardContent content = new ClipboardContent();
-                        content.putString("obama");
-                        db.setContent(content);
-                        event.consume();
-                    });
+                    reps.setTextFormatter(formatter);
 
-                    node.setOnDragOver(new EventHandler<>() {
-                        @Override
-                        public void handle(DragEvent event) {
-                            if (event.getGestureSource() != node && event.getDragboard().hasString()) {
-                                event.acceptTransferModes(TransferMode.MOVE);
-                            }
-                            event.consume();
-                        }
-                    });
+                    setup(node);
 
                     node.setOnDragDropped(new EventHandler<>() {
                         @Override
@@ -137,9 +204,8 @@ public class RoutinesController {
                             firstBlock.getParent().getChildren().remove(firstBlock);
 
                             Group droppedOn = (Group) ((Node) event.getGestureTarget()).getUserData();
-                            droppedOn.getChildren().add(firstBlock);
+                            droppedOn.getChildren().addFirst(firstBlock);
                             firstBlock.setParent(droppedOn);
-
 
                             event.setDropCompleted(success);
                             event.consume();
@@ -156,6 +222,27 @@ public class RoutinesController {
                 children = temp;
             }
         }
+    }
+
+    private void setup(Node node) {
+        node.setOnDragDetected((MouseEvent event) -> {
+            Dragboard db = ((Node) event.getSource()).startDragAndDrop(TransferMode.MOVE);
+
+            ClipboardContent content = new ClipboardContent();
+            content.putString("obama");
+            db.setContent(content);
+            event.consume();
+        });
+
+        node.setOnDragOver(new EventHandler<>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != node && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
     }
 
     /**
@@ -221,5 +308,18 @@ public class RoutinesController {
         ((Group) bruh.getParent()).getChildren().remove(bruh);
         updateGroup(group1);
     }
+
+
+    public void openPopup(ActionEvent event) {
+        if (!popup.isShowing()) {
+            Block bruh = (Block) ((Node) event.getSource()).getParent().getParent().getUserData();
+            popup.setBlock(bruh);
+
+            popup.show(HelloApplication.getPrimaryStage());
+        }
+
+
+    }
+
 }
 

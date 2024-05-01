@@ -21,6 +21,7 @@ public class Block extends BaseItem {
         return timeInSeconds;
     }
 
+
     public Block(int Id, int RoutineId, int GroupId, String Type, int TimeInSeconds) {
         setId(Id);
         this.RoutineId = RoutineId;

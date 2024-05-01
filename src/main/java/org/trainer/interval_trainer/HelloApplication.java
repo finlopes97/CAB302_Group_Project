@@ -19,6 +19,10 @@ public class HelloApplication extends Application {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 700;
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         // Check if the database file exists, create it if not
