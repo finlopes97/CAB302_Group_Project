@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.CheckBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.SignUpController">
     <center>
         <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
@@ -16,8 +18,10 @@
             <Label text="Sign Up" style="-fx-font-size: 24px;"/>
             <TextField fx:id="usernameField" promptText="Name" style="-fx-border-radius: 10px;"/>
             <TextField fx:id="emailField" promptText="Email" style="-fx-border-radius: 10px;"/>
-            <TextField fx:id="passwordField" promptText="Password" style="-fx-border-radius: 10px;"/>
-            <TextField promptText="Confirm Password" style="-fx-border-radius: 10px;"/>
+            <PasswordField fx:id="passwordField" promptText="Password" style="-fx-border-radius: 10px;"/>
+            <TextField fx:id="visiblePasswordField" promptText="Password" style="-fx-border-radius: 10px;"/>
+            <CheckBox fx:id="hidePasswordCheckbox" text="Hide Password" onAction="#togglePasswordVisibility"/>
+            <Label fx:id="errorMessageLabel" textFill="red"/>
             <HBox spacing="20.0" alignment="CENTER">
                 <Button text="←" style="-fx-font-size: 16px;" onAction="#onBackHomeButton"/>
                 <Button text="Sign Up" style="-fx-border-radius: 16px;" onAction="#onSignUpButton"/>
