@@ -9,8 +9,7 @@
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <!-- Contents of your login form here -->
-            <Label text="Interval Training App" style="-fx-font-weight: bold; -fx-font-size: 72px;"/>
+            <Label text="Interval Training App" style="-fx-font-weight: bold; -fx-font-size: 36px;"/>
             <Label text="Login" style="-fx-font-size: 24px;"/>
             <Label fx:id="ErrorText" style="-fx-font-size: 18px;"/>
             <TextField fx:id="EmailInput" promptText="Email" style="-fx-border-radius: 10px;"/>
