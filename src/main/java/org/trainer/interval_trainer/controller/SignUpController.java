@@ -123,7 +123,6 @@ public class SignUpController {
 
     /**
      * Handles the action to go back to the login view.
-     * This is typically triggered by a UI button labeled "Back to Login" or similar.
      * @throws IOException if an error occurs when changing scenes.
      */
     public void onBackHomeButton() throws IOException {

@@ -21,7 +21,13 @@
             <PasswordField fx:id="passwordField" promptText="Password" style="-fx-border-radius: 10px;"/>
             <TextField fx:id="visiblePasswordField" promptText="Password" style="-fx-border-radius: 10px;"/>
             <CheckBox fx:id="hidePasswordCheckbox" text="Hide Password" onAction="#togglePasswordVisibility"/>
-            <Label fx:id="errorMessageLabel" textFill="red"/>
+            <Label fx:id="errorMessageLabel"
+                   textFill="red"
+                   textAlignment="CENTER"
+                   wrapText="true"
+                   maxWidth="300"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px;"
+            />
             <HBox spacing="20.0" alignment="CENTER">
                 <Button text="←" style="-fx-font-size: 16px;" onAction="#onBackHomeButton"/>
                 <Button text="Sign Up" style="-fx-border-radius: 16px;" onAction="#onSignUpButton"/>
