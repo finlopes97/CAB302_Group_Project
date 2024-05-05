@@ -5,20 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainController {
-    @FXML
-    private BorderPane mainLayout;
+//    @FXML
+//    private BorderPane mainLayout;
     @FXML
     private VBox contentArea;
     @FXML
     private Label viewTitle;
 
-    private Map<String, String> pageTitleMap = new HashMap<>();
+    private final Map<String, String> pageTitleMap = new HashMap<>();
 
     public MainController() {
         pageTitleMap.put("/org/trainer/interval_trainer/home-view.fxml", "Home");
@@ -28,14 +30,18 @@ public class MainController {
         pageTitleMap.put("/org/trainer/interval_trainer/settings-view.fxml", "Settings");
     }
 
+    @FXML
+    public void initialize() {
+        switchContent("/org/trainer/interval_trainer/home-view.fxml");
+    }
+
     public void switchContent(String fxmlFile) {
         try {
-            Node node = FXMLLoader.load(getClass().getResource(fxmlFile));
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             contentArea.getChildren().setAll(node);
-            viewTitle.setText(pageTitleMap.getOrDefault(fxmlFile, "Login"));
+            viewTitle.setText(pageTitleMap.getOrDefault(fxmlFile, "Home"));
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle exceptions, possibly show an error message
         }
     }
 

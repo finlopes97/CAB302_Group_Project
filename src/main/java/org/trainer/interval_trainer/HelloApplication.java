@@ -21,8 +21,9 @@ public class HelloApplication extends Application {
     public static final int HEIGHT = 700;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+    public void start(Stage stage) throws Exception {
+        primaryStage = stage;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         BorderPane root = loader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT); // Adjust size as needed
         primaryStage.setScene(scene);

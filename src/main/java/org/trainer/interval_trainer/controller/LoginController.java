@@ -23,7 +23,7 @@ public class LoginController {
     // JDBC connection details (update with your actual database info)
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
     public void onSignUpPageButton() throws IOException {
-        HelloApplication.changeScene("Sign-up.fxml");
+        HelloApplication.changeScene("sign-up.fxml");
     }
 
     public void onLoginButton() {
@@ -35,7 +35,7 @@ public class LoginController {
         if (validateCredentials(email, password)) {
             // Credentials are valid, change scene to hello view
             try {
-                HelloApplication.changeScene("home-view.fxml");
+                HelloApplication.changeScene("main-view.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
