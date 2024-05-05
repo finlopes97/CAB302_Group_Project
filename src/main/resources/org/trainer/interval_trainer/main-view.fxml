@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.trainer.interval_trainer.controller.MainController">
+    <top>
+        <HBox alignment="TOP_LEFT" spacing="10.0" style="-fx-border-color: black; -fx-border-width: 1px;">
+
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <!-- Default Logo Image -->
+            <ImageView fitHeight="50" fitWidth="50">
+                <image>
+                    <Image url="@logo.png" />
+                </image>
+            </ImageView>
+            <!-- App Name Label -->
+            <Label style="-fx-font-size: 35; -fx-font-weight: bold" text="Interval Training App" />
+        </HBox>
+
+    </top>
+
+    <center>
+        <VBox fx:id="contentArea">  <!-- Properly assign fx:id to VBox -->
+            <!-- Content will be dynamically replaced -->
+        </VBox>
+    </center>
+   <bottom>
+      <HBox spacing="10" alignment="CENTER">
+         <children>
+             <Button text="Home" onAction="#onHomeButtonClick"/>
+             <Button text="Create Routines" onAction="#onMyRoutinesButtonClick"/>
+             <Button text="Search" onAction="#onFindRoutinesButtonClick"/>
+             <Button text="Profile" onAction="#onProfileButtonClick"/>
+             <Button text="Settings" onAction="#onSettingsButtonClick"/>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

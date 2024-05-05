@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -20,17 +21,14 @@ public class HelloApplication extends Application {
     public static final int HEIGHT = 700;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        // Check if the database file exists, create it if not
-        createDatabaseFile();
-
-        primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
-        stage.setTitle("Interval Training App!");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        BorderPane root = loader.load();
+        Scene scene = new Scene(root, WIDTH, HEIGHT); // Adjust size as needed
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+
 
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(fxml)));
