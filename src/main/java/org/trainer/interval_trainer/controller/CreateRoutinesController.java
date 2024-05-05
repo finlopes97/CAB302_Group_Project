@@ -46,7 +46,7 @@ public class CreateRoutinesController {
         }
 
         Stage stage = (Stage) homeButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

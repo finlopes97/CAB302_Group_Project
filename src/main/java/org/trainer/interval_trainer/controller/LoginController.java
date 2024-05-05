@@ -35,7 +35,7 @@ public class LoginController {
         if (validateCredentials(email, password)) {
             // Credentials are valid, change scene to hello view
             try {
-                HelloApplication.changeScene("hello-view.fxml");
+                HelloApplication.changeScene("home-view.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
             }

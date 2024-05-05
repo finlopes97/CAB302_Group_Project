@@ -21,7 +21,9 @@
             <!-- App Name Label -->
             <Label style="-fx-font-size: 35; -fx-font-weight: bold" text="Interval Training App" />
         </HBox>
-
+        <HBox>
+            <Label fx:id="view-title" style="-fx-font-weight: bold; -fx-font-size: 72px;"/>
+        </HBox>
     </top>
 
     <center>

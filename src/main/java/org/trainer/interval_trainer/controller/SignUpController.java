@@ -46,7 +46,7 @@ public class SignUpController {
             statement.setString(3, password);
             statement.executeUpdate();
             System.out.println("User registered successfully!");
-            HelloApplication.changeScene("hello-view.fxml");
+            HelloApplication.changeScene("home-view.fxml");
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }

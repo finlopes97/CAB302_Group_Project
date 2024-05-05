@@ -15,7 +15,7 @@
 </padding>
 
 <!-- App Name -->
-<Label text="Interval Trainer" style="-fx-font-weight: bold; -fx-font-size: 72px;"/>
+<Label fx:id="view-title" style="-fx-font-weight: bold; -fx-font-size: 72px;"/>
 
 <!-- Login Form -->
 <Label text="Login" style="-fx-font-size: 24px;"/>

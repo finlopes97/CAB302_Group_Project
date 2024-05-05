@@ -26,7 +26,7 @@ public class MainController {
 
     @FXML
     private void onHomeButtonClick() {
-        switchContent("/org/trainer/interval_trainer/hello-view.fxml");
+        switchContent("/org/trainer/interval_trainer/home-view.fxml");
     }
 
     @FXML
