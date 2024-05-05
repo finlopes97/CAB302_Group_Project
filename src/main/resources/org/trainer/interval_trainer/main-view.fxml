@@ -12,17 +12,12 @@
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
-            <!-- Default Logo Image -->
             <ImageView fitHeight="50" fitWidth="50">
                 <image>
                     <Image url="@logo.png" />
                 </image>
             </ImageView>
-            <!-- App Name Label -->
-            <Label style="-fx-font-size: 35; -fx-font-weight: bold" text="Interval Training App" />
-        </HBox>
-        <HBox>
-            <Label fx:id="view-title" style="-fx-font-weight: bold; -fx-font-size: 72px;"/>
+            <Label fx:id="viewTitle" style="-fx-font-size: 35; -fx-font-weight: bold"/>
         </HBox>
     </top>
 
@@ -32,7 +27,7 @@
         </VBox>
     </center>
    <bottom>
-      <HBox spacing="10" alignment="CENTER">
+      <HBox spacing="10" alignment="CENTER" visible="false">
          <children>
              <Button text="Home" onAction="#onHomeButtonClick"/>
              <Button text="Create Routines" onAction="#onMyRoutinesButtonClick"/>
