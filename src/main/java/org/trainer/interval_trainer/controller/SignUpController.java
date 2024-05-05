@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Controller for managing the sign-up process in a JavaFX application.
+ * Controller for managing the sign-up process.
  * This class handles user interactions from the sign-up form, validates user input,
  * manages visibility of password fields, and handles user registration with database interaction.
  */
@@ -121,6 +121,11 @@ public class SignUpController {
         }
     }
 
+    /**
+     * Handles the action to go back to the login view.
+     * This is typically triggered by a UI button labeled "Back to Login" or similar.
+     * @throws IOException if an error occurs when changing scenes.
+     */
     public void onBackHomeButton() throws IOException {
         HelloApplication.changeScene("login-view.fxml");
     }
