@@ -10,8 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
+import javafx.application.Platform;
 
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,8 @@ public class SearchController {
     @FXML
     private TextField searchField;
 
+    private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
+
 
     @FXML
     protected void initialize() {
@@ -47,28 +51,34 @@ public class SearchController {
     }
 
     private void populateSuggestedRoutinesBox() {
-        // Dummy data
-        String[][] dummyRoutines = {
-                {"Routine 1", "30 mins", "Description of Routine 1", "Week 2"},
-                {"Routine 2", "45 mins", "Description of Routine 2", "Week 1"},
-                {"Routine 3", "30 mins", "Description of Routine 1", "Week 2"},
-                {"Routine 4", "45 mins", "Description of Routine 2", "Week 1"},
-                {"Routine 5", "30 mins", "Description of Routine 1", "Week 2"},
-                {"Routine 6", "45 mins", "Description of Routine 2", "Week 1"},
-                {"Routine 7", "30 mins", "Description of Routine 1", "Week 2"},
-                {"Routine 8", "45 mins", "Description of Routine 2", "Week 1"}
-        };
+        try (Connection connection = DriverManager.getConnection(DB_URL)) {
+            String sql = "SELECT * FROM routines LIMIT 10";
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    int row = 1;
+                    while (rs.next()) {
+                        String routineName = rs.getString("name");
+                        String createdBy = rs.getString("created_by");
+                        Timestamp createdOn = rs.getTimestamp("created_on");
+                        String description = rs.getString("description");
+                        int totalTime = rs.getInt("total_time");
 
-        // Add routines to the grid
-        for (int i = 1; i < dummyRoutines.length; i++) {
-            String[] routineData = dummyRoutines[i-1];
+                        // Display routine data in the grid
+                        suggestedRoutinesGrid.add(new Label(routineName), 0, row);
+                        suggestedRoutinesGrid.add(new Label(createdBy), 1, row);
+                        suggestedRoutinesGrid.add(new Label(createdOn.toString()), 2, row);
+                        suggestedRoutinesGrid.add(new Label(description), 3, row);
+                        suggestedRoutinesGrid.add(new Label(String.valueOf(totalTime)), 4, row);
 
-            for (int j = 0; j < routineData.length; j++) {
-                Label label = new Label(routineData[j]);
-                suggestedRoutinesGrid.add(label, j, i);
+                        row++;
+                    }
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
 
     @FXML
     protected void onSearchButtonClick() throws IOException {
@@ -82,24 +92,46 @@ public class SearchController {
 
                 // Perform the search
                 List<String> searchResults = new ArrayList<>();
-                // Replace this with your actual search logic
-                searchResults.add("Result 1 for: " + query);
-                searchResults.add("Result 2 for: " + query);
-                searchResults.add("Result 3 for: " + query);
+                try (Connection connection = DriverManager.getConnection(DB_URL);) {
+                    String sql = "SELECT * FROM routines WHERE name LIKE ?";
+                    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                        pstmt.setString(1, "%" + query + "%");
+                        try (ResultSet rs = pstmt.executeQuery()) {
+                            // Iterate over the result set and add results to the list
+                            while (rs.next()) {
+                                String result = "ID: " + rs.getInt("id") +
+                                        ", Name: " + rs.getString("name") +
+                                        ", Created By: " + rs.getString("created_by") +
+                                        ", Created On: " + rs.getTimestamp("created_on") +
+                                        ", Description: " + rs.getString("description") +
+                                        ", Total Time: " + rs.getInt("total_time");
+                                searchResults.add(result);
+                                System.out.println(result);
+
+                            }
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Handle potential SQL exceptions
+                }
 
                 // Update the UI with the search results
-                updateSearchResultLabel(searchResults);
+                Platform.runLater(() -> {
+                    updateSearchResultLabel(searchResults);
+                });
+
 
                 return null;
             }
         };
 
         // Bind the search task to the UI components
-        searchResultLabel.textProperty().bind(searchTask.messageProperty());
+//        searchResultLabel.textProperty().bind(searchTask.messageProperty());
 
         // Execute the search task
         new Thread(searchTask).start();
     }
+
     // Update the search result label with the search results
     private void updateSearchResultLabel(List<String> searchResults) {
         StringBuilder resultText = new StringBuilder();
@@ -108,4 +140,5 @@ public class SearchController {
         }
         searchResultLabel.setText(resultText.toString());
     }
+
 }

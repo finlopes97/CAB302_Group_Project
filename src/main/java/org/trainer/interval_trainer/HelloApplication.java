@@ -23,6 +23,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
+        createDatabaseFile();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         BorderPane root = loader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT); // Adjust size as needed
@@ -35,6 +36,7 @@ public class HelloApplication extends Application {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(fxml)));
         primaryStage.getScene().setRoot(pane);
     }
+
 
     private void createDatabaseFile() {
         String dbFilePath = "src/main/resources/Database.db"; // Relative path
@@ -55,6 +57,19 @@ public class HelloApplication extends Application {
                                 "Password TEXT" +
                                 ");";
                         statement.execute(createUserTable);
+                        System.out.println("User table created successfully.");
+
+                        // Create the routine table
+                        String createRoutineTable = "CREATE TABLE IF NOT EXISTS routines ("
+                                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                + "name VARCHAR NOT NULL,"
+                                + "created_by VARCHAR NOT NULL,"
+                                + "created_on TIMESTAMP NOT NULL,"
+                                + "description TEXT NOT NULL,"
+                                + "total_time INTEGER NOT NULL"
+                                +");";
+                        statement.execute(createRoutineTable);
+                        System.out.println("Routine table created successfully.");
 
                         // Insert the initial user entry
                         String insertUser = "INSERT INTO User (Email, Name, Password) VALUES (" +

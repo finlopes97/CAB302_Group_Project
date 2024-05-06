@@ -27,7 +27,7 @@
    <bottom>
       <HBox fx:id="navBar" spacing="10" alignment="CENTER">
           <Button text="Home" onAction="#onHomeButtonClick"/>
-          <Button text="Create Routines" onAction="#onMyRoutinesButtonClick"/>
+          <Button text="My Routines" onAction="#onMyRoutinesButtonClick"/>
           <Button text="Search" onAction="#onFindRoutinesButtonClick"/>
           <Button text="Profile" onAction="#onProfileButtonClick"/>
           <Button text="Settings" onAction="#onSettingsButtonClick"/>
