@@ -19,7 +19,7 @@ public class UserRegistrationValidator {
      * @return bool
      */
     public boolean isValidUsername(String username) {
-        return username.matches("^[a-zA-Z0-9_-]{4,15}$");
+        return username.matches("^[a-zA-Z0-9_-]{3,30}$");
     }
     /**
      * This method checks that passwords are made up of alphanumeric characters and be at least six characters long

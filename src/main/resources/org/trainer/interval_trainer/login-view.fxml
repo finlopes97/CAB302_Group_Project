@@ -11,15 +11,22 @@
             </padding>
             <Label text="Interval Training App" style="-fx-font-weight: bold; -fx-font-size: 36px;"/>
             <Label text="Login" style="-fx-font-size: 24px;"/>
-            <Label fx:id="ErrorText" style="-fx-font-size: 18px;"/>
-            <TextField fx:id="EmailInput" promptText="Email" style="-fx-border-radius: 10px;"/>
-            <TextField fx:id="PasswordInput" promptText="Password" style="-fx-border-radius: 10px;"/>
+            <TextField fx:id="emailField" promptText="Email" style="-fx-border-radius: 10px;"/>
+            <PasswordField fx:id="passwordField" promptText="Password" style="-fx-border-radius: 10px;"/>
+            <TextField fx:id="visiblePasswordField" promptText="Password" style="-fx-border-radius: 10px;"/>
+            <CheckBox fx:id="hidePasswordCheckbox" text="Hide Password" onAction="#togglePasswordVisibility"/>
+            <Label fx:id="errorMessageLabel"
+                   textFill="red"
+                   textAlignment="CENTER"
+                   wrapText="true"
+                   maxWidth="300"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px;"
+            />
             <HBox spacing="20.0" alignment="CENTER">
                 <Button text="Forgot Password" />
                 <Button text="Login" style="-fx-border-radius: 10px;" onAction="#onLoginButton"/>
                 <Button text="SignUp" style="-fx-border-radius: 10px;" onAction="#onSignUpPageButton"/>
             </HBox>
         </VBox>
-
     </center>
 </BorderPane>
