@@ -1,5 +1,7 @@
 package org.trainer.interval_trainer.controller.new_routine;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,11 +42,15 @@ public class BlockController extends BaseController {
             throw new RuntimeException(e);
         }
 
-        int timeinsec = data.getTimeinSeconds().get();
-        int mins = timeinsec / 60;
-        int secs = timeinsec % 60;
+        updateView();
 
-        openPopup.setText(String.format("%02d:%02d", mins, secs));
+        data.getTimeinSeconds().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                updateView();
+            }
+        });
+
         name.textProperty().bindBidirectional(data.getName());
 
         setOnDragDetected((MouseEvent event) -> {
@@ -78,13 +84,21 @@ public class BlockController extends BaseController {
                 BaseItem firstBlock = ((BaseController) event.getGestureSource()).getData();
                 firstBlock.getParent().getChildren().remove(firstBlock);
 
-                data.getParent().getChildren().add(data.getParent().getChildren().indexOf(firstBlock)+1, firstBlock);
+                data.getParent().getChildren().add(data.getParent().getChildren().indexOf(data)+1, firstBlock);
                 firstBlock.setParent(data.getParent());
 
                 event.setDropCompleted(success);
                 event.consume();
             }
         });
+    }
+
+    private void updateView() {
+        int timeinsec = data.getTimeinSeconds().get();
+        int mins = timeinsec / 60;
+        int secs = timeinsec % 60;
+
+        openPopup.setText(String.format("%02d:%02d", mins, secs));
     }
 
     public void deleteBlock(ActionEvent event) {
