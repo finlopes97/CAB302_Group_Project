@@ -1,26 +1,44 @@
 package org.trainer.interval_trainer.Model;
 
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
+
 import java.util.List;
+
+import static javafx.collections.FXCollections.observableArrayList;
 
 public class Group extends BaseItem {
     private int RoutineId;
-    private int Intervals;
-    private List<Block> Blocks;
 
-    public Group(int Id, int RoutineId, int Intervals, List<Block> Blocks) {
-        setId(Id);
-        this.RoutineId = RoutineId;
-        this.Intervals = Intervals;
-        this.Blocks = Blocks;
+
+    public int getRoutineId() { return RoutineId; }
+    private final IntegerProperty reps = new SimpleIntegerProperty();
+    public Property<Integer> getRepsObject() {
+        return reps.asObject();
+    }
+    public IntegerProperty getReps() {
+        return reps;
     }
 
-    public int getId() { return Id; }
-    public int getRoutineId() { return RoutineId; }
-    public int getIntervals() { return Intervals; }
-    public List<Block> getBlocks() { return Blocks; }
+    private final StringProperty name = new SimpleStringProperty();
+    public StringProperty getName() {
+        return name;
+    }
 
-    public void setId(int Id) { this.Id = Id; }
-    public void setRoutineId(int RoutineId) { this.RoutineId = RoutineId; }
-    public void setIntervals(int Intervals) { this.Intervals = Intervals; }
-    public void setBlocks(List<Block> Blocks) { this.Blocks = Blocks; }
+    private final ObservableList<BaseItem> children =  observableArrayList();
+    public ObservableList<BaseItem> getChildren() {
+        return children;
+    }
+
+
+
+    public Group(int Id, int RoutineId, int Intervals, List<BaseItem> children) {
+        setId(Id);
+    }
+
+    public Group() {
+
+    }
+
+
 }

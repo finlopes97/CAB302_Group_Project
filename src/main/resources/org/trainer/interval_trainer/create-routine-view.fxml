@@ -22,6 +22,7 @@
             <!-- Welcome Text -->
             <VBox alignment="TOP_LEFT">
                 <Label fx:id="welcomeText" style="-fx-font-size: 35; -fx-font-weight: bold;" />
+                <fx:include source="new_routine/routine-view.fxml" />
             </VBox>
 <!--            <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="0"/>-->
             <Button  text="Back" onAction="#onBackButton"/>
@@ -31,6 +32,8 @@
             <TextField fx:id="descriptionField" promptText="Description" style="-fx-border-radius: 10px;"/>
             <TextField fx:id="timeField" promptText="Interval Time" style="-fx-border-radius: 10px;"/>
             <Button text="Add New" onAction="#onNewRoutineButton"/>
+
+<!--            <Button text="add new" onAction="#OnNewIntervalButton"/>-->
         </VBox>
     </center>
 </BorderPane>
