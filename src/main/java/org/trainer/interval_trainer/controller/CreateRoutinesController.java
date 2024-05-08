@@ -4,115 +4,84 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
+import org.trainer.interval_trainer.Model.Routine;
+import org.trainer.interval_trainer.validation.UserRegistrationValidator;
 
 import java.io.IOException;
+import java.sql.*;
+import java.time.LocalDate;
 
 public class CreateRoutinesController {
     @FXML
-    private Label welcomeText;
+    private TextField routineNameField;
     @FXML
-    private Label header;
+    private TextField createdByField;
     @FXML
-    private Button homeButton;
+    private DatePicker timeCreatedField;
     @FXML
-    private Button createRoutinesButton;
+    private TextField descriptionField;
     @FXML
-    private Button searchButton;
+    private TextField timeField;
     @FXML
-    private Button profileButton;
-    @FXML
-    private Button settingsButton;
+    private Button backButton;
+
+
+    private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
 
     @FXML
     protected void initialize() {
-        welcomeText.setText("Create Routine");
-        header.setText("Interval Training App");
+
     }
 
+    public void onBackButton() throws IOException {
+        HelloApplication.changeScene("my-routine-view.fxml");
+//        Stage stage = (Stage) backButton.getScene().getWindow();
+//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("my-routine-view.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+//        stage.setScene(scene);
+    }
 
-    @FXML
-    protected void onHomeButtonClick() throws IOException {
-        // Get the current scene
-        Scene currentScene = homeButton.getScene();
+    public void onNewRoutineButton() {
+        // Get the selected date from the DatePicker
+        LocalDate selectedDate = timeCreatedField.getValue();
 
-        // Check if the current scene is already the "create-routine-view.fxml"
-        if (currentScene.getRoot().getId().equals("helloRoot")) {
-            // Already on the new routine page, no need to reload
-            return;
+        String routineName = routineNameField.getText();
+        String routineCreator = createdByField.getText(); // Should automatically set this by checking logged-in user.
+        Timestamp timeCreated = Timestamp.valueOf(selectedDate.atStartOfDay());
+        String description = descriptionField.getText();
+        // Convert text to integer
+        int time = Integer.parseInt(timeField.getText());
+
+            try {
+                addRoutine(routineName, routineCreator, timeCreated, description, time);
+//                errorMessageLabel.setText("");
+                HelloApplication.changeScene("my-routine-view.fxml");
+            } catch (Exception e) {
+//                errorMessageLabel.setText("Registration failed. Please try again.");
+                e.printStackTrace();
+            }
         }
 
-        Stage stage = (Stage) homeButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
 
-
-    @FXML
-    protected void onCreateRoutinesButtonClick() throws IOException {
-        // Get the current scene
-        Scene currentScene = createRoutinesButton.getScene();
-
-        // Check if the current scene is already the "create-routine-view.fxml"
-        if (currentScene.getRoot().getId().equals("createRoutineRoot")) {
-            // Already on the new routine page, no need to reload
-            return;
+    private void addRoutine(String routineName, String routineCreator, Timestamp timeCreated, String description, int time) throws SQLException{
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO routines (name, created_by, created_on, description, total_time) VALUES (?,?,?,?,?)");
+            statement.setString(1, routineName);
+            statement.setString(2, routineCreator);
+            statement.setTimestamp(3, timeCreated);
+            statement.setString(4, description);
+            statement.setInt(5, time);
+            statement.executeUpdate();
         }
-        Stage stage = (Stage) createRoutinesButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("create-routine-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    protected void onSearchButtonClick() throws IOException {
-        // Get the current scene
-        Scene currentScene = searchButton.getScene();
-
-        // Check if the current scene is already the "create-routine-view.fxml"
-        if (currentScene.getRoot().getId().equals("searchRoot")) {
-            // Already on the new routine page, no need to reload
-            return;
+        catch(Exception e) {
+            e.printStackTrace();
         }
-        Stage stage = (Stage) searchButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
     }
-    @FXML
-    protected void onProfileButtonClick() throws IOException {
-        // Get the current scene
-        Scene currentScene = profileButton.getScene();
-
-        // Check if the current scene is already the "create-routine-view.fxml"
-        if (currentScene.getRoot().getId().equals("profileRoot")) {
-            // Already on the new routine page, no need to reload
-            return;
-        }
-        Stage stage = (Stage) profileButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profile-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    protected void onSettingsButtonClick() throws IOException {
-        // Get the current scene
-        Scene currentScene = settingsButton.getScene();
-
-        // Check if the current scene is already the "create-routine-view.fxml"
-        if (currentScene.getRoot().getId().equals("settingsRoot")) {
-            // Already on the new routine page, no need to reload
-            return;
-        }
-        Stage stage = (Stage) profileButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("settings-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        stage.setScene(scene);
-    }
-
 }

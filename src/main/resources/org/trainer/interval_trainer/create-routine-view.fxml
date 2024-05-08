@@ -11,25 +11,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.DatePicker?>
 <BorderPane fx:id="createRoutineRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.CreateRoutinesController" style="-fx-font-family: 'Arial'">
-    <!--    Header-->
-    <top>
-        <HBox alignment="TOP_LEFT" spacing="10.0" style="-fx-border-color: black; -fx-border-width: 1px;">
-
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-            </padding>
-            <!-- Default Logo Image -->
-            <ImageView fitWidth="50" fitHeight="50">
-                <image>
-                    <Image url="@logo.png" />
-                </image>
-            </ImageView>
-            <!-- App Name Label -->
-            <Label fx:id="header" style="-fx-font-size: 35; -fx-font-weight: bold" />
-        </HBox>
-
-    </top>
     <center>
         <VBox alignment="TOP_CENTER" spacing="20.0">
             <padding>
@@ -40,20 +24,16 @@
                 <Label fx:id="welcomeText" style="-fx-font-size: 35; -fx-font-weight: bold;" />
                 <fx:include source="new_routine/routine-view.fxml" />
             </VBox>
+<!--            <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="0"/>-->
+            <Button  text="Back" onAction="#onBackButton"/>
+            <TextField fx:id="routineNameField" promptText="Routine Name" style="-fx-border-radius: 10px;"/>
+            <TextField fx:id="createdByField" promptText="User Name" style="-fx-border-radius: 10px;"/>
+            <DatePicker fx:id="timeCreatedField" promptText="Current Date" style="-fx-border-radius: 10px;"/>
+            <TextField fx:id="descriptionField" promptText="Description" style="-fx-border-radius: 10px;"/>
+            <TextField fx:id="timeField" promptText="Interval Time" style="-fx-border-radius: 10px;"/>
+            <Button text="Add New" onAction="#onNewRoutineButton"/>
 
 <!--            <Button text="add new" onAction="#OnNewIntervalButton"/>-->
         </VBox>
     </center>
-    <bottom>
-        <HBox alignment="CENTER" spacing="20.0" style="-fx-border-color: black; -fx-border-width: 1px;">
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-            </padding>
-            <Button fx:id="homeButton" text="Home" onAction="#onHomeButtonClick"/>
-            <Button fx:id="createRoutinesButton" text="Create Routines" onAction="#onCreateRoutinesButtonClick"/>
-            <Button fx:id="searchButton" text="Search" onAction="#onSearchButtonClick"/>
-            <Button fx:id="profileButton" text="Profile" onAction="#onProfileButtonClick"/>
-            <Button fx:id="settingsButton" text="Settings" onAction="#onSettingsButtonClick"/>
-        </HBox>
-    </bottom>
 </BorderPane>

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,22 +25,22 @@ public class HelloApplication extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
-        // Check if the database file exists, create it if not
-        createDatabaseFile();
-
+    public void start(Stage stage) throws Exception {
         primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
-        stage.setTitle("Interval Training App!");
-        stage.setScene(scene);
-        stage.show();
+        createDatabaseFile();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+        BorderPane root = loader.load();
+        Scene scene = new Scene(root, WIDTH, HEIGHT); // Adjust size as needed
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+
 
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(fxml)));
         primaryStage.getScene().setRoot(pane);
     }
+
 
     private void createDatabaseFile() {
         String dbFilePath = "src/main/resources/Database.db"; // Relative path
@@ -60,6 +61,19 @@ public class HelloApplication extends Application {
                                 "Password TEXT" +
                                 ");";
                         statement.execute(createUserTable);
+                        System.out.println("User table created successfully.");
+
+                        // Create the routine table
+                        String createRoutineTable = "CREATE TABLE IF NOT EXISTS routines ("
+                                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                + "name VARCHAR NOT NULL,"
+                                + "created_by VARCHAR NOT NULL,"
+                                + "created_on TIMESTAMP NOT NULL,"
+                                + "description TEXT NOT NULL,"
+                                + "total_time INTEGER NOT NULL"
+                                +");";
+                        statement.execute(createRoutineTable);
+                        System.out.println("Routine table created successfully.");
 
                         // Insert the initial user entry
                         String insertUser = "INSERT INTO User (Email, Name, Password) VALUES (" +
