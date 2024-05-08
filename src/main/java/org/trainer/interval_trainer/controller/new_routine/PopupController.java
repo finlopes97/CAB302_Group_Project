@@ -40,10 +40,8 @@ public class PopupController extends Popup {
     }
 
     public void closePopup() {
-
         block.getTimeinSeconds().set(((Integer) mins.getValueFactory().getValue()) * 60 + ((Integer) secs.getValueFactory().getValue()));
         hide();
-        routinesController.Update();
     }
 
 }
