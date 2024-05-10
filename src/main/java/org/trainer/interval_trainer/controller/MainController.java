@@ -3,10 +3,16 @@ package org.trainer.interval_trainer.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.trainer.interval_trainer.Model.User;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +25,11 @@ public class MainController {
     private VBox contentArea;
     @FXML
     private Label viewTitle;
+    @FXML
+    public Button myRoutines;
+
+    public static final int WIDTH = 600;
+    public static final int HEIGHT = 700;
 
     private final Map<String, String> pageTitleMap = new HashMap<>();
 
@@ -28,6 +39,14 @@ public class MainController {
         pageTitleMap.put("/org/trainer/interval_trainer/search-view.fxml", "Find Routines");
         pageTitleMap.put("/org/trainer/interval_trainer/profile-view.fxml", "Profile");
         pageTitleMap.put("/org/trainer/interval_trainer/settings-view.fxml", "Settings");
+    }
+    private User currentUser; // Field to store the current user
+    /**
+     * Set the current user in the controller.
+     * @param user The user to set as the current user.
+     */
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 
     @FXML
@@ -53,6 +72,19 @@ public class MainController {
     @FXML
     private void onMyRoutinesButtonClick() {
         switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/my-routine-view.fxml"));
+            Parent root = loader.load();
+            MyRoutinesController controller = loader.getController();
+            controller.setCurrentUser(currentUser); // Pass the currentUser to the CreateRoutinesController
+            System.out.println("****** MAIN ****** " + currentUser);
+            Scene scene = new Scene(root, WIDTH, HEIGHT);
+            Stage stage = (Stage) myRoutines.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

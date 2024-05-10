@@ -2,11 +2,16 @@ package org.trainer.interval_trainer.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
+import org.trainer.interval_trainer.Model.User;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,6 +40,16 @@ public class LoginController {
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
 
     private static final String INCORRECT_DETAILS = "Some of your details may be incorrect. Please try again.";
+
+    // Define a field to store the current user
+    private User currentUser;
+    /**
+     * Sets the current user in the application.
+     * @param user The user to set as the current user.
+     */
+    private void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
 
     /**
      * Initializes the controller. Sets up the property bindings for password visibility,
@@ -77,21 +92,67 @@ public class LoginController {
      * Attempts to log the user in by validating their credentials against the database.
      * If credentials are valid, transitions to the main view of the application, otherwise, displays an error message.
      */
+//    public void onLoginButton() {
+//        Platform.runLater(() -> {
+//            String email = emailField.getText();
+//            String password = passwordField.getText();
+//            if (validateCredentials(email, password)) {
+//                // Retrieve user information from the database based on the email
+//                User currentUser = retrieveUser(email);
+//                if (currentUser != null) {
+//                    // Set the current user in the application
+//                    setCurrentUser(currentUser);
+//
+//                    // Navigate to the main view
+//                try {
+//                    HelloApplication.changeScene("main-view.fxml");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                } else {
+//                    // Handle case where user information couldn't be retrieved
+//                    errorMessageLabel.setText("Failed to retrieve user information.");
+//                }
+//            } else {
+//                errorMessageLabel.setText(INCORRECT_DETAILS);
+//            }
+//        });
+//    }
+
     public void onLoginButton() {
         Platform.runLater(() -> {
             String email = emailField.getText();
             String password = passwordField.getText();
             if (validateCredentials(email, password)) {
-                try {
-                    HelloApplication.changeScene("main-view.fxml");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // Retrieve user information from the database based on the email
+                User currentUser = retrieveUser(email);
+                if (currentUser != null) {
+                    // Set the current user in the application
+                    setCurrentUser(currentUser);
+
+                    // Navigate to the main view
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
+                        Parent root = loader.load();
+                        MainController controller = loader.getController();
+                        controller.setCurrentUser(currentUser); // Pass the currentUser to the MainViewController
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) emailField.getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Handle case where user information couldn't be retrieved
+                    errorMessageLabel.setText("Failed to retrieve user information.");
                 }
             } else {
                 errorMessageLabel.setText(INCORRECT_DETAILS);
             }
         });
     }
+
 
     /**
      * Validates the user's credentials by querying the database.
@@ -111,4 +172,26 @@ public class LoginController {
             return false;
         }
     }
+
+    private User retrieveUser(String email) {
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM User WHERE Email = ?")) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                // User found, extract user information and create a User object
+                String username = resultSet.getString("Email"); // Assuming email is stored in the "Email" column
+                return new User(username);
+            } else {
+                // No user found with the provided email
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // Return null to indicate error
+        }
+    }
+
 }
+
+

@@ -3,14 +3,12 @@ package org.trainer.interval_trainer.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.Routine;
+import org.trainer.interval_trainer.Model.User;
 import org.trainer.interval_trainer.validation.UserRegistrationValidator;
 
 import java.io.IOException;
@@ -21,66 +19,76 @@ public class CreateRoutinesController {
     @FXML
     private TextField routineNameField;
     @FXML
-    private TextField createdByField;
+    private TextField routineTypeField;
     @FXML
-    private DatePicker timeCreatedField;
+    private Spinner<Integer> intervalNum;
     @FXML
-    private TextField descriptionField;
+    private TextArea descriptionField;
     @FXML
-    private TextField timeField;
+    private Spinner<Integer> mins;
+    @FXML
+    private Spinner<Integer> secs;
+
     @FXML
     private Button backButton;
+
+    // Add a field to hold the current user
+    private User currentUser2;
 
 
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
 
+
+    // Method to set the current user
+    public void setCurrentUser(User user) {
+        this.currentUser2 = user;
+        // Debug print to confirm the value of currentUser when it's set
+        System.out.println("****** CREATE ROUTINE - CurrentUser set ****** " + currentUser2);
+    }
+
+
     @FXML
     protected void initialize() {
-
     }
 
     public void onBackButton() throws IOException {
         HelloApplication.changeScene("my-routine-view.fxml");
-//        Stage stage = (Stage) backButton.getScene().getWindow();
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("my-routine-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-//        stage.setScene(scene);
     }
 
-    public void onNewRoutineButton() {
+    public void onCreateRoutineButton() throws IOException {
         // Get the selected date from the DatePicker
-        LocalDate selectedDate = timeCreatedField.getValue();
-
+        LocalDate selectedDate = LocalDate.now();
         String routineName = routineNameField.getText();
-        String routineCreator = createdByField.getText(); // Should automatically set this by checking logged-in user.
+        String routineCreator = currentUser2 != null ? currentUser2.getEmail() : "Unknown"; // Check if currentUser is null
+        String routineType = routineTypeField.getText();
         Timestamp timeCreated = Timestamp.valueOf(selectedDate.atStartOfDay());
         String description = descriptionField.getText();
-        // Convert text to integer
-        int time = Integer.parseInt(timeField.getText());
+        int numIntervals = intervalNum.getValue();
 
-            try {
-                addRoutine(routineName, routineCreator, timeCreated, description, time);
-//                errorMessageLabel.setText("");
-                HelloApplication.changeScene("my-routine-view.fxml");
-            } catch (Exception e) {
-//                errorMessageLabel.setText("Registration failed. Please try again.");
-                e.printStackTrace();
-            }
-        }
+        int intervalTime = mins.getValue() * 60 + secs.getValue(); // in seconds
+        int totalTime = numIntervals * intervalTime; // in seconds
 
-
-    private void addRoutine(String routineName, String routineCreator, Timestamp timeCreated, String description, int time) throws SQLException{
         try {
-            Connection connection = DriverManager.getConnection(DB_URL);
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO routines (name, created_by, created_on, description, total_time) VALUES (?,?,?,?,?)");
+            addRoutine(routineName, routineCreator, routineType, timeCreated, description, numIntervals, intervalTime, totalTime);
+            HelloApplication.changeScene("my-routine-view.fxml");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addRoutine(String routineName, String routineCreator, String routineType, Timestamp timeCreated, String description, int numIntervals, int intervalTime, int totalTime) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(DB_URL)) {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO routines (name, type, created_by, created_on, description, num_intervals, interval_time, total_time) VALUES (?,?,?,?,?,?,?,?)");
             statement.setString(1, routineName);
             statement.setString(2, routineCreator);
-            statement.setTimestamp(3, timeCreated);
-            statement.setString(4, description);
-            statement.setInt(5, time);
+            statement.setString(3, routineType);
+            statement.setTimestamp(4, timeCreated);
+            statement.setString(5, description);
+            statement.setInt(6, numIntervals);
+            statement.setInt(7, intervalTime);
+            statement.setInt(8, totalTime);
             statement.executeUpdate();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
