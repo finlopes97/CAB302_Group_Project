@@ -6,7 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.User;
@@ -18,21 +21,104 @@ public class ProfileController {
     public Label nameLabel;
     public Label emailLabel;
     public Label fitnessGoalLabel;
+
+    private final User currentUser = Session.getInstance().getCurrentUser();
+
+    @FXML
+    private TextField editableNameField;
+    @FXML
+    private TextField editableEmailField;
+    @FXML
+    private TextArea editableFitnessGoalField;
+    @FXML
+    private Button confirmChangesButton;
+    @FXML
+    private Button revertChangesButton;
+    @FXML
+    private Button editProfileButton;
+    @FXML
+    private HBox confirmRevertBox;
+
     @FXML
     protected void initialize() throws IOException {
-        User currentUser = Session.getInstance().getCurrentUser();
+        SetFieldsOfCurrentUser();
+    }
+
+    private void SetFieldsOfCurrentUser()
+    {
         if (currentUser != null) {
-            nameLabel.setText("Name: " + currentUser.getName());
-            emailLabel.setText("Email: " + currentUser.getEmail());
+            editableNameField.setText(currentUser.getName());
+            editableEmailField.setText(currentUser.getEmail());
             // Assuming the User model has a getFitnessGoal method
             if (currentUser.getFitnessGoal() != null) {
-                fitnessGoalLabel.setText("Fitness Goal: " + currentUser.getFitnessGoal());
+                editableFitnessGoalField.setText(currentUser.getFitnessGoal());
             }
             else {
-                fitnessGoalLabel.setText("Fitness Goal: No current fitness goal");
+                editableFitnessGoalField.setText("No current fitness goal");
             }
         }
+
     }
 
 
+
+    @FXML
+    private void onEditProfileButton() {
+        // Make the text fields editable
+        editableNameField.setEditable(true);
+        editableEmailField.setEditable(true);
+        editableFitnessGoalField.setEditable(true);
+
+        // Show the confirm and revert changes buttons
+        confirmChangesButton.setVisible(true);
+        revertChangesButton.setVisible(true);
+        confirmRevertBox.setManaged(true);
+        confirmRevertBox.setMouseTransparent(false);
+
+        // Hide the edit profile button
+        editProfileButton.setVisible(false);
+    }
+
+    @FXML
+    private void onConfirmChangesButton() {
+        // Update the user details
+        currentUser.setName(editableNameField.getText());
+        currentUser.setEmail(editableEmailField.getText());
+        currentUser.setFitnessGoal(editableFitnessGoalField.getText());
+
+        // Make the text fields uneditable
+        editableNameField.setEditable(false);
+        editableEmailField.setEditable(false);
+        editableFitnessGoalField.setEditable(false);
+
+        // Hide the confirm and revert changes buttons
+        confirmChangesButton.setVisible(false);
+        revertChangesButton.setVisible(false);
+        confirmRevertBox.setManaged(false);
+        confirmRevertBox.setMouseTransparent(true);
+
+        // Show the edit profile button
+        editProfileButton.setVisible(true);
+
+
+    }
+
+    @FXML
+    private void onRevertChangesButton() {
+        SetFieldsOfCurrentUser();
+
+        // Make the text fields uneditable
+        editableNameField.setEditable(false);
+        editableEmailField.setEditable(false);
+        editableFitnessGoalField.setEditable(false);
+
+        // Hide the confirm and revert changes buttons
+        confirmChangesButton.setVisible(false);
+        revertChangesButton.setVisible(false);
+        confirmRevertBox.setManaged(false);
+        confirmRevertBox.setMouseTransparent(true);
+
+        // Show the edit profile button
+        editProfileButton.setVisible(true);
+    }
 }
