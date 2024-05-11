@@ -14,7 +14,7 @@ public class ActivityController {
 
     @FXML
     protected void onArrowButtonClick() throws IOException {
-        HelloApplication.changeScene("create-routine-view.fxml");
+        HelloApplication.changeScene("main-view.fxml");
     }
 
     @FXML
@@ -53,7 +53,7 @@ public class ActivityController {
     }
     @FXML
     protected void onStartButtonClick() throws IOException {
-        HelloApplication.changeScene("activity-start-view.fxml");
+        timer();
     }
 
 

@@ -31,6 +31,7 @@
           <Button text="Search" onAction="#onFindRoutinesButtonClick"/>
           <Button text="Profile" onAction="#onProfileButtonClick"/>
           <Button text="Settings" onAction="#onSettingsButtonClick"/>
+          <Button text="Activity Test" onAction="#onActivityButtonClick"/>
       </HBox>
    </bottom>
 </BorderPane>
