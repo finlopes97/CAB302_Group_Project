@@ -34,5 +34,18 @@ public class Block extends BaseItem {
     }
 
 
+    public void setType(String routineType) {
+    }
 
+    public void setDescription(String routineDescription) {
+    }
+
+    public void setIntervalNumber(int intervalNumber) {
+    }
+
+    public void setIntervalTime(int intervalTime) {
+    }
+
+    public void setTotalTime(int totalTime) {
+    }
 }

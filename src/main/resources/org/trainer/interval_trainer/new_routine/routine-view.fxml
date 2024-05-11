@@ -10,6 +10,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SpinnerValueFactory?>
+<?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
 <ScrollPane prefHeight="942.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.trainer.interval_trainer.controller.new_routine.RoutinesController">
     <padding>
@@ -17,12 +26,7 @@
     </padding>
     <VBox>
         <VBox fx:id="startOfList" spacing="10.0">
-            <HBox>
-                <Label text="Name of Routine"/>
-                <TextField fx:id="name"/>
-            </HBox>
-            <Button text="save"/>
-            <Separator/>
+
         </VBox>
         <VBox fx:id="children" prefHeight="35.0" prefWidth="266.0" spacing="3.0">
             <VBox.margin>
@@ -30,13 +34,43 @@
             </VBox.margin>
         </VBox>
         <VBox fx:id="endOfList" prefHeight="0.0" prefWidth="266.0" spacing="10.0">
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <VBox alignment="TOP_LEFT" spacing="10.0">
+                <Label text="Name of Routine: "/>
+                <TextField fx:id="name"/>
+                <Label text="Type:"/>
+                <TextField text="Type"/>
+                <Label text="Description:"/>
+                <TextArea text="Description"/>
+                <Label text="Number of Intervals:"/>
+                <TextField/>
+                <Label text="Time of Interval"/>
+                <GridPane prefHeight="186.0" prefWidth="549.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <Label text="Minutes" GridPane.columnIndex="0"/>
+                    <Spinner fx:id="mins" GridPane.columnIndex="1">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="60" initialValue="1" amountToStepBy="1"/>
+                        </valueFactory>
+                    </Spinner>
+                    <Label text="Seconds" GridPane.columnIndex="2"/>
+                    <Spinner fx:id="secs" GridPane.columnIndex="3">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="59" initialValue="0" amountToStepBy="1"/>
+                        </valueFactory>
+                    </Spinner>
+                </GridPane>
+
+                <Button text="Create"/>
                 <Button onAction="#addBlock" text="addChild"/>
                 <Button onAction="#addGroup" text="addItem"/>
-            </HBox>
+            </VBox>
         </VBox>
     </VBox>
-
-
-
 </ScrollPane>

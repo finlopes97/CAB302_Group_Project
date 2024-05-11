@@ -42,6 +42,8 @@ public class HelloApplication extends Application {
     }
 
 
+
+
     private void createDatabaseFile() {
         String dbFilePath = "src/main/resources/Database.db"; // Relative path
         File dbFile = new File(dbFilePath);
@@ -67,9 +69,12 @@ public class HelloApplication extends Application {
                         String createRoutineTable = "CREATE TABLE IF NOT EXISTS routines ("
                                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                                 + "name VARCHAR NOT NULL,"
+                                + "type VARCHAR NOT NULL,"
                                 + "created_by VARCHAR NOT NULL,"
                                 + "created_on TIMESTAMP NOT NULL,"
                                 + "description TEXT NOT NULL,"
+                                + "num_intervals TEXT NOT NULL,"
+                                + "interval_time TEXT NOT NULL,"
                                 + "total_time INTEGER NOT NULL"
                                 +");";
                         statement.execute(createRoutineTable);
