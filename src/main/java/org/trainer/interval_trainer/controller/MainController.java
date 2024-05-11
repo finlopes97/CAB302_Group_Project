@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.Model.User;
-
+import org.trainer.interval_trainer.Model.Session;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
