@@ -50,32 +50,15 @@ public class MainController {
      * Set the current user in the controller.
      * @param user The user to set as the current user.
      */
-
     public void setCurrentUser(User user) {
         this.currentUser = user;
     }
-
-    // Method to set the stage
-//    public void setStage(Stage stage) {
-//        HelloApplication.getPrimaryStage();
-//    }
 
     @FXML
     public void initialize() {
         switchContent("/org/trainer/interval_trainer/home-view.fxml");
     }
 
-//    public void switchContent(String fxmlFile) {
-//        try {
-//            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
-//            contentArea.getChildren().setAll(node);
-//            viewTitle.setText(pageTitleMap.getOrDefault(fxmlFile, "Home"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    // Method to switch content
     public void switchContent(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
@@ -101,7 +84,6 @@ public class MainController {
         }
     }
 
-
     @FXML
     private void onHomeButtonClick() {
         switchContent("/org/trainer/interval_trainer/home-view.fxml");
@@ -121,7 +103,6 @@ public class MainController {
     private void onProfileButtonClick() {
         switchContent("/org/trainer/interval_trainer/profile-view.fxml");
     }
-
 
     @FXML
     private void onSettingsButtonClick() {
