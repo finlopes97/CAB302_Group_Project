@@ -1,10 +1,9 @@
 package org.trainer.interval_trainer.Model;
 
-import org.trainer.interval_trainer.Model.User;
-
 public class Session {
     private static Session instance = null;
     private User currentUser;
+    private String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
 
     private Session() {
         // Private constructor to prevent instantiation
@@ -20,9 +19,14 @@ public class Session {
     public User getCurrentUser() {
         return currentUser;
     }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
+    public String getDB_URL() {
+        return DB_URL;
+    }
+    public void setDB_URL(String DB_URL) {
+        this.DB_URL = DB_URL;
+    }
 }
