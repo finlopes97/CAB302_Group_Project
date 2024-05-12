@@ -77,10 +77,12 @@ public class HomeController {
 
                         row++;
                     }
+                } catch (SQLException e) {
+                    System.err.println("Error retrieving routines: " + e.getMessage());
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error connecting to database: " + e.getMessage());
         }
     }
 
