@@ -2,38 +2,26 @@ package org.trainer.interval_trainer.controller;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import org.trainer.interval_trainer.HelloApplication;
 import javafx.application.Platform;
+import org.trainer.interval_trainer.Model.Session;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the search functionality within the application.
+ * It handles both the display of suggested routines and the execution of search queries against the database.
+ */
 public class SearchController {
-    @FXML
-    private Label welcomeText;
-    @FXML
-    private Label header;
-    @FXML
-    private Button homeButton;
-    @FXML
-    private Button createRoutinesButton;
-    @FXML
-    private Button searchPageButton;
+    private Session session;
     @FXML
     private Button searchButton;
-    @FXML
-    private Button profileButton;
-    @FXML
-    private Button settingsButton;
     @FXML
     private GridPane suggestedRoutinesGrid;
     @FXML
@@ -41,22 +29,24 @@ public class SearchController {
     @FXML
     private Button cancelButton;
 
-//    @FXML
-//    private Label searchResultLabel;
     private boolean isSearchMode = false; // Flag to indicate search mode
 
     @FXML
     private TextField searchField;
 
-    private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
-
-
+    /**
+     * Initializes the controller by populating the grid with suggested routines.
+     */
     @FXML
     protected void initialize() {
+        session = Session.getInstance();
         populateSuggestedRoutinesBox(); // Populate suggestions grid
     }
 
-    private void addHeadings(GridPane grid){
+    /**
+     * Populates the grid pane with suggested routines, adding column headings once.
+     */
+    private void addHeadings(){
         String[] headings = {"Name", "Created By", "Type", "Description", "Total Time"};
         for (int i = 0; i < headings.length; i++) {
             Label headingLabel = new Label(headings[i]);
@@ -65,126 +55,129 @@ public class SearchController {
         }
     }
 
+    /**
+     * Populates the grid pane with suggested routines, adding column headings once.
+     */
     private void populateSuggestedRoutinesBox() {
-        try (Connection connection = DriverManager.getConnection(DB_URL)) {
-            String sql = "SELECT * FROM routines LIMIT 10";
-            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    int row = 1;
-                    while (rs.next()) {
-                        String routineName = rs.getString("name");
-                        String createdBy = rs.getString("created_by");
-                        String type = rs.getString("type");
-                        String description = rs.getString("description");
-                        int totalTime = rs.getInt("total_time");
-
-                        // Add column headings
-                        addHeadings(suggestedRoutinesGrid);
-                        // Display routine data in the grid
-                        suggestedRoutinesGrid.add(new Label(routineName), 0, row);
-                        suggestedRoutinesGrid.add(new Label(createdBy), 1, row);
-                        suggestedRoutinesGrid.add(new Label(type), 2, row);
-                        suggestedRoutinesGrid.add(new Label(description), 3, row);
-                        suggestedRoutinesGrid.add(new Label(String.valueOf(totalTime)), 4, row);
-
-                        row++;
-                    }
-                }
+        try (Connection connection = DriverManager.getConnection(session.getDB_URL());
+             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM routines LIMIT 10");
+             ResultSet rs = pstmt.executeQuery()) {
+            addHeadings();
+            int row = 1;
+            while (rs.next()) {
+                displayRoutineInGrid(rs, suggestedRoutinesGrid, row++);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error retrieving suggested routines: " + e.getMessage());
         }
     }
 
+    /**
+     * Displays a routine in the specified grid.
+     * @param rs The ResultSet containing the routine data.
+     * @param grid The GridPane where the routine will be displayed.
+     * @param row The row in the grid where the routine should be added.
+     * @throws SQLException If there is an error processing the ResultSet.
+     */
+    private void displayRoutineInGrid(ResultSet rs, GridPane grid, int row) throws SQLException {
+        String routineName = rs.getString("name");
+        String createdBy = rs.getString("created_by");
+        String type = rs.getString("type");
+        String description = rs.getString("description");
+        int totalTime = rs.getInt("total_time");
 
+        grid.add(new Label(routineName), 0, row);
+        grid.add(new Label(createdBy), 1, row);
+        grid.add(new Label(type), 2, row);
+        grid.add(new Label(description), 3, row);
+        grid.add(new Label(String.valueOf(totalTime)), 4, row);
+    }
+
+    /**
+     * Handles the search button click event by initiating a search task.
+     * @throws IOException If there is an issue executing the search.
+     */
     @FXML
     protected void onSearchButtonClick() throws IOException {
-        String query = searchField.getText();
+        String query = searchField.getText().trim();
 
-        if (!isSearchMode) { // If not in search mode, switch to search mode
+        if (!isSearchMode) {
             isSearchMode = true;
-            toggleButtonsVisibility(); // Swap search and cancel buttons
+            toggleButtonsVisibility();
         }
-        // Create a task for the search operation
-        Task<Void> searchTask = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                // Perform the search
-                List<String> searchResults = new ArrayList<>();
-                try (Connection connection = DriverManager.getConnection(DB_URL);) {
-                    String sql = "SELECT * FROM routines WHERE name LIKE ?";
-                    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                        pstmt.setString(1, "%" + query + "%");
-                        try (ResultSet rs = pstmt.executeQuery()) {
-                            // Iterate over the result set and add results to the list
-                            while (rs.next()) {
-                                String result =
-                                        "" + rs.getString("name") +
-                                        "," + rs.getString("created_by") +
-                                        "," + rs.getString("type") +
-                                        "," + rs.getString("description") +
-                                        "," + rs.getInt("total_time");
-                                searchResults.add(result);
-                                System.out.println(result);
 
-                            }
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace(); // Handle potential SQL exceptions
-                }
-
-                // Update the UI with the search results
-                Platform.runLater(() -> {
-                    updateSearchResultLabel(searchResults);
-                });
-
-
-                return null;
-            }
-        };
-
-        // Bind the search task to the UI components
-//        searchResultLabel.textProperty().bind(searchTask.messageProperty());
-
-        // Execute the search task
+        Task<List<String>> searchTask = createSearchTask(query);
         new Thread(searchTask).start();
     }
 
+    /**
+     * Creates a task for searching the database based on the query.
+     * @param query The search query.
+     * @return A Task that performs the database search.
+     */
+    private Task<List<String>> createSearchTask(String query) {
+        return new Task<>() {
+            @Override
+            protected List<String> call() throws Exception {
+                List<String> searchResults = new ArrayList<>();
+                try (Connection connection = DriverManager.getConnection(session.getDB_URL());
+                     PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM routines WHERE name LIKE ?");
+                     ResultSet rs = executeQuery(pstmt, query)) {
+                    while (rs.next()) {
+                        searchResults.add(String.join(",",
+                                rs.getString("name"),
+                                rs.getString("created_by"),
+                                rs.getString("type"),
+                                rs.getString("description"),
+                                String.valueOf(rs.getInt("total_time"))));
+                    }
+                }
+                Platform.runLater(() -> updateSearchResultLabel(searchResults));
+                return searchResults;
+            }
+        };
+    }
+
+    /**
+     * Executes a query with the provided prepared statement.
+     * @param pstmt The PreparedStatement to execute.
+     * @param query The search term to use in the query.
+     * @return The ResultSet from the query.
+     * @throws SQLException If there is a database error.
+     */
+    private ResultSet executeQuery(PreparedStatement pstmt, String query) throws SQLException {
+        pstmt.setString(1, "%" + query + "%");
+        return pstmt.executeQuery();
+    }
+
+    /**
+     * Clears the search context and repopulates the suggested routines when the cancel button is clicked.
+     */
     @FXML
     protected void onCancelButtonClick() {
-        // Clear the search field
         searchField.clear();
-        // Clear the suggestedRoutinesGrid
         suggestedRoutinesGrid.getChildren().clear();
-        // Clear the suggestedRoutineLabel
         suggestedRoutineLabel.setText("Suggested Routines");
-
-        populateSuggestedRoutinesBox(); // Populate suggestions grid
-
-        if (isSearchMode) { // If in search mode, switch back to normal mode
+        populateSuggestedRoutinesBox();
+        if (isSearchMode) {
             isSearchMode = false;
-            toggleButtonsVisibility(); // Swap search and cancel buttons
+            toggleButtonsVisibility();
         }
     }
 
-    // Update the search result label with the search results
+    /**
+     * Updates the grid with search results.
+     * @param searchResults The list of search results to display.
+     */
     private void updateSearchResultLabel(List<String> searchResults) {
-        // Clear the suggestedRoutinesGrid
         suggestedRoutinesGrid.getChildren().clear();
-
-        // Clear the searchResultLabel
         suggestedRoutineLabel.setText("Search Results");
+        addHeadings();
 
-        // Add column headings
-        addHeadings(suggestedRoutinesGrid);
-
-        // Populate the suggestedRoutinesGrid with the search results
         int row = 1;
         for (String result : searchResults) {
-            String[] resultParts = result.split(","); // Split the result into parts
+            String[] resultParts = result.split(",");
 
-            // Add each part to the grid
             for (int i = 0; i < resultParts.length; i++) {
                 Label label = new Label(resultParts[i]);
                 suggestedRoutinesGrid.add(label, i, row);
@@ -193,10 +186,11 @@ public class SearchController {
         }
     }
 
-    // Method to toggle visibility of search and cancel buttons
+    /**
+     * Toggles the visibility of the search and cancel buttons.
+     */
     private void toggleButtonsVisibility() {
         searchButton.setVisible(!searchButton.isVisible());
         cancelButton.setVisible(!cancelButton.isVisible());
     }
-
 }
