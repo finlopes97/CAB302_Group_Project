@@ -1,5 +1,11 @@
 package org.trainer.interval_trainer.controller;
-
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.trainer.interval_trainer.Model.Session;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,5 +21,13 @@ public class SettingsController {
     @FXML
     protected void initialize() {
 
+    }
+
+    @FXML
+    private void onLogoutButton() throws IOException {
+        // Clear the current user from the session
+        Session.getInstance().setCurrentUser(null);
+        // Switch back to the login view
+        HelloApplication.changeScene("login-view.fxml");
     }
 }

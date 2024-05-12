@@ -9,7 +9,7 @@
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <Label text="Interval Training App" style="-fx-font-weight: bold; -fx-font-size: 36px;"/>
+            <Label text="Interval Trainer" style="-fx-font-weight: bold; -fx-font-size: 36px;"/>
             <Label text="Login" style="-fx-font-size: 24px;"/>
             <TextField fx:id="emailField" promptText="Email" style="-fx-border-radius: 10px;"/>
             <PasswordField fx:id="passwordField" promptText="Password" style="-fx-border-radius: 10px;"/>
@@ -23,7 +23,7 @@
                    style="-fx-font-weight: bold; -fx-font-size: 14px;"
             />
             <HBox spacing="20.0" alignment="CENTER">
-                <Button text="Forgot Password" />
+<!--                <Button text="Forgot Password" />-->
                 <Button text="Login" style="-fx-border-radius: 10px;" onAction="#onLoginButton"/>
                 <Button text="SignUp" style="-fx-border-radius: 10px;" onAction="#onSignUpPageButton"/>
             </HBox>

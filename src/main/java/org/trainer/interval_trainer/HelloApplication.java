@@ -42,6 +42,8 @@ public class HelloApplication extends Application {
     }
 
 
+
+
     private void createDatabaseFile() {
         String dbFilePath = "src/main/resources/Database.db"; // Relative path
         File dbFile = new File(dbFilePath);
@@ -58,7 +60,8 @@ public class HelloApplication extends Application {
                         String createUserTable = "CREATE TABLE IF NOT EXISTS User (" +
                                 "Email TEXT PRIMARY KEY," +
                                 "Name TEXT," +
-                                "Password TEXT" +
+                                "Password TEXT," +
+                                "FitnessGoal TEXT" +
                                 ");";
                         statement.execute(createUserTable);
                         System.out.println("User table created successfully.");
@@ -67,21 +70,16 @@ public class HelloApplication extends Application {
                         String createRoutineTable = "CREATE TABLE IF NOT EXISTS routines ("
                                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                                 + "name VARCHAR NOT NULL,"
+                                + "type VARCHAR NOT NULL,"
                                 + "created_by VARCHAR NOT NULL,"
                                 + "created_on TIMESTAMP NOT NULL,"
                                 + "description TEXT NOT NULL,"
+                                + "num_intervals TEXT NOT NULL,"
+                                + "interval_time TEXT NOT NULL,"
                                 + "total_time INTEGER NOT NULL"
                                 +");";
                         statement.execute(createRoutineTable);
                         System.out.println("Routine table created successfully.");
-
-                        // Insert the initial user entry
-                        String insertUser = "INSERT INTO User (Email, Name, Password) VALUES (" +
-                                "'Duncan.zehnder@icloud.com', 'Duncan', 'Cab302!'" +
-                                ");";
-                        statement.execute(insertUser);
-
-                        System.out.println("User entry added successfully.");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
