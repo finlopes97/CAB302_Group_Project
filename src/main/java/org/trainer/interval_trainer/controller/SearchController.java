@@ -36,9 +36,15 @@ public class SearchController {
     private Button settingsButton;
     @FXML
     private GridPane suggestedRoutinesGrid;
-
     @FXML
-    private Label searchResultLabel;
+    private Label suggestedRoutineLabel;
+    @FXML
+    private Button cancelButton;
+
+//    @FXML
+//    private Label searchResultLabel;
+    private boolean isSearchMode = false; // Flag to indicate search mode
+
     @FXML
     private TextField searchField;
 
@@ -50,6 +56,15 @@ public class SearchController {
         populateSuggestedRoutinesBox(); // Populate suggestions grid
     }
 
+    private void addHeadings(GridPane grid){
+        String[] headings = {"Name", "Created On", "Type", "Description", "Total Time"};
+        for (int i = 0; i < headings.length; i++) {
+            Label headingLabel = new Label(headings[i]);
+            headingLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px; -fx-font-weight: bold;"); // Apply CSS style
+            suggestedRoutinesGrid.add(headingLabel, i, 0);
+        }
+    }
+
     private void populateSuggestedRoutinesBox() {
         try (Connection connection = DriverManager.getConnection(DB_URL)) {
             String sql = "SELECT * FROM routines LIMIT 10";
@@ -59,14 +74,16 @@ public class SearchController {
                     while (rs.next()) {
                         String routineName = rs.getString("name");
                         String createdBy = rs.getString("created_by");
-                        Timestamp createdOn = rs.getTimestamp("created_on");
+                        String type = rs.getString("type");
                         String description = rs.getString("description");
                         int totalTime = rs.getInt("total_time");
 
+                        // Add column headings
+                        addHeadings(suggestedRoutinesGrid);
                         // Display routine data in the grid
                         suggestedRoutinesGrid.add(new Label(routineName), 0, row);
                         suggestedRoutinesGrid.add(new Label(createdBy), 1, row);
-                        suggestedRoutinesGrid.add(new Label(createdOn.toString()), 2, row);
+                        suggestedRoutinesGrid.add(new Label(type), 2, row);
                         suggestedRoutinesGrid.add(new Label(description), 3, row);
                         suggestedRoutinesGrid.add(new Label(String.valueOf(totalTime)), 4, row);
 
@@ -83,13 +100,15 @@ public class SearchController {
     @FXML
     protected void onSearchButtonClick() throws IOException {
         String query = searchField.getText();
+
+        if (!isSearchMode) { // If not in search mode, switch to search mode
+            isSearchMode = true;
+            toggleButtonsVisibility(); // Swap search and cancel buttons
+        }
         // Create a task for the search operation
         Task<Void> searchTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                // Simulate a search operation (replace with your actual search logic)
-                Thread.sleep(2000); // Simulate delay (e.g., fetching data from a database or an external API)
-
                 // Perform the search
                 List<String> searchResults = new ArrayList<>();
                 try (Connection connection = DriverManager.getConnection(DB_URL);) {
@@ -99,12 +118,12 @@ public class SearchController {
                         try (ResultSet rs = pstmt.executeQuery()) {
                             // Iterate over the result set and add results to the list
                             while (rs.next()) {
-                                String result = "ID: " + rs.getInt("id") +
-                                        ", Name: " + rs.getString("name") +
-                                        ", Created By: " + rs.getString("created_by") +
-                                        ", Created On: " + rs.getTimestamp("created_on") +
-                                        ", Description: " + rs.getString("description") +
-                                        ", Total Time: " + rs.getInt("total_time");
+                                String result =
+                                        "" + rs.getString("name") +
+                                        "," + rs.getString("created_by") +
+                                        "," + rs.getString("type") +
+                                        "," + rs.getString("description") +
+                                        "," + rs.getInt("total_time");
                                 searchResults.add(result);
                                 System.out.println(result);
 
@@ -132,13 +151,52 @@ public class SearchController {
         new Thread(searchTask).start();
     }
 
+    @FXML
+    protected void onCancelButtonClick() {
+        // Clear the search field
+        searchField.clear();
+        // Clear the suggestedRoutinesGrid
+        suggestedRoutinesGrid.getChildren().clear();
+        // Clear the suggestedRoutineLabel
+        suggestedRoutineLabel.setText("Suggested Routines");
+
+        populateSuggestedRoutinesBox(); // Populate suggestions grid
+
+        if (isSearchMode) { // If in search mode, switch back to normal mode
+            isSearchMode = false;
+            toggleButtonsVisibility(); // Swap search and cancel buttons
+        }
+    }
+
     // Update the search result label with the search results
     private void updateSearchResultLabel(List<String> searchResults) {
-        StringBuilder resultText = new StringBuilder();
+        // Clear the suggestedRoutinesGrid
+        suggestedRoutinesGrid.getChildren().clear();
+
+        // Clear the searchResultLabel
+        suggestedRoutineLabel.setText("Search Results");
+
+        // Add column headings
+        addHeadings(suggestedRoutinesGrid);
+
+        // Populate the suggestedRoutinesGrid with the search results
+        int row = 1;
         for (String result : searchResults) {
-            resultText.append(result).append("\n");
+            String[] resultParts = result.split(","); // Split the result into parts
+
+            // Add each part to the grid
+            for (int i = 0; i < resultParts.length; i++) {
+                Label label = new Label(resultParts[i]);
+                suggestedRoutinesGrid.add(label, i, row);
+            }
+            row++;
         }
-        searchResultLabel.setText(resultText.toString());
+    }
+
+    // Method to toggle visibility of search and cancel buttons
+    private void toggleButtonsVisibility() {
+        searchButton.setVisible(!searchButton.isVisible());
+        cancelButton.setVisible(!cancelButton.isVisible());
     }
 
 }

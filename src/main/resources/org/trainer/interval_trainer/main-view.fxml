@@ -8,7 +8,6 @@
 <BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.trainer.interval_trainer.controller.MainController">
     <top>
         <HBox spacing="10.0" style="-fx-border-color: black; -fx-border-width: 1px;">
-
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
@@ -26,6 +25,9 @@
     </center>
    <bottom>
       <HBox fx:id="navBar" spacing="10" alignment="CENTER">
+          <padding>
+              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+          </padding>
           <Button text="Home" onAction="#onHomeButtonClick"/>
           <Button fx:id="myRoutines" text="My Routines" onAction="#onMyRoutinesButtonClick"/>
           <Button text="Search" onAction="#onFindRoutinesButtonClick"/>
