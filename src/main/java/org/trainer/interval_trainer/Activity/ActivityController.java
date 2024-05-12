@@ -9,7 +9,7 @@ import java.io.IOException;
 import javafx.scene.control.Label;
 
 /**
- * Controller for managing the activity view in an interval training application.
+ * Controller for managing the activity view in the application.
  * This controller handles the timer operations and scene transitions within the application.
  */
 public class ActivityController {
@@ -22,7 +22,7 @@ public class ActivityController {
     private Label timerLabel;
 
     /**
-     * Changes the scene to the create routine view by loading a specific FXML file.
+     * Changes the scene to the create routine view.
      * @throws IOException If the FXML file cannot be found or loaded.
      */
     @FXML
@@ -68,7 +68,7 @@ public class ActivityController {
     }
 
     /**
-     * Changes the scene to the start activity view by loading a specific FXML file.
+     * Changes the scene to the start activity view.
      * @throws IOException If the FXML file cannot be found or loaded.
      */
     @FXML

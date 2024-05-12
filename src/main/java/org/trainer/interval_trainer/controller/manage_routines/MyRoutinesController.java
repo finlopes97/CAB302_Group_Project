@@ -19,12 +19,20 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Controller for managing the "My Routines" view in the application.
+ * This controller handles the display and interaction with the list of existing training routines.
+ */
 public class MyRoutinesController {
 
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
     @FXML private Button createRoutineButton;
     @FXML VBox routinesVBox;
 
+    /**
+     * Initializes the controller by loading all routines from the database and displaying
+     * them in the VBox container. Each routine is represented by a RoutinePreviewController.
+     */
     @FXML
     protected void initialize() {
         SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
@@ -36,7 +44,11 @@ public class MyRoutinesController {
         }
     }
 
-
+    /**
+     * Handles the event when the 'Create Routine' button is clicked.
+     * Changes the scene to the view where a new routine can be created.
+     * @throws IOException If the FXML file cannot be found or loaded.
+     */
     @FXML
     protected void onCreateRoutinesClick() throws IOException {
         HelloApplication.changeScene("new_routine/routine-view.fxml");
