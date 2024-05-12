@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,7 +22,7 @@ public class MainController {
 
     public MainController() {
         pageTitleMap.put("/org/trainer/interval_trainer/home-view.fxml", "Home");
-        pageTitleMap.put("/org/trainer/interval_trainer/my-routine-view.fxml", "My Routines");
+        pageTitleMap.put("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml", "My Routines");
         pageTitleMap.put("/org/trainer/interval_trainer/search-view.fxml", "Find Routines");
         pageTitleMap.put("/org/trainer/interval_trainer/profile-view.fxml", "Profile");
         pageTitleMap.put("/org/trainer/interval_trainer/settings-view.fxml", "Settings");
@@ -52,7 +50,7 @@ public class MainController {
 
     @FXML
     private void onMyRoutinesButtonClick() {
-        switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
+        switchContent("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
     }
 
     @FXML

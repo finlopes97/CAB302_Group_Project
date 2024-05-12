@@ -5,18 +5,23 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Block extends BaseItem {
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+public class Block extends BaseItem implements Externalizable {
     private int RoutineId;
     public int getRoutineId() { return RoutineId; }
     private int GroupId;
     public int getGroupId() { return RoutineId; }
 
 
-    private final StringProperty name = new SimpleStringProperty();
+    private final StringProperty name = new SimpleStringProperty("");
     public StringProperty getName() {
         return name;
     }
-    private final IntegerProperty timeInSeconds  = new SimpleIntegerProperty();
+    private final IntegerProperty timeInSeconds  = new SimpleIntegerProperty(0);
     public IntegerProperty getTimeinSeconds() {
         return timeInSeconds;
     }
@@ -34,5 +39,15 @@ public class Block extends BaseItem {
     }
 
 
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeUTF(name.get());
+        out.writeInt(timeInSeconds.get());
+    }
 
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        name.set(in.readUTF());
+        timeInSeconds.set(in.readInt());
+    }
 }

@@ -23,9 +23,9 @@ public class PopupController extends Popup {
         mins.getValueFactory().setValue(block.getTimeinSeconds().get()/60);
     }
 
-    private RoutinesController routinesController;
+    private RoutineController routinesController;
 
-    public PopupController(RoutinesController routinesController) {
+    public PopupController(RoutineController routinesController) {
         this.routinesController = routinesController;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/new_routine/popup-view.fxml"));

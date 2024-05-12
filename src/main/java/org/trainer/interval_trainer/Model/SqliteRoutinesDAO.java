@@ -1,6 +1,9 @@
 package org.trainer.interval_trainer.Model;
 
+import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqliteRoutinesDAO implements IRoutinesDAO{
 
@@ -18,7 +21,8 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
                     + "created_by VARCHAR NOT NULL,"
                     + "created_on TIMESTAMP NOT NULL,"
                     + "description TEXT NOT NULL,"
-                    + "total_time INTEGER NOT NULL"
+                    + "total_time INTEGER NOT NULL,"
+                    + "data BLOB NOT NULL"
                     +")";
             statement.execute(query);
         }
@@ -30,12 +34,22 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
     @Override
     public void addRoutine(Routine routine) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO routines (name, created_by, created_on, description, total_time) VALUES (?,?,?,?,?)");
-            statement.setString(1, routine.getName());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO routines (name, created_by, created_on, description, total_time, data) VALUES (?,?,?,?,?,?)");
+            statement.setString(1, routine.getName().get());
             statement.setString(2, routine.getCreatedBy());
             statement.setTimestamp(3, routine.getCreatedOn());
-            statement.setString(4, routine.getDescription());
+            statement.setString(4, routine.getDescription().get());
             statement.setInt(5, routine.getTotalTime());
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(routine.getGroup());
+            oos.flush();
+            oos.close();
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+
+            statement.setBytes(6, is.readAllBytes());
+
             statement.executeUpdate();
         }
         catch(Exception e) {
@@ -46,13 +60,23 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
     @Override
     public void updateRoutine(Routine routine) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE routines SET name = ?, created_by = ?, created_on = ?, description = ?, total_time = ? WHERE id = ?");
-            statement.setString(1, routine.getName());
+            PreparedStatement statement = connection.prepareStatement("UPDATE routines SET name = ?, created_by = ?, created_on = ?, description = ?, total_time = ?, data = ? WHERE id = ?");
+            statement.setString(1, routine.getName().get());
             statement.setString(2, routine.getCreatedBy());
             statement.setTimestamp(3, routine.getCreatedOn());
-            statement.setString(4, routine.getDescription());
+            statement.setString(4, routine.getDescription().get());
             statement.setInt(5, routine.getTotalTime());
-            statement.setInt(6, routine.getId());
+            statement.setInt(6, routine.getId().get());
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(routine.getGroup());
+            oos.flush();
+            oos.close();
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+
+            statement.setBytes(6, is.readAllBytes());
+
             statement.executeUpdate();
         }
         catch(Exception e) {
@@ -65,7 +89,7 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM routines WHERE id = ?");
 
-            statement.setInt(6, routine.getId());
+            statement.setInt(1, routine.getId().get());
             statement.executeUpdate();
         }
         catch(Exception e) {
@@ -80,13 +104,8 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String created_by = resultSet.getString("created_by");
-                Timestamp created_on = resultSet.getTimestamp("created_on");
-                String description = resultSet.getString("description");
-                int total_time = resultSet.getInt("total_time");
-                Routine routine = new Routine(name, created_by, created_on, description, total_time);
-                routine.setId(id);
+                Routine routine = makeRoutine(resultSet);
+                routine.getId().set(id);
                 return routine;
             }
 
@@ -97,5 +116,32 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
         return null;
     }
 
+    public List<Routine> getAllRoutines() {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM routines");
+            ResultSet resultSet = statement.executeQuery();
+            List<Routine> routines = new ArrayList<>();
+            while (resultSet.next()) {
 
+
+                routines.add(makeRoutine(resultSet));
+            }
+            return routines;
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Routine makeRoutine(ResultSet resultSet) throws SQLException, IOException, ClassNotFoundException {
+        String name = resultSet.getString("name");
+        String created_by = resultSet.getString("created_by");
+        Timestamp created_on = resultSet.getTimestamp("created_on");
+        String description = resultSet.getString("description");
+        int total_time = resultSet.getInt("total_time");
+
+        ObjectInputStream is = new ObjectInputStream(new ByteArrayInputStream(resultSet.getBytes("data")));
+        Group group = (Group) is.readObject();
+
+        return new Routine(name, created_by, created_on, description, total_time, group);
+    }
 }

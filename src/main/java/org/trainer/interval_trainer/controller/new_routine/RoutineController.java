@@ -4,36 +4,45 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
-import org.trainer.interval_trainer.HelloApplication;
-import org.trainer.interval_trainer.Model.BaseItem;
-import org.trainer.interval_trainer.Model.Block;
-import org.trainer.interval_trainer.Model.Group;
+import org.trainer.interval_trainer.Model.*;
 
-public class RoutinesController {
+import java.io.*;
+import java.sql.Timestamp;
+
+public class RoutineController {
 
     @FXML public VBox startOfList;
     @FXML public VBox endOfList;
     @FXML private VBox children;
 
     @FXML private TextField name;
-    @FXML private TextField reps;
-    @FXML private Button openPopup;
+    @FXML private TextArea description;
 
-
-
-
-    private final Group data = new Group();
+    private Routine routine = new Routine();
+    private Group data = routine.getGroup();
 
     public static PopupController popup;
 
 
+    public void setRoutine(Routine routine) {
+        this.routine = routine;
+        this.data = this.routine.getGroup();
+
+    }
+
     @FXML
     public void initialize() {
+        name.textProperty().bindBidirectional(routine.getName());
+        description.textProperty().bindBidirectional(routine.getDescription());
+
+
         popup = new PopupController(this);
         updateView();
 
@@ -146,5 +155,18 @@ public class RoutinesController {
         data.getChildren().add(newGroup);
     }
 
+    public void save(ActionEvent event) throws IOException {
+        SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
+
+        routine.setCreatedOn(new Timestamp(System.currentTimeMillis()));
+        routine.setCreatedBy("");
+        routine.setTotalTime(0);
+        dao.addRoutine(routine);
+    }
+
+    public void load(ActionEvent event) throws IOException {
+
+
+    }
 }
 

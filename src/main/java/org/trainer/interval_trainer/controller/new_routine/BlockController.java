@@ -2,7 +2,6 @@ package org.trainer.interval_trainer.controller.new_routine;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,14 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.*;
-import javafx.scene.layout.VBox;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.BaseItem;
 import org.trainer.interval_trainer.Model.Block;
 
 import java.io.IOException;
 
-import static org.trainer.interval_trainer.controller.new_routine.RoutinesController.popup;
+import static org.trainer.interval_trainer.controller.new_routine.RoutineController.popup;
 
 public class BlockController extends BaseController {
     @FXML private Button openPopup;
