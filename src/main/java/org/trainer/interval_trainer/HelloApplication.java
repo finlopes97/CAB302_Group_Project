@@ -61,7 +61,8 @@ public class HelloApplication extends Application {
                         String createUserTable = "CREATE TABLE IF NOT EXISTS User (" +
                                 "Email TEXT PRIMARY KEY," +
                                 "Name TEXT," +
-                                "Password TEXT" +
+                                "Password TEXT," +
+                                "FitnessGoal TEXT" +
                                 ");";
                         statement.execute(createUserTable);
                         System.out.println("User table created successfully.");
