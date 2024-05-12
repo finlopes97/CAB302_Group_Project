@@ -1,0 +1,5 @@
+<root>
+    <item name='javafx.scene.Parent children'>
+        <annotation name='javafx.fxml.FXML'/>
+    </item>
+</root>

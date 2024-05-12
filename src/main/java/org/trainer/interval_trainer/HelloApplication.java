@@ -2,6 +2,7 @@ package org.trainer.interval_trainer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -31,6 +32,7 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         BorderPane root = loader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT); // Adjust size as needed
+        scene.getStylesheets().add("/stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -39,9 +41,8 @@ public class HelloApplication extends Application {
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(fxml)));
         primaryStage.getScene().setRoot(pane);
+
     }
-
-
 
 
     private void createDatabaseFile() {
@@ -67,19 +68,24 @@ public class HelloApplication extends Application {
                         System.out.println("User table created successfully.");
 
                         // Create the routine table
-                        String createRoutineTable = "CREATE TABLE IF NOT EXISTS routines ("
-                                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                + "name VARCHAR NOT NULL,"
-                                + "type VARCHAR NOT NULL,"
-                                + "created_by VARCHAR NOT NULL,"
-                                + "created_on TIMESTAMP NOT NULL,"
-                                + "description TEXT NOT NULL,"
-                                + "num_intervals TEXT NOT NULL,"
-                                + "interval_time TEXT NOT NULL,"
-                                + "total_time INTEGER NOT NULL"
-                                +");";
-                        statement.execute(createRoutineTable);
-                        System.out.println("Routine table created successfully.");
+//                        String createRoutineTable = "CREATE TABLE IF NOT EXISTS routines ("
+//                                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+//                                + "name VARCHAR NOT NULL,"
+//                                + "created_by VARCHAR NOT NULL,"
+//                                + "created_on TIMESTAMP NOT NULL,"
+//                                + "description TEXT NOT NULL,"
+//                                + "total_time INTEGER NOT NULL"
+//                                +");";
+//                        statement.execute(createRoutineTable);
+//                        System.out.println("Routine table created successfully.");
+
+                        // Insert the initial user entry
+                        String insertUser = "INSERT INTO User (Email, Name, Password) VALUES (" +
+                                "'Duncan.zehnder@icloud.com', 'Duncan', 'Cab302!'" +
+                                ");";
+                        statement.execute(insertUser);
+
+                        System.out.println("User entry added successfully.");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
