@@ -11,6 +11,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
+import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.*;
 
 import java.io.*;
@@ -34,7 +35,9 @@ public class RoutineController {
     public void setRoutine(Routine routine) {
         this.routine = routine;
         this.data = this.routine.getGroup();
-
+        updateView();
+        name.textProperty().bindBidirectional(routine.getName());
+        description.textProperty().bindBidirectional(routine.getDescription());
     }
 
     @FXML
@@ -161,12 +164,18 @@ public class RoutineController {
         routine.setCreatedOn(new Timestamp(System.currentTimeMillis()));
         routine.setCreatedBy("");
         routine.setTotalTime(0);
-        dao.addRoutine(routine);
+        if (routine.getId().get() != 0) {
+            System.out.println("updated routine");
+            dao.updateRoutine(routine);
+        } else {
+            System.out.println("added new routine");
+            dao.addRoutine(routine);
+        }
+        HelloApplication.changeScene("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
+
+
     }
 
-    public void load(ActionEvent event) throws IOException {
 
-
-    }
 }
 

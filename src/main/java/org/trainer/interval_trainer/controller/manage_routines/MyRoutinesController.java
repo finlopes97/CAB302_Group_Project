@@ -36,6 +36,7 @@ public class MyRoutinesController {
         }
     }
 
+
     @FXML
     protected void onCreateRoutinesClick() throws IOException {
         HelloApplication.changeScene("new_routine/routine-view.fxml");

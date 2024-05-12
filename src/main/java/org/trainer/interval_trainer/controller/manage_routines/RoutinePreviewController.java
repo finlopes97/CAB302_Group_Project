@@ -6,13 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.trainer.interval_trainer.HelloApplication;
-import org.trainer.interval_trainer.Model.BaseItem;
-import org.trainer.interval_trainer.Model.Block;
-import org.trainer.interval_trainer.Model.Group;
-import org.trainer.interval_trainer.Model.Routine;
+import org.trainer.interval_trainer.Model.*;
 import org.trainer.interval_trainer.controller.new_routine.BlockController;
 import org.trainer.interval_trainer.controller.new_routine.GroupController;
 import org.trainer.interval_trainer.controller.new_routine.RoutineController;
+
 
 import java.io.IOException;
 
@@ -39,20 +37,15 @@ public class RoutinePreviewController extends VBox {
         description.setText(data.getDescription().get());
 
 
-        for (BaseItem child : data.getGroup().getChildren()) {
-            if (child instanceof Block) {
-                children.getChildren().add(new BlockController((Block) child));
-
-            } else if (child instanceof Group) {
-                children.getChildren().add(new GroupController((Group) child));
-            }
-        }
-
-
     }
 
     public void delete(ActionEvent event) {
-
+        new SqliteRoutinesDAO().deleteRoutine(data);
+        try {
+            HelloApplication.changeScene("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void play(ActionEvent event) {
 

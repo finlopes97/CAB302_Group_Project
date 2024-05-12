@@ -41,16 +41,8 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
             statement.setString(4, routine.getDescription().get());
             statement.setInt(5, routine.getTotalTime());
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(routine.getGroup());
-            oos.flush();
-            oos.close();
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-
-            statement.setBytes(6, is.readAllBytes());
-
-            statement.executeUpdate();
+            getbytesfromroutine(routine, statement);
+            statement.execute();
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -66,22 +58,25 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
             statement.setTimestamp(3, routine.getCreatedOn());
             statement.setString(4, routine.getDescription().get());
             statement.setInt(5, routine.getTotalTime());
-            statement.setInt(6, routine.getId().get());
+            statement.setInt(7, routine.getId().get());
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(routine.getGroup());
-            oos.flush();
-            oos.close();
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-
-            statement.setBytes(6, is.readAllBytes());
-
+            getbytesfromroutine(routine, statement);
             statement.executeUpdate();
         }
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void getbytesfromroutine(Routine routine, PreparedStatement statement) throws IOException, SQLException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(routine.getGroup());
+        oos.flush();
+        oos.close();
+        InputStream is = new ByteArrayInputStream(baos.toByteArray());
+
+        statement.setBytes(6, is.readAllBytes());
     }
 
     @Override
@@ -133,6 +128,7 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
     }
 
     private Routine makeRoutine(ResultSet resultSet) throws SQLException, IOException, ClassNotFoundException {
+        int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         String created_by = resultSet.getString("created_by");
         Timestamp created_on = resultSet.getTimestamp("created_on");
@@ -142,6 +138,10 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
         ObjectInputStream is = new ObjectInputStream(new ByteArrayInputStream(resultSet.getBytes("data")));
         Group group = (Group) is.readObject();
 
-        return new Routine(name, created_by, created_on, description, total_time, group);
+        Routine newRoutine = new Routine(name, created_by, created_on, description, total_time, group);
+        newRoutine.getId().set(id);
+
+        return newRoutine;
+
     }
 }
