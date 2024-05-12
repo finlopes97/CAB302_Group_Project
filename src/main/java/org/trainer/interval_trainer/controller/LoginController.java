@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
+import org.trainer.interval_trainer.Model.Session;
 import org.trainer.interval_trainer.Model.User;
 
 import java.io.IOException;
@@ -123,6 +124,8 @@ public class LoginController {
         Platform.runLater(() -> {
             String email = emailField.getText();
             String password = passwordField.getText();
+            email = email.toLowerCase();
+
             if (validateCredentials(email, password)) {
                 // Retrieve user information from the database based on the email
                 User currentUser = retrieveUser(email);
@@ -131,6 +134,7 @@ public class LoginController {
                     setCurrentUser(currentUser);
 
                     // Navigate to the main view
+                    Session.getInstance().setCurrentUser(currentUser);
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
                         Parent root = loader.load();

@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.Model.User;
-
+import org.trainer.interval_trainer.Model.Session;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +77,7 @@ public class MainController {
             Parent root = loader.load();
             MyRoutinesController controller = loader.getController();
             controller.setCurrentUser(currentUser); // Pass the currentUser to the CreateRoutinesController
-            System.out.println("****** MAIN ****** " + currentUser);
+            System.out.println("****** MyRoutines ****** " + currentUser);
             Scene scene = new Scene(root, WIDTH, HEIGHT);
             Stage stage = (Stage) myRoutines.getScene().getWindow();
             stage.setScene(scene);
@@ -96,6 +96,7 @@ public class MainController {
     private void onProfileButtonClick() {
         switchContent("/org/trainer/interval_trainer/profile-view.fxml");
     }
+
 
     @FXML
     private void onSettingsButtonClick() {

@@ -6,13 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.trainer.interval_trainer.HelloApplication;
+import org.trainer.interval_trainer.Model.User;
 import org.trainer.interval_trainer.validation.UserRegistrationValidator;
+import org.trainer.interval_trainer.Model.Session;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Controller for managing the sign-up process.
@@ -69,28 +68,48 @@ public class SignUpController {
         visiblePasswordField.setVisible(!showPassword);
     }
 
+    private boolean userExists(String email) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT * FROM User WHERE Email = ?")) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     /**
      * Processes the sign-up action when the sign-up button is clicked.
      * It validates the email, username, and password using the UserRegistrationValidator.
      * If any validation fails, it sets the appropriate error message in errorMessageLabel.
      * If all validations pass, it attempts to register the user and handle potential database errors.
      */
-    public void onSignUpButton() {
+    public void onSignUpButton() throws SQLException {
         String email = emailField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
+        email = email.toLowerCase();
 
         UserRegistrationValidator validator = new UserRegistrationValidator();
         if (!validator.isValidUsername(username)) {
-            errorMessageLabel.setText(USERNAME_ERROR);
+            errorMessageLabel.setText("Invalid username. It must be between 4 and 30 characters and contain no special characters.");
         } else if (!validator.isValidEmail(email)) {
-            errorMessageLabel.setText(EMAIL_ERROR);
+            errorMessageLabel.setText("Invalid email address.");
         } else if (!validator.isValidPassword(password)) {
-            errorMessageLabel.setText(PASSWORD_ERROR);
-        } else {
+            errorMessageLabel.setText("Invalid password. It must be between 6 and 30 characters and should be a combination of letters, numbers and special characters.");
+        } else if (userExists(username, "Name")) {
+            errorMessageLabel.setText("A user with this username already exists. Please use a different username.");
+        } else if (userExists(email, "Email")) {
+            errorMessageLabel.setText("A user with this email already exists. Please use a different email.");
+        }  else {
             try {
                 registerNewUser(email, username, password);
                 errorMessageLabel.setText("");
+                User user123 = new User(email);
+                Session.getInstance().setCurrentUser(user123);
                 HelloApplication.changeScene("main-view.fxml");
             } catch (Exception e) {
                 errorMessageLabel.setText("Registration failed. Please try again.");
@@ -98,6 +117,22 @@ public class SignUpController {
             }
         }
     }
+
+    private boolean userExists(String value, String field) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT * FROM User WHERE " + field + " = ?")) {
+            statement.setString(1, value);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+
+
 
     /**
      * Attempts to register a new user in the database.
