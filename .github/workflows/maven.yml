@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "integration" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "integration" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 17
+    - name: Set up JDK 21 (Corretto)
       uses: actions/setup-java@v3
       with:
         java-version: '21'
