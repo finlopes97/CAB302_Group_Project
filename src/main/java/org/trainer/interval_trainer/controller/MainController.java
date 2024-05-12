@@ -99,7 +99,9 @@ public class MainController {
 
 
     @FXML
-    private void onSettingsButtonClick() {
-        switchContent("/org/trainer/interval_trainer/settings-view.fxml");
+    private void onSettingsButtonClick() {switchContent("/org/trainer/interval_trainer/settings-view.fxml");}
+    @FXML
+    private void onActivityButtonClick() {
+        switchContent("/org/trainer/interval_trainer/activity-page-view.fxml");
     }
 }
