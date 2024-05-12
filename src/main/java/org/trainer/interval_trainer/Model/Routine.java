@@ -1,71 +1,71 @@
 package org.trainer.interval_trainer.Model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.sql.Timestamp;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Routine {
-    private int id;
-    private String Name;
-    private String CreatedBy;
-    private Timestamp CreatedOn;
-    private String Description;
-    private int TotalTime;
+    private IntegerProperty id = new SimpleIntegerProperty();
 
+    public IntegerProperty getId() { return id; }
 
-    public Routine(String Name, String CreatedBy, Timestamp CreatedOn, String Description, int TotalTime) {
+    private StringProperty name = new SimpleStringProperty();
+    public StringProperty getName() { return name; }
+    private String createdBy;
+    private Timestamp createdOn;
 
-        this.Name = Name;
-        this.CreatedBy = CreatedBy;
-        this.CreatedOn = CreatedOn;
-        this.Description = Description;
-        this.TotalTime = TotalTime;
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+    public void setCreatedOn(Timestamp CreatedOn) {
+        this.createdOn = CreatedOn;
     }
 
-    public int getId() {
-        return id;
+    private StringProperty description = new SimpleStringProperty();
+    public StringProperty getDescription() { return description; }
+
+    private Group group;
+    public void setGroup(Group group) { this.group = group; }
+    public Group getGroup() { return group; }
+
+    private int totalTime;
+    public int getTotalTime() {
+        return totalTime;
+    }
+    public void setTotalTime(int TotalTime) {
+        this.totalTime = TotalTime;
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+    public Routine(String name, String createdBy, Timestamp createdOn, String description, int totalTime, Group group) {
+        this.name.set(name);
+        this.createdBy = createdBy;
+        this.createdOn = createdOn;
+        this.description.set(description);
+        this.totalTime = totalTime;
+        this.group = group;
     }
 
-    public String getName() {
-        return Name;
+    public Routine() {
+        this.group = new Group();
     }
 
-    public void setFirstName(String Name) {
-        this.Name = Name;
-    }
+
+
 
     public String getCreatedBy() {
-        return CreatedBy;
+        return createdBy;
     }
 
     public void setCreatedBy(String CreatedBy) {
-        this.CreatedBy = CreatedBy;
+        this.createdBy = CreatedBy;
     }
 
-    public Timestamp getCreatedOn() {
-        return CreatedOn;
-    }
 
-    public void setCreatedOn(Timestamp CreatedOn) {
-        this.CreatedOn = CreatedOn;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String Description) {
-        this.Description = Description;
-    }
-    public int getTotalTime() {
-        return TotalTime;
-    }
-
-    public void setTotalTime(int TotalTime) {
-        this.TotalTime = TotalTime;
-    }
 
 }

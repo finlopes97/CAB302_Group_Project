@@ -121,4 +121,12 @@ public class ProfileController {
         // Show the edit profile button
         editProfileButton.setVisible(true);
     }
+
+    @FXML
+    private void onLogOutButton() throws IOException {
+        // Clear the current user from the session
+        Session.getInstance().setCurrentUser(null);
+        // Switch back to the login view
+        HelloApplication.changeScene("login-view.fxml");
+    }
 }

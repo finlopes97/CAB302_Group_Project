@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.User;
 import org.trainer.interval_trainer.Model.Session;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class MainController {
     @FXML
     public Button myRoutines;
 
+    @FXML
+    private Stage stage = HelloApplication.getPrimaryStage();
+
     public static final int WIDTH = 600;
     public static final int HEIGHT = 700;
 
@@ -39,6 +43,7 @@ public class MainController {
         pageTitleMap.put("/org/trainer/interval_trainer/search-view.fxml", "Find Routines");
         pageTitleMap.put("/org/trainer/interval_trainer/profile-view.fxml", "Profile");
         pageTitleMap.put("/org/trainer/interval_trainer/settings-view.fxml", "Settings");
+        pageTitleMap.put("/org/trainer/interval_trainer/create-routine-view.fxml", "Create Routine");
     }
     private User currentUser; // Field to store the current user
     /**
@@ -56,9 +61,24 @@ public class MainController {
 
     public void switchContent(String fxmlFile) {
         try {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
-            contentArea.getChildren().setAll(node);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            contentArea.getChildren().setAll(root);
             viewTitle.setText(pageTitleMap.getOrDefault(fxmlFile, "Home"));
+
+            // Set MainController instance if needed
+            if (loader.getController() instanceof MyRoutinesController) {
+                ((MyRoutinesController) loader.getController()).setMainController(this);
+            } else if (loader.getController() instanceof CreateRoutinesController) {
+                ((CreateRoutinesController) loader.getController()).setMainController(this);
+            }
+
+            // Set the stage size
+            if (stage != null) {
+                stage.setWidth(WIDTH);
+                stage.setHeight(HEIGHT);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,21 +90,8 @@ public class MainController {
     }
 
     @FXML
-    private void onMyRoutinesButtonClick() {
+    void onMyRoutinesButtonClick() {
         switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/my-routine-view.fxml"));
-            Parent root = loader.load();
-            MyRoutinesController controller = loader.getController();
-            controller.setCurrentUser(currentUser); // Pass the currentUser to the CreateRoutinesController
-            System.out.println("****** MyRoutines ****** " + currentUser);
-            Scene scene = new Scene(root, WIDTH, HEIGHT);
-            Stage stage = (Stage) myRoutines.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -96,7 +103,6 @@ public class MainController {
     private void onProfileButtonClick() {
         switchContent("/org/trainer/interval_trainer/profile-view.fxml");
     }
-
 
     @FXML
     private void onSettingsButtonClick() {switchContent("/org/trainer/interval_trainer/settings-view.fxml");}
