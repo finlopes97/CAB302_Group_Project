@@ -45,10 +45,13 @@
                 <Button fx:id="editProfileButton" text="Edit Profile" onAction="#onEditProfileButton" style=" -fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
 
                 <HBox fx:id="confirmRevertBox" spacing="10" managed="false">
-                    <Button fx:id="confirmChangesButton" text="Confirm Changes" onAction="#onConfirmChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
                     <Button fx:id="revertChangesButton" text="Revert Changes" onAction="#onRevertChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+                    <Button fx:id="confirmChangesButton" text="Confirm Changes" onAction="#onConfirmChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
                 </HBox>
             </StackPane>
+
+            <!-- Log Out Button -->
+            <Button text="Log Out" onAction="#onLogOutButton" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #B22222; -fx-border-color: #B22222; -fx-border-radius: 5px; -fx-padding: 10px 20px;" VBox.vgrow="ALWAYS" />
 
 
         </VBox>
