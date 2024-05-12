@@ -9,6 +9,10 @@ import org.trainer.interval_trainer.Model.User;
 
 import java.sql.*;
 
+/**
+ * Controller for the Home view of the application, handling the display
+ * of both user-specific and suggested routines.
+ */
 public class HomeController {
 
     @FXML
@@ -20,7 +24,9 @@ public class HomeController {
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
     private final User currentUser = Session.getInstance().getCurrentUser();
 
-
+    /**
+     * Initializes the controller, populates the grids with routines, and sets the welcome message.
+     */
     @FXML
     protected void initialize() {
         populateMyRoutinesBox(); // Populate routines grid
@@ -28,6 +34,10 @@ public class HomeController {
         welcomeText.setText("Welcome, " + currentUser.getName());
     }
 
+    /**
+     * Adds column headings to the specified GridPane.
+     * @param grid The GridPane to which the headings will be added.
+     */
     private void addHeadings(GridPane grid) {
         String[] headings = {"Name", "Created On", "Type", "Description", "Total Time"};
         for (int i = 0; i < headings.length; i++) {
@@ -37,6 +47,10 @@ public class HomeController {
         }
     }
 
+    /**
+     * Populates the "My Routines" GridPane with routines created by the current user.
+     * Should be handled by SqliteRoutineDAO, will fix later.
+     */
     private void populateMyRoutinesBox() {
         try {
             try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -70,6 +84,10 @@ public class HomeController {
         }
     }
 
+    /**
+     * Populates the "Suggested Routines" GridPane with routines selected from the database.
+     * Again, SqliteRoutineDAO should handle this.
+     */
     private void populateSuggestedRoutinesBox() {
         try (Connection connection = DriverManager.getConnection(DB_URL)) {
             String sql = "SELECT * FROM routines LIMIT 10";
