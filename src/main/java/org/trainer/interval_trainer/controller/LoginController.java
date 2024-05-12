@@ -138,7 +138,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
             Parent root = loader.load();
             MainController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
+            Session.getInstance().setCurrentUser(currentUser);
             Scene scene = new Scene(root);
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(scene);
