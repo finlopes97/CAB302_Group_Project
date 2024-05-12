@@ -2,44 +2,48 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
-<ScrollPane prefHeight="942.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.trainer.interval_trainer.controller.new_routine.RoutineController">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane prefHeight="942.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.trainer.interval_trainer.controller.new_routine.RoutineController">
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
     <VBox>
+      <HBox prefHeight="41.0" prefWidth="516.0" spacing="10.0">
+         <children>
+            <Button onAction="#exit" mnemonicParsing="false" text=" exit and cancel" />
+             <Button onAction="#save" text=" save and exit" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
         <VBox fx:id="startOfList" spacing="10.0">
             <HBox>
-                <Label text="Name of Routine"/>
-                <TextField fx:id="name"/>
+                <Label text="Name of Routine" />
+                <TextField fx:id="name" />
             </HBox>
-            <Label text="description"/>
-                <TextArea fx:id="description"/>
-            <Button text="save" onAction="#save"/>
-            <Separator/>
+            <Label text="description" />
+                <TextArea fx:id="description" />
+            <Separator />
         </VBox>
         <VBox fx:id="children" prefHeight="35.0" prefWidth="266.0" spacing="3.0">
             <VBox.margin>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </VBox.margin>
         </VBox>
         <VBox fx:id="endOfList" prefHeight="0.0" prefWidth="266.0" spacing="10.0">
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                <Button onAction="#addBlock" text="addChild"/>
-                <Button onAction="#addGroup" text="addItem"/>
+                <Button onAction="#addGroup" text="add Group" />
+                <Button onAction="#addBlock" text="add Item" />
             </HBox>
         </VBox>
     </VBox>
-
-
 
 </ScrollPane>

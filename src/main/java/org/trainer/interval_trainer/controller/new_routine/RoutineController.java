@@ -13,6 +13,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.*;
+import org.trainer.interval_trainer.controller.MainController;
 
 import java.io.*;
 import java.sql.Timestamp;
@@ -42,6 +43,8 @@ public class RoutineController {
 
     @FXML
     public void initialize() {
+        HelloApplication.getPrimaryStage().getScene().getStylesheets().add("/stylesheet.css");
+
         name.textProperty().bindBidirectional(routine.getName());
         description.textProperty().bindBidirectional(routine.getDescription());
 
@@ -171,11 +174,14 @@ public class RoutineController {
             System.out.println("added new routine");
             dao.addRoutine(routine);
         }
-        HelloApplication.changeScene("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
-
-
+        exit();
     }
 
+    public void exit() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
+        HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
+        ((MainController) loader.getController()).switchContent("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
+    }
 
 }
 
