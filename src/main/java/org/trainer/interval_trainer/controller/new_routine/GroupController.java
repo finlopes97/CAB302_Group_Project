@@ -91,6 +91,7 @@ public class GroupController extends BaseController {
                 event.setDropCompleted(success);
                 event.consume();
             }
+
         });
 
         data.getChildren().addListener(new ListChangeListener<BaseItem>() {
@@ -100,6 +101,7 @@ public class GroupController extends BaseController {
                 updateView();
             }
         });
+        updateView();
     }
 
 

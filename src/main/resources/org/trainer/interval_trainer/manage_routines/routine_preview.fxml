@@ -11,6 +11,6 @@
       <Button onAction="#delete" mnemonicParsing="false" text="delete" />
       <Button onAction="#edit" mnemonicParsing="false" text="edit" />
       <Button onAction="#play" mnemonicParsing="false" text="Play" />
-
+      <VBox fx:id="children"/>
    </children>
 </fx:root>
