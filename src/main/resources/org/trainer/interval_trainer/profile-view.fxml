@@ -11,21 +11,45 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<BorderPane fx:id="profileRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.ProfileController" style="-fx-font-family: 'Arial'">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.TextArea?>
+<BorderPane fx:id="profileRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.ProfileController" style="-fx-font-family: 'Arial'; -fx-background-color: #f0f0f0;">
     <center>
         <VBox alignment="TOP_CENTER" spacing="20.0">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
             </padding>
-            <!-- Welcome Text -->
-            <VBox alignment="TOP_LEFT">
-                <Label fx:id="welcomeText" style="-fx-font-size: 35; -fx-font-weight: bold;" />
-            </VBox>
 
             <!-- User Details -->
-            <Label fx:id="nameLabel" style="-fx-font-size: 18;" />
-            <Label fx:id="emailLabel" style="-fx-font-size: 18;" />
-            <Label fx:id="fitnessGoalLabel" style="-fx-font-size: 18;" wrapText="true" />
+            <VBox alignment="TOP_LEFT" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 20px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-border-color: #ccc;">
+                <Label text="Details" style="-fx-font-size: 22; -fx-text-fill: #666;" />
+                <HBox spacing="10.0">
+                    <Label text="Name " style="-fx-font-size: 18; -fx-text-fill: #666;" />
+                    <TextField fx:id="editableNameField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #666;" HBox.hgrow="ALWAYS" />
+                </HBox>
+                <HBox spacing="10.0">
+                    <Label text="Email " style="-fx-font-size: 18; -fx-text-fill: #666;" />
+                    <TextField fx:id="editableEmailField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #666;" HBox.hgrow="ALWAYS" />
+                </HBox>
+                <Label text="Fitness Goal " style="-fx-font-size: 18; -fx-text-fill: #666;" />
+                <TextArea fx:id="editableFitnessGoalField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #666;" wrapText="true" prefHeight="100.0" />
+            </VBox>
+
+
+
+
+
+            <!-- Edit Profile Button and Confirm/Revert Changes Buttons -->
+            <StackPane>
+                <Button fx:id="editProfileButton" text="Edit Profile" onAction="#onEditProfileButton" style=" -fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+
+                <HBox fx:id="confirmRevertBox" spacing="10" managed="false">
+                    <Button fx:id="confirmChangesButton" text="Confirm Changes" onAction="#onConfirmChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+                    <Button fx:id="revertChangesButton" text="Revert Changes" onAction="#onRevertChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+                </HBox>
+            </StackPane>
+
 
         </VBox>
     </center>
