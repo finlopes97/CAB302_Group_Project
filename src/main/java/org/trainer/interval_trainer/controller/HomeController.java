@@ -4,13 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.trainer.interval_trainer.Model.ResizableController;
 import org.trainer.interval_trainer.Model.Session;
 import org.trainer.interval_trainer.Model.User;
 
 import java.sql.*;
 
 public class HomeController {
+
+    @FXML
+    private Label welcomeText;
     @FXML
     private GridPane myRoutinesGrid;
     @FXML
@@ -23,6 +25,7 @@ public class HomeController {
     protected void initialize() {
         populateMyRoutinesBox(); // Populate routines grid
         populateSuggestedRoutinesBox(); // Populate suggestions grid
+        welcomeText.setText("Welcome, " + currentUser.getName());
     }
 
     private void addHeadings(GridPane grid) {

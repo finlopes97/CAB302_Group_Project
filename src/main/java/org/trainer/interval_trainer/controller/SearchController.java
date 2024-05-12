@@ -57,7 +57,7 @@ public class SearchController {
     }
 
     private void addHeadings(GridPane grid){
-        String[] headings = {"Name", "Created On", "Type", "Description", "Total Time"};
+        String[] headings = {"Name", "Created By", "Type", "Description", "Total Time"};
         for (int i = 0; i < headings.length; i++) {
             Label headingLabel = new Label(headings[i]);
             headingLabel.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px; -fx-font-weight: bold;"); // Apply CSS style

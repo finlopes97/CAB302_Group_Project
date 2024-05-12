@@ -19,14 +19,13 @@ import org.trainer.interval_trainer.controller.MainController.*;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class MyRoutinesController {
 
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
-    @FXML
-    private Button createRoutineButton;
-
     private final User currentUser = Session.getInstance().getCurrentUser();
 
     @FXML
@@ -52,22 +51,6 @@ public class MyRoutinesController {
         mainController.switchContent("/org/trainer/interval_trainer/create-routine-view.fxml");
     }
 
-
-//    @FXML
-//    protected void onCreateRoutinesClick() throws IOException {
-//        try {
-//            HelloApplication.changeScene("/org/trainer/interval_trainer/create-routine-view.fxml");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @FXML
-//    protected void onCreateRoutinesClick() {
-//        MainController mainController = (MainController) Session.getInstance().getMainController(); // Get the instance of MainController
-//        mainController.switchContent("/org/trainer/interval_trainer/create-routine-view.fxml");
-//    }
-
-
     private void populateMyRoutinesBox() {
         try {
             try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -82,9 +65,16 @@ public class MyRoutinesController {
                         String description = rs.getString("description");
                         int totalTime = rs.getInt("total_time");
 
+                        // Convert Timestamp to LocalDateTime
+                        LocalDateTime createdDateTime = createdOn.toLocalDateTime();
+
+                        // Format LocalDateTime according to your desired format
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        String formattedCreatedOn = createdDateTime.format(formatter);
+
                         // Display routine data in the grid
                         myRoutinesGrid.add(new Label(routineName), 0, row);
-                        myRoutinesGrid.add(new Label(createdOn.toString()), 1, row);
+                        myRoutinesGrid.add(new Label(formattedCreatedOn), 1, row);
                         myRoutinesGrid.add(new Label(description), 2, row);
                         myRoutinesGrid.add(new Label(String.valueOf(totalTime)), 3, row);
                         row++;

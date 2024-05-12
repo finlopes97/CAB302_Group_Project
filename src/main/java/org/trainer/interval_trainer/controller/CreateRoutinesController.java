@@ -80,7 +80,8 @@ public class CreateRoutinesController {
 
         try {
             addRoutine(routineName, routineType, routineCreator, timeCreated, description, numIntervals, intervalTime, totalTime);
-            HelloApplication.changeScene("my-routine-view.fxml");
+//            HelloApplication.changeScene("my-routine-view.fxml");
+            mainController.switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
         } catch (SQLException e) {
             e.printStackTrace();
         }
