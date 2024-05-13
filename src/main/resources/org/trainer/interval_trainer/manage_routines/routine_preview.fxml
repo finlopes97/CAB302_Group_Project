@@ -4,13 +4,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefHeight="400.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
+<?import javafx.scene.layout.HBox?>
+<fx:root prefHeight="400.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.trainer.interval_trainer.controller.manage_routines.RoutinePreviewController">
+   <HBox>
       <Label fx:id="name" text="Label" />
       <Label fx:id="description" text="Label" />
       <Button onAction="#delete" mnemonicParsing="false" text="delete" />
       <Button onAction="#edit" mnemonicParsing="false" text="edit" />
       <Button onAction="#play" mnemonicParsing="false" text="Play" />
       <VBox fx:id="children"/>
-   </children>
+   </HBox>
 </fx:root>
