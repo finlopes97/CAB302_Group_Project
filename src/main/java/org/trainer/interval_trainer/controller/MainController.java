@@ -120,8 +120,8 @@ public class MainController {
         switchContent("/org/trainer/interval_trainer/profile-view.fxml");
     }
 
-//    @FXML
-//    private void onSettingsButtonClick() {
-//        switchContent("/org/trainer/interval_trainer/settings-view.fxml");
-//    }
+    @FXML
+    private void onSettingsButtonClick() {
+        switchContent("/org/trainer/interval_trainer/settings-view.fxml");
+    }
 }
