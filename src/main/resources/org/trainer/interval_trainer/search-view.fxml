@@ -18,15 +18,9 @@
                 <TextField fx:id="searchField" promptText="Enter your search query" HBox.hgrow="ALWAYS"/>
                 <Button text="Search" onAction="#onSearchButtonClick" fx:id="searchButton"/>
             </HBox>
-            <Label fx:id="searchResultLabel" text="Search results will appear here" style="-fx-font-size: 16;"/>
-            <Label text="Suggested Routines" style="-fx-font-size: 25; -fx-font-weight: bold"/>
-            <GridPane fx:id="suggestedRoutinesGrid" alignment="CENTER" hgap="10" vgap="10">
-                <Label text="Routine Name" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                <Label text="User" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                <Label text="Date Created On" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                <Label text="Description" GridPane.columnIndex="3" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                <Label text="Routine Duration" GridPane.columnIndex="4" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-            </GridPane>
+
+            <VBox fx:id="children"/>
         </VBox>
+
     </center>
 </BorderPane>

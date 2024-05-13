@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import org.trainer.interval_trainer.Activity.ActivityController;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.*;
 import org.trainer.interval_trainer.controller.new_routine.BlockController;
@@ -47,9 +48,10 @@ public class RoutinePreviewController extends VBox {
             throw new RuntimeException(e);
         }
     }
-    public void play(ActionEvent event) {
-        // should open the activity player / the thing that starts the timers and such
-        // copy the way it is being done from edit() below.
+    public void play(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity-page-view.fxml"));
+        HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
+        ((ActivityController) loader.getController()).setRoutine(data);
 
     }
     public void edit(ActionEvent event) throws IOException {

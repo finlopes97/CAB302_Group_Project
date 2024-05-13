@@ -126,6 +126,20 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
             throw new RuntimeException(e);
         }
     }
+    public List<Routine> searchRoutine(String search) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM routines WHERE name LIKE  ? ");
+            statement.setString(1, search);
+            ResultSet resultSet = statement.executeQuery();
+            List<Routine> routines = new ArrayList<>();
+            while (resultSet.next()) {
+                routines.add(makeRoutine(resultSet));
+            }
+            return routines;
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private Routine makeRoutine(ResultSet resultSet) throws SQLException, IOException, ClassNotFoundException {
         int id = resultSet.getInt("id");
