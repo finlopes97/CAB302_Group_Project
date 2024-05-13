@@ -46,12 +46,6 @@ public class ActivityController {
             timeline.stop();
         }
     }
-    private Timeline timeline;
-    //change later
-    private static Integer minutes = 1;
-    private static Integer seconds = 0;
-    @FXML
-    private Label timerLabel;
 
     /**
      * Initializes and starts the countdown timer, updating the timer label every second.
