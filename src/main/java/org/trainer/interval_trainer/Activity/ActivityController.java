@@ -65,31 +65,4 @@ public class ActivityController {
         timer();
     }
 
-    public static Integer getInterval(Integer interval_time) {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/Database.db")) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM routines WHERE data = ?");
-            byte[] intervalBytes = ByteBuffer.allocate(4).putInt(interval_time).array();
-            statement.setBytes(1, intervalBytes);
-            System.out.println("interval_time: " + interval_time);
-            System.out.println("intervalBytes: " + Arrays.toString(intervalBytes));
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                byte[] dataBytes = resultSet.getBytes("data");
-                System.out.println("dataBytes: " + Arrays.toString(dataBytes));
-                ByteBuffer wrapped = ByteBuffer.wrap(dataBytes);
-                interval_time = wrapped.getInt();
-                System.out.println("Retrieved interval_time: " + interval_time);
-                return interval_time;
-            } else {
-                System.out.println("No row found");
-            }
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-
 }
