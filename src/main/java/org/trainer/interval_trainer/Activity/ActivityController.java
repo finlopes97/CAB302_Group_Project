@@ -9,11 +9,6 @@ import java.io.IOException;
 import javafx.scene.control.Label;
 import org.trainer.interval_trainer.Model.Routine;
 
-import java.nio.ByteBuffer;
-import java.sql.*;
-import java.util.Arrays;
-
-
 public class ActivityController {
 
     private Routine routine;
