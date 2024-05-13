@@ -49,7 +49,7 @@ public class RoutinePreviewController extends VBox {
     }
     public void play(ActionEvent event) throws IOException {
         // should open the activity player / the thing that starts the timers and such
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/Activity/activity-page-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity-page-view.fxml"));
         HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
         ((RoutineController) loader.getController()).setRoutine(data);
 

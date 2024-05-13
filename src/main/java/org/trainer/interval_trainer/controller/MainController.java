@@ -91,7 +91,7 @@ public class MainController {
 
     @FXML
     void onMyRoutinesButtonClick() {
-        switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
+        switchContent("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
     }
 
     @FXML
