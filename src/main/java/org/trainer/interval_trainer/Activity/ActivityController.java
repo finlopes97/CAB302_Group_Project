@@ -7,6 +7,7 @@ import javafx.util.Duration;
 import org.trainer.interval_trainer.HelloApplication;
 import java.io.IOException;
 import javafx.scene.control.Label;
+import org.trainer.interval_trainer.Model.Routine;
 
 import java.nio.ByteBuffer;
 import java.sql.*;
@@ -14,6 +15,11 @@ import java.util.Arrays;
 
 
 public class ActivityController {
+
+    private Routine routine;
+    public void setRoutine(Routine routine) {
+        this.routine = routine;
+    }
 
     @FXML
     protected void onArrowButtonClick() throws IOException {
