@@ -7,12 +7,19 @@ import javafx.util.Duration;
 import org.trainer.interval_trainer.HelloApplication;
 import java.io.IOException;
 import javafx.scene.control.Label;
+import org.trainer.interval_trainer.Model.Routine;
+
 
 /**
  * Controller for managing the activity view in the application.
  * This controller handles the timer operations and scene transitions within the application.
  */
 public class ActivityController {
+
+    private Routine routine;
+    public void setRoutine(Routine routine) {
+        this.routine = routine;
+    }
 
     private Timeline timeline;
     //change later
@@ -27,7 +34,7 @@ public class ActivityController {
      */
     @FXML
     protected void onArrowButtonClick() throws IOException {
-        HelloApplication.changeScene("create-routine-view.fxml");
+        HelloApplication.changeScene("main-view.fxml");
     }
 
     /**
@@ -73,6 +80,6 @@ public class ActivityController {
      */
     @FXML
     protected void onStartButtonClick() throws IOException {
-        HelloApplication.changeScene("activity-start-view.fxml");
+        timer();
     }
 }
