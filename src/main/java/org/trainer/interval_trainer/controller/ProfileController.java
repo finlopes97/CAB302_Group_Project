@@ -1,28 +1,22 @@
 package org.trainer.interval_trainer.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.User;
 import org.trainer.interval_trainer.Model.Session;
 import java.io.IOException;
-import org.trainer.interval_trainer.Model.User;
 
+/**
+ * Controller for managing user profile interactions within the application.
+ * It enables users to view, edit, and update their profile information including name, email, and fitness goals.
+ */
 public class ProfileController {
-    public Label nameLabel;
-    public Label emailLabel;
-    public Label fitnessGoalLabel;
-
-    private final User currentUser = Session.getInstance().getCurrentUser();
+    private Session session;
+    private User currentUser;
 
     @FXML
     private TextField editableNameField;
@@ -39,11 +33,20 @@ public class ProfileController {
     @FXML
     private HBox confirmRevertBox;
 
+    /**
+     * Initializes the controller by setting user's current information in editable fields.
+     * @throws IOException If the profile view cannot be loaded.
+     */
     @FXML
     protected void initialize() throws IOException {
+        session = Session.getInstance();
+        currentUser = session.getCurrentUser();
         SetFieldsOfCurrentUser();
     }
 
+    /**
+     * Populates the text fields with current user information.
+     */
     private void SetFieldsOfCurrentUser()
     {
         if (currentUser != null) {
@@ -60,8 +63,9 @@ public class ProfileController {
 
     }
 
-
-
+    /**
+     * Enables editing of profile fields and displays confirmation options.
+     */
     @FXML
     private void onEditProfileButton() {
         // Make the text fields editable
@@ -79,6 +83,9 @@ public class ProfileController {
         editProfileButton.setVisible(false);
     }
 
+    /**
+     * Confirms the changes made to the profile and updates the current user's information.
+     */
     @FXML
     private void onConfirmChangesButton() {
         // Update the user details
@@ -99,10 +106,11 @@ public class ProfileController {
 
         // Show the edit profile button
         editProfileButton.setVisible(true);
-
-
     }
 
+    /**
+     * Reverts changes made to the profile fields back to the current user's information.
+     */
     @FXML
     private void onRevertChangesButton() {
         SetFieldsOfCurrentUser();
@@ -122,6 +130,10 @@ public class ProfileController {
         editProfileButton.setVisible(true);
     }
 
+    /**
+     * Logs out the current user and returns to the login screen.
+     * @throws IOException If the login view cannot be loaded.
+     */
     @FXML
     private void onLogOutButton() throws IOException {
         // Clear the current user from the session

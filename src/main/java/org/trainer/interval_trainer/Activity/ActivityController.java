@@ -9,6 +9,11 @@ import java.io.IOException;
 import javafx.scene.control.Label;
 import org.trainer.interval_trainer.Model.Routine;
 
+
+/**
+ * Controller for managing the activity view in the application.
+ * This controller handles the timer operations and scene transitions within the application.
+ */
 public class ActivityController {
 
     private Routine routine;
@@ -16,16 +21,30 @@ public class ActivityController {
         this.routine = routine;
     }
 
+    private Timeline timeline;
+    //change later
+    private static Integer minutes = 1;
+    private static Integer seconds = 30;
+    @FXML
+    private Label timerLabel;
+
+    /**
+     * Changes the scene to the create routine view.
+     * @throws IOException If the FXML file cannot be found or loaded.
+     */
     @FXML
     protected void onArrowButtonClick() throws IOException {
         HelloApplication.changeScene("main-view.fxml");
     }
 
+    /**
+     * Pauses the countdown of the timer if it is currently active.
+     */
     @FXML
     protected void onPauseButtonClick() {
-    if (timeline != null) {
-        timeline.stop();
-    }
+        if (timeline != null) {
+            timeline.stop();
+        }
     }
     private Timeline timeline;
     //change later
@@ -33,6 +52,11 @@ public class ActivityController {
     private static Integer seconds = 0;
     @FXML
     private Label timerLabel;
+
+    /**
+     * Initializes and starts the countdown timer, updating the timer label every second.
+     * Decrements the time by one second until reaching zero, at which point the timer stops.
+     */
     @FXML
     protected void timer() {
         timerLabel.setText(minutes.toString()+":"+seconds.toString());
@@ -55,9 +79,13 @@ public class ActivityController {
         timeline.playFromStart();
 
     }
+
+    /**
+     * Changes the scene to the start activity view.
+     * @throws IOException If the FXML file cannot be found or loaded.
+     */
     @FXML
     protected void onStartButtonClick() throws IOException {
         timer();
     }
-
 }

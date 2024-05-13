@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * Controller for creating and managing routine creation in the application.
+ */
 public class CreateRoutinesController {
     @FXML
     private TextField routineNameField;
@@ -29,42 +32,35 @@ public class CreateRoutinesController {
     private Spinner<Integer> mins;
     @FXML
     private Spinner<Integer> secs;
-
-
     @FXML
     private Button backButton;
 
-    // Add a field to hold the current user
     private final User currentUser = Session.getInstance().getCurrentUser();
-
-
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
-
-
-    @FXML
-    protected void initialize() {
-    }
-
-
-
-//    public void onBackButton() throws IOException {
-//        HelloApplication.changeScene("my-routine-view.fxml");
-////        main.switchContent("my-routine-view.fxml");
-//    }
-
 
     private MainController mainController;
 
-    // Method to set the MainController instance
+    /**
+     * Sets the main controller to handle navigation and content switching within the application.
+     * @param mainController The main controller instance.
+     */
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Handles the action for the back button. It switches the current scene to the my-routine-view.
+     * @throws IOException If there is an error loading the FXML file.
+     */
     @FXML
     protected void onBackButton() throws IOException {
         mainController.switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
     }
 
+    /**
+     * Handles the creation of a new routine based on user inputs from the form.
+     * @throws IOException If there is an error switching scenes.
+     */
     public void onCreateRoutineButton() throws IOException {
         // Get the selected date from the DatePicker
         LocalDate selectedDate = LocalDate.now();
@@ -88,6 +84,9 @@ public class CreateRoutinesController {
 
     }
 
+    /**
+     * This should be handled by the SqliteRoutinesDAO class, beyond the scope of this branch.
+     */
     private void addRoutine(String routineName, String routineType, String routineCreator, Timestamp timeCreated, String description, int numIntervals, int intervalTime, int totalTime) throws SQLException {
         try (Connection connection = DriverManager.getConnection(DB_URL)) {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO routines (name, type, created_by, created_on, description, num_intervals, interval_time, total_time) VALUES (?,?,?,?,?,?,?,?)");

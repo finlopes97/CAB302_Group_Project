@@ -32,7 +32,7 @@ public class SignUpController {
     @FXML
     private Label errorMessageLabel;
 
-    private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
+    private Session session;
 
     private static final String USERNAME_ERROR = "Your username must be between 3 and 30 characters and contain no special characters.";
     private static final String EMAIL_ERROR = "Your email address must contain an '@' symbol to be a valid email address.";
@@ -43,8 +43,9 @@ public class SignUpController {
      * Sets up bindings for password visibility and manages the properties of password and visible password fields.
      */
     public void initialize() {
-        visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
+        session = Session.getInstance();
 
+        visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
         visiblePasswordField.managedProperty().bind(visiblePasswordField.visibleProperty());
         passwordField.managedProperty().bind(passwordField.visibleProperty());
         passwordField.visibleProperty().bind(hidePasswordCheckbox.selectedProperty());
@@ -56,103 +57,75 @@ public class SignUpController {
      * If the checkbox is selected, the password is obscured. Otherwise, it is visible.
      */
     public void togglePasswordVisibility() {
-        if (passwordField.visibleProperty().isBound()) {
-            passwordField.visibleProperty().unbind();
-        }
-        if (visiblePasswordField.visibleProperty().isBound()) {
-            visiblePasswordField.visibleProperty().unbind();
-        }
-
         boolean showPassword = hidePasswordCheckbox.isSelected();
-        passwordField.setVisible(showPassword);
-        visiblePasswordField.setVisible(!showPassword);
-    }
-
-    private boolean userExists(String email) throws SQLException {
-        try (Connection connection = DriverManager.getConnection(DB_URL);
-             PreparedStatement statement = connection.prepareStatement(
-                     "SELECT * FROM User WHERE Email = ?")) {
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        passwordField.setVisible(!showPassword);
+        visiblePasswordField.setVisible(showPassword);
     }
 
     /**
-     * Processes the sign-up action when the sign-up button is clicked.
-     * It validates the email, username, and password using the UserRegistrationValidator.
-     * If any validation fails, it sets the appropriate error message in errorMessageLabel.
-     * If all validations pass, it attempts to register the user and handle potential database errors.
+     * Handles user registration when the sign-up button is clicked.
+     * Validates input fields and checks if the user already exists before attempting to register a new user.
+     * @throws SQLException If an error occurs during database interaction.
      */
     public void onSignUpButton() throws SQLException {
-        String email = emailField.getText();
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        email = email.toLowerCase();
+        String email = emailField.getText().trim().toLowerCase();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
         UserRegistrationValidator validator = new UserRegistrationValidator();
         if (!validator.isValidUsername(username)) {
-            errorMessageLabel.setText("Invalid username. It must be between 4 and 30 characters and contain no special characters.");
+            errorMessageLabel.setText(USERNAME_ERROR);
         } else if (!validator.isValidEmail(email)) {
-            errorMessageLabel.setText("Invalid email address.");
+            errorMessageLabel.setText(EMAIL_ERROR);
         } else if (!validator.isValidPassword(password)) {
-            errorMessageLabel.setText("Invalid password. It must be between 6 and 30 characters and should be a combination of letters, numbers and special characters.");
+            errorMessageLabel.setText(PASSWORD_ERROR);
         } else if (userExists(username, "Name")) {
             errorMessageLabel.setText("A user with this username already exists. Please use a different username.");
         } else if (userExists(email, "Email")) {
             errorMessageLabel.setText("A user with this email already exists. Please use a different email.");
-        }  else {
+        } else {
             try {
                 registerNewUser(email, username, password);
-                errorMessageLabel.setText("");
-                User user123 = new User(email);
-                Session.getInstance().setCurrentUser(user123);
+                Session.getInstance().setCurrentUser(new User(email));  // Simplified user session handling
                 HelloApplication.changeScene("main-view.fxml");
             } catch (Exception e) {
                 errorMessageLabel.setText("Registration failed. Please try again.");
-                e.printStackTrace();
+                System.err.println("Error registering user: " + e.getMessage());
             }
         }
     }
 
+    /**
+     * Checks if a user already exists in the database with the given value in the specified field.
+     * @param value The value to check in the database (username or email).
+     * @param field The database field to check (Name or Email).
+     * @return true if the user exists, false otherwise.
+     * @throws SQLException If an error occurs during the query.
+     */
     private boolean userExists(String value, String field) throws SQLException {
-        try (Connection connection = DriverManager.getConnection(DB_URL);
+        try (Connection connection = DriverManager.getConnection(session.getDB_URL());
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT * FROM User WHERE " + field + " = ?")) {
             statement.setString(1, value);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
+            return statement.executeQuery().next();
         }
     }
 
-
-
-
     /**
-     * Attempts to register a new user in the database.
-     * Inserts the new user's email, username, and password into the User table.
-     * @param email the user's email address
-     * @param username the user's chosen username
-     * @param password the user's chosen password
-     * @throws SQLException if an error occurs during the database operation
+     * Registers a new user in the database.
+     * @param email The email address of the new user.
+     * @param username The username of the new user.
+     * @param password The password of the new user.
+     * @throws SQLException If an error occurs during the insertion.
      */
     private void registerNewUser(String email, String username, String password) throws SQLException {
-        try (Connection connection = DriverManager.getConnection(DB_URL);
+        try (Connection connection = DriverManager.getConnection(session.getDB_URL());
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO User (Email, Name, Password) VALUES (?, ?, ?)")) {
-                    statement.setString(1, email);
-                    statement.setString(2, username);
-                    statement.setString(3, password);
-                    statement.executeUpdate();
-                    System.out.println("User registered successfully!");
-        } catch (SQLException e) {
-            e.printStackTrace();
+            statement.setString(1, email);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            statement.executeUpdate();
         }
     }
 
