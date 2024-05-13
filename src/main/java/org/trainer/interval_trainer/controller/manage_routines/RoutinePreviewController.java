@@ -44,6 +44,8 @@ public class RoutinePreviewController extends VBox {
 
         name.setText(data.getName().get());
         description.setText(data.getDescription().get());
+
+
     }
 
     /**
@@ -65,9 +67,10 @@ public class RoutinePreviewController extends VBox {
      * This method should handle the logic to start routine activities, such as timing or exercise displays.
      * @param event The event that triggered this method.
      */
-    public void play(ActionEvent event) {
-        // should open the activity player / the thing that starts the timers and such
-        // copy the way it is being done from edit() below.
+    public void play(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity-page-view.fxml"));
+        HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
+        ((RoutineController) loader.getController()).setRoutine(data);
     }
 
     /**
@@ -82,3 +85,4 @@ public class RoutinePreviewController extends VBox {
         ((RoutineController) loader.getController()).setRoutine(data);
     }
 }
+
