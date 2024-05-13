@@ -52,6 +52,7 @@ public class RoutinePreviewController extends VBox {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity-page-view.fxml"));
         HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
         ((RoutineController) loader.getController()).setRoutine(data);
+        name.setText(data.getName().get());
 
     }
     public void edit(ActionEvent event) throws IOException {

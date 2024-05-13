@@ -29,7 +29,7 @@ public class ActivityController {
     }
     private Timeline timeline;
     //change later
-    private static Integer minutes = 0;
+    private static Integer minutes = 1;
     private static Integer seconds = 0;
     @FXML
     private Label timerLabel;
