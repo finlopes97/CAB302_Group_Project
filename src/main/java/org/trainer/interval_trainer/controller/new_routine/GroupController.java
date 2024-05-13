@@ -18,8 +18,11 @@ import org.trainer.interval_trainer.Model.Group;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+/**
+ * Controller for managing Group elements in the application.
+ * Handles user interactions and visual representation of a Group.
+ */
 public class GroupController extends BaseController {
-
     @FXML
     private VBox children;
     @FXML
@@ -27,12 +30,16 @@ public class GroupController extends BaseController {
     @FXML
     private TextField reps;
 
-    private Group data;
+    private final Group data;
 
     public Group getData() {
         return data;
     }
 
+    /**
+     * Constructor initializes the controller with a specific Group.
+     * @param data Group data to be managed by this controller.
+     */
     public GroupController(Group data) {
         this.data = data;
         FXMLLoader groupLoader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/new_routine/group-view.fxml"));
@@ -104,7 +111,9 @@ public class GroupController extends BaseController {
         updateView();
     }
 
-
+    /**
+     * Updates the view to reflect the current state of the group data.
+     */
     private void updateView () {
         children.getChildren().clear();
         for (BaseItem child : data.getChildren()) {
@@ -117,16 +126,28 @@ public class GroupController extends BaseController {
         }
     }
 
+    /**
+     * Deletes the group from its parent container.
+     * @param event The action event triggered by the UI.
+     */
     public void deleteGroup(ActionEvent event) {
         data.getParent().getChildren().remove(data);
     }
 
+    /**
+     * Adds a child group to the current group.
+     * @param event The action event triggered by the UI.
+     */
     public void addChildGroup(ActionEvent event) {
         Group newGroup = new Group();
         newGroup.setParent(data);
         data.getChildren().add(newGroup);
     }
 
+    /**
+     * Adds a child block to the current group.
+     * @param event The action event triggered by the UI.
+     */
     public void addChildBlock(ActionEvent event) {
         Block newBlock = new Block();
         newBlock.setParent(data);

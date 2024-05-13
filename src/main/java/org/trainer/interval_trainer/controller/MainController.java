@@ -19,9 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Main controller for managing the primary UI navigation and content display within the main window of the application.
+ * It handles scene switching and updates the main content area based on user interactions.
+ */
 public class MainController {
-//    @FXML
-//    private BorderPane mainLayout;
     @FXML
     private VBox contentArea;
     @FXML
@@ -30,13 +32,16 @@ public class MainController {
     public Button myRoutines;
 
     @FXML
-    private Stage stage = HelloApplication.getPrimaryStage();
+    private final Stage stage = HelloApplication.getPrimaryStage();
 
     public static final int WIDTH = 600;
     public static final int HEIGHT = 700;
 
     private final Map<String, String> pageTitleMap = new HashMap<>();
 
+    /**
+     * Constructor that initializes the title map for various views.
+     */
     public MainController() {
         pageTitleMap.put("/org/trainer/interval_trainer/home-view.fxml", "Home");
         pageTitleMap.put("/org/trainer/interval_trainer/my-routine-view.fxml", "My Routines");
@@ -45,20 +50,19 @@ public class MainController {
         pageTitleMap.put("/org/trainer/interval_trainer/settings-view.fxml", "Settings");
         pageTitleMap.put("/org/trainer/interval_trainer/create-routine-view.fxml", "Create Routine");
     }
-    private User currentUser; // Field to store the current user
-    /**
-     * Set the current user in the controller.
-     * @param user The user to set as the current user.
-     */
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
 
+    /**
+     * Sets the initial content of the application to the home view.
+     */
     @FXML
     public void initialize() {
         switchContent("/org/trainer/interval_trainer/home-view.fxml");
     }
 
+    /**
+     * Switches the content of the main area to the specified FXML view, updating the title and resizing the stage.
+     * @param fxmlFile The FXML file path to load into the main content area.
+     */
     public void switchContent(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
@@ -80,32 +84,44 @@ public class MainController {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to load page: " + e.getMessage());
         }
     }
 
+    /**
+     * Switches the content of the main area to the home view.
+     */
     @FXML
     private void onHomeButtonClick() {
         switchContent("/org/trainer/interval_trainer/home-view.fxml");
     }
 
+    /**
+     * Switches the content of the main area to the routines view.
+     */
     @FXML
-    void onMyRoutinesButtonClick() {
+    private void onMyRoutinesButtonClick() {
         switchContent("/org/trainer/interval_trainer/my-routine-view.fxml");
     }
 
+    /**
+     * Switches the content of the main area to the search view.
+     */
     @FXML
     private void onFindRoutinesButtonClick() {
         switchContent("/org/trainer/interval_trainer/search-view.fxml");
     }
 
+    /**
+     * Switches the content of the main area to the profile view.
+     */
     @FXML
     private void onProfileButtonClick() {
         switchContent("/org/trainer/interval_trainer/profile-view.fxml");
     }
 
-    @FXML
-    private void onSettingsButtonClick() {
-        switchContent("/org/trainer/interval_trainer/settings-view.fxml");
-    }
+//    @FXML
+//    private void onSettingsButtonClick() {
+//        switchContent("/org/trainer/interval_trainer/settings-view.fxml");
+//    }
 }

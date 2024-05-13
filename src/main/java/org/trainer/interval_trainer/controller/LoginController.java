@@ -39,18 +39,8 @@ public class LoginController {
     private Label errorMessageLabel;
 
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
-
     private static final String INCORRECT_DETAILS = "Some of your details may be incorrect. Please try again.";
-
-    // Define a field to store the current user
     private User currentUser;
-    /**
-     * Sets the current user in the application.
-     * @param user The user to set as the current user.
-     */
-    private void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
 
     /**
      * Initializes the controller. Sets up the property bindings for password visibility,
@@ -89,10 +79,6 @@ public class LoginController {
         HelloApplication.changeScene("sign-up.fxml");
     }
 
-    /**
-     * Attempts to log the user in by validating their credentials against the database.
-     * If credentials are valid, transitions to the main view of the application, otherwise, displays an error message.
-     */
 //    public void onLoginButton() {
 //        Platform.runLater(() -> {
 //            String email = emailField.getText();
@@ -120,6 +106,7 @@ public class LoginController {
 //        });
 //    }
 
+
     public void onLoginButton() {
         Platform.runLater(() -> {
             String email = emailField.getText();
@@ -130,26 +117,11 @@ public class LoginController {
                 // Retrieve user information from the database based on the email
                 User currentUser = retrieveUser(email);
                 if (currentUser != null) {
-                    // Set the current user in the application
-                    setCurrentUser(currentUser);
-
-                    // Navigate to the main view
                     Session.getInstance().setCurrentUser(currentUser);
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
-                        Parent root = loader.load();
-                        MainController controller = loader.getController();
-                        controller.setCurrentUser(currentUser); // Pass the currentUser to the MainViewController
-                        Scene scene = new Scene(root);
-                        Stage stage = (Stage) emailField.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    navigateToMainView(currentUser);
                 } else {
                     // Handle case where user information couldn't be retrieved
-                    errorMessageLabel.setText("Failed to retrieve user information.");
+                    errorMessageLabel.setText(INCORRECT_DETAILS);
                 }
             } else {
                 errorMessageLabel.setText(INCORRECT_DETAILS);
@@ -157,6 +129,24 @@ public class LoginController {
         });
     }
 
+    /**
+     * Navigates to the main view of the application and sets the current user in the main controller.
+     * @param currentUser The user who has successfully logged in.
+     */
+    private void navigateToMainView(User currentUser) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
+            Parent root = loader.load();
+            MainController controller = loader.getController();
+            Session.getInstance().setCurrentUser(currentUser);
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Validates the user's credentials by querying the database.
@@ -177,6 +167,12 @@ public class LoginController {
         }
     }
 
+    /**
+     * Retrieves user information from the database based on email.
+     * Will refactor this into a UserDAO at some point, works for now.
+     * @param email User's email.
+     * @return User object if found, otherwise null.
+     */
     private User retrieveUser(String email) {
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM User WHERE Email = ?")) {
