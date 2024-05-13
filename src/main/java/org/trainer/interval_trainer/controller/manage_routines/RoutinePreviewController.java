@@ -44,8 +44,6 @@ public class RoutinePreviewController extends VBox {
 
         name.setText(data.getName().get());
         description.setText(data.getDescription().get());
-
-
     }
 
     /**
@@ -85,4 +83,3 @@ public class RoutinePreviewController extends VBox {
         ((RoutineController) loader.getController()).setRoutine(data);
     }
 }
-
