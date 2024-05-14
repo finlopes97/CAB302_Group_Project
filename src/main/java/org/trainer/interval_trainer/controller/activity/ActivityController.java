@@ -129,14 +129,17 @@ public class ActivityController {
     }
 
     public void setUpNewItem() {
-        Block block = (Block) getCurrentItem();
-        seconds = ((Block) getCurrentItem()).getTimeinSeconds().get();
+        if (getCurrentItem() instanceof Block) {
+            Block block = (Block) getCurrentItem();
+            seconds = ((Block) getCurrentItem()).getTimeinSeconds().get();
 
-        name.setText(block.getName().get());
+            name.setText(block.getName().get());
 
-        children.getChildren().clear();
-        System.out.println("___________________________-");
-        visualize(routine.getGroup(), 0);
+            children.getChildren().clear();
+            System.out.println("___________________________-");
+            visualize(routine.getGroup(), 0);
+        }
+
     }
 
     public void visualize(Group group, int depth) {

@@ -59,6 +59,7 @@ public class SearchController {
         SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
         List<Routine> routines = dao.searchRoutine(query);
         System.out.println(routines);
+        children.getChildren().clear();
         for (Routine routine : routines) {
             children.getChildren().add(new RoutinePreviewController(routine));
             
