@@ -2,22 +2,16 @@ package org.trainer.interval_trainer.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
-import org.trainer.interval_trainer.Model.User;
-import org.trainer.interval_trainer.Model.Session;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Main controller for managing the primary UI navigation and content display within the main window of the application.
@@ -30,6 +24,8 @@ public class MainController {
     private Label viewTitle;
     @FXML
     public Button myRoutines;
+    @FXML
+    public HBox navBar;
 
     @FXML
     private final Stage stage = HelloApplication.getPrimaryStage();
@@ -119,9 +115,4 @@ public class MainController {
     private void onProfileButtonClick() {
         switchContent("/org/trainer/interval_trainer/profile-view.fxml");
     }
-
-//    @FXML
-//    private void onSettingsButtonClick() {
-//        switchContent("/org/trainer/interval_trainer/settings-view.fxml");
-//    }
 }
