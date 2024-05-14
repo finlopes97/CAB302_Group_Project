@@ -3,23 +3,26 @@ package org.trainer.interval_trainer.controller.manage_routines;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import org.trainer.interval_trainer.Activity.ActivityController;
+import org.trainer.interval_trainer.controller.activity.ActivityController;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.*;
-import org.trainer.interval_trainer.controller.new_routine.BlockController;
-import org.trainer.interval_trainer.controller.new_routine.GroupController;
 import org.trainer.interval_trainer.controller.new_routine.RoutineController;
 
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class RoutinePreviewController extends VBox {
 
     @FXML Label name;
     @FXML Label description;
     @FXML VBox children;
+    @FXML
+    Button delete;
+    @FXML Button edit;
 
     private Routine data;
     public RoutinePreviewController(Routine routine) {
@@ -37,6 +40,10 @@ public class RoutinePreviewController extends VBox {
         name.setText(data.getName().get());
         description.setText(data.getDescription().get());
 
+        if (!Objects.equals(Session.getInstance().getCurrentUser().getName(), routine.getName().get())) {
+            getChildren().remove(delete);
+            getChildren().remove(edit);
+        }
 
     }
 
@@ -49,7 +56,7 @@ public class RoutinePreviewController extends VBox {
         }
     }
     public void play(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity-page-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity/activity-page-view.fxml"));
         HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
         ((ActivityController) loader.getController()).setRoutine(data);
 

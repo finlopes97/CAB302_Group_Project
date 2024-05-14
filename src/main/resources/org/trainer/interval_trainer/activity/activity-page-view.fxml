@@ -8,7 +8,7 @@
 <?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.trainer.interval_trainer.Activity.ActivityController"
+            fx:controller="org.trainer.interval_trainer.controller.activity.ActivityController"
             prefHeight="400.0" prefWidth="600.0">
 
 
@@ -23,6 +23,9 @@
     <Button text="START" onAction="#onStart" />
     <Button text="Back" onAction="#onArrowButtonClick"/>
     <Button text="Next" onAction="#onNext"/>
+    <Button text="Prev" onAction="#onPrev"/>
+    <Button text="pause" onAction="#onPauseButtonClick"/>
+    <VBox fx:id="children"/>
 </VBox>
 
 </AnchorPane>

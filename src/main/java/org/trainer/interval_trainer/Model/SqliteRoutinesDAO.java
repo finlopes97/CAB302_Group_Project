@@ -4,6 +4,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SqliteRoutinesDAO implements IRoutinesDAO{
 
@@ -111,14 +112,16 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
         return null;
     }
 
-    public List<Routine> getAllRoutines() {
+    public List<Routine> getAllRoutines(Optional<String> name) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM routines");
+            if (name.isPresent()) {
+                statement = connection.prepareStatement("SELECT * FROM routines WHERE created_by = ?");
+                statement.setString(1, name.get());
+            }
             ResultSet resultSet = statement.executeQuery();
             List<Routine> routines = new ArrayList<>();
             while (resultSet.next()) {
-
-
                 routines.add(makeRoutine(resultSet));
             }
             return routines;
@@ -128,8 +131,8 @@ public class SqliteRoutinesDAO implements IRoutinesDAO{
     }
     public List<Routine> searchRoutine(String search) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM routines WHERE name LIKE  ? ");
-            statement.setString(1, search);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM routines WHERE name LIKE '%t%' ");
+            //statement.setString(1, search);
             ResultSet resultSet = statement.executeQuery();
             List<Routine> routines = new ArrayList<>();
             while (resultSet.next()) {

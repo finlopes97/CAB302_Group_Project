@@ -7,7 +7,7 @@ public class SqliteConnection {
     private static Connection instance = null;
 
     private SqliteConnection() {
-        String url = "jdbc:sqlite:Database.db";
+        String url = "jdbc:sqlite:./src/main/resources/Database.db";
             try {
                 instance = DriverManager.getConnection(url);
             }

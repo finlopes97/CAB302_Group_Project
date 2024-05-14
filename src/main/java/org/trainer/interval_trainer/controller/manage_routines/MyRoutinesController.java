@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.Routine;
+import org.trainer.interval_trainer.Model.Session;
 import org.trainer.interval_trainer.Model.SqliteRoutinesDAO;
 import org.trainer.interval_trainer.controller.new_routine.RoutineController;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class MyRoutinesController {
 
@@ -28,7 +30,7 @@ public class MyRoutinesController {
     @FXML
     protected void initialize() {
         SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
-        List<Routine> routines = dao.getAllRoutines();
+        List<Routine> routines = dao.getAllRoutines(Optional.ofNullable(Session.getInstance().getCurrentUser().getName()));
         System.out.println(routines);
 
         for (Routine routine : routines) {
