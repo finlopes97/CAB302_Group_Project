@@ -1,6 +1,7 @@
 package org.trainer.interval_trainer.controller.manage_routines;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.Routine;
@@ -8,8 +9,6 @@ import org.trainer.interval_trainer.Model.Session;
 import org.trainer.interval_trainer.Model.SqliteRoutinesDAO;
 
 import java.io.IOException;
-import java.sql.*;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +17,10 @@ import java.util.Optional;
  * This controller handles the display and interaction with the list of existing training routines.
  */
 public class MyRoutinesController extends RoutineListController {
-
-    private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
-    @FXML private Button createRoutineButton;
-    @FXML VBox routinesVBox;
+    @FXML
+    private Button createRoutineButton;
+    @FXML
+    VBox routinesVBox;
 
     /**
      * Initializes the controller by loading all routines from the database and displaying

@@ -2,8 +2,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
 <BorderPane fx:id="searchRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.SearchController" style="-fx-font-family: 'Arial';">
     <center>
@@ -11,7 +9,7 @@
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <VBox alignment="TOP_LEFT">
+            <VBox alignment="TOP_CENTER">
                 <Label text="Search" style="-fx-font-size: 35; -fx-font-weight: bold;" />
             </VBox>
             <HBox alignment="CENTER" spacing="10">
@@ -19,12 +17,11 @@
                 <Button text="Search" onAction="#onSearchButtonClick" fx:id="searchButton"/>
             </HBox>
             <Label fx:id ="suggestedRoutineLabel"  text="Suggested Routines" style="-fx-font-size: 25; -fx-font-weight: bold"/>
-            <GridPane fx:id="suggestedRoutinesGrid" alignment="TOP_LEFT" hgap="10" vgap="10">
+            <GridPane fx:id="suggestedRoutinesGrid" alignment="TOP_CENTER" hgap="10" vgap="10">
                 <Label text="Routine Name" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
                 <Label text="User" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
                 <Label text="Description" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
                 <Label text="Routine Duration" GridPane.columnIndex="3" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                <Button fx:id="cancelButton" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="0" onAction="#onCancelButtonClick" />
             </GridPane>
             <VBox fx:id="children"/>
         </VBox>

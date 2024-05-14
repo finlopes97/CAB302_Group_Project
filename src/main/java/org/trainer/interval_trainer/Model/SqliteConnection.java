@@ -2,7 +2,6 @@ package org.trainer.interval_trainer.Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import org.trainer.interval_trainer.Model.Session;
 
 public class SqliteConnection {
     private static Connection instance = null;
@@ -10,12 +9,12 @@ public class SqliteConnection {
 
     private SqliteConnection() {
         session = Session.getInstance();
-        String url = session.getDbUrl;
+        String url = session.getDB_URL();
             try {
                 instance = DriverManager.getConnection(url);
             }
             catch (SQLException sqlEx) {
-                System.err.println(sqlEx);
+                System.err.println("SQLException: " + sqlEx.getMessage());
             }
     }
     public static Connection getInstance() {
