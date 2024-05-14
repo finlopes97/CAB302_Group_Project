@@ -5,14 +5,16 @@ import java.sql.SQLException;
 
 public class SqliteConnection {
     private static Connection instance = null;
+    private static Session session;
 
     private SqliteConnection() {
-        String url = "jdbc:sqlite:src/main/resources/Database.db";
+        session = Session.getInstance();
+        String url = session.getDB_URL();
             try {
                 instance = DriverManager.getConnection(url);
             }
             catch (SQLException sqlEx) {
-                System.err.println(sqlEx);
+                System.err.println("SQLException: " + sqlEx.getMessage());
             }
     }
     public static Connection getInstance() {
