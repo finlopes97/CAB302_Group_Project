@@ -67,9 +67,9 @@ public class RoutinePreviewController extends VBox {
         name.setText(data.getName().get());
         description.setText(data.getDescription().get());
 
-        if (!Objects.equals(Session.getInstance().getCurrentUser().getName(), routine.getName().get())) {
-            getChildren().remove(delete);
-            getChildren().remove(edit);
+        if (!Objects.equals(Session.getInstance().getCurrentUser().getName(), routine.getCreatedBy())) {
+            delete.setVisible(false);
+            edit.setVisible(false);
         }
     }
 

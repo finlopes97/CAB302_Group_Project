@@ -207,6 +207,40 @@ public class SqliteRoutinesDAO implements IRoutinesDAO {
     }
 
     /**
+     * Retrieves all a limited number of routines from the database, optionally filtered by not a creator's name.
+     * @param name the optional name of the creator to filter routines away from
+     * @param limit the maximum amount of routines this shitty method will fetch
+     * @return a (small) list of routines (for this weak ass method)
+     */
+    public List<Routine> getSomeRoutinesNotByUser(Optional<String> name, int limit) {
+        try {
+            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM routines");
+            if (name.isPresent()) {
+                queryBuilder.append(" WHERE created_by != ?");
+            }
+            queryBuilder.append(" ORDER BY created_on DESC LIMIT ?");
+
+            PreparedStatement statement = connection.prepareStatement(queryBuilder.toString());
+            if (name.isPresent()) {
+                statement.setString(1, name.get());
+                statement.setInt(2, limit);
+            } else {
+                statement.setInt(1, limit);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            List<Routine> routines = new ArrayList<>();
+            while (resultSet.next()) {
+                routines.add(makeRoutine(resultSet));
+            }
+            return routines;
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            System.err.println("Error retrieving " + limit + " routines from SqliteRoutinesDAO: " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
      * Searches for routines in the database by name.
      * @param search the search term to match against routine names
      * @return a list of routines that match the search term
