@@ -25,8 +25,13 @@ public class RoutinePreviewController extends VBox {
     @FXML Button edit;
 
     private Routine data;
-    public RoutinePreviewController(Routine routine) {
+    private RoutineListController controller;
+
+    public RoutinePreviewController(Routine routine, RoutineListController controller) {
         data = routine;
+        this.controller = controller;
+
+
 
         FXMLLoader blockLoader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/manage_routines/routine_preview.fxml"));
         blockLoader.setController(this);
@@ -49,11 +54,8 @@ public class RoutinePreviewController extends VBox {
 
     public void delete(ActionEvent event) {
         new SqliteRoutinesDAO().deleteRoutine(data);
-        try {
-            HelloApplication.changeScene("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        controller.updateView();
+
     }
     public void play(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity/activity-page-view.fxml"));

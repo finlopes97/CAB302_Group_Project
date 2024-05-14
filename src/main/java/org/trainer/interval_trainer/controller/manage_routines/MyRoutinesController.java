@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public class MyRoutinesController {
+public class MyRoutinesController extends RoutineListController {
 
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/Database.db";
     @FXML private Button createRoutineButton;
@@ -29,13 +29,7 @@ public class MyRoutinesController {
 
     @FXML
     protected void initialize() {
-        SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
-        List<Routine> routines = dao.getAllRoutines(Optional.ofNullable(Session.getInstance().getCurrentUser().getName()));
-        System.out.println(routines);
-
-        for (Routine routine : routines) {
-            routinesVBox.getChildren().add(new RoutinePreviewController(routine));
-        }
+        updateView();
     }
 
 
@@ -44,4 +38,16 @@ public class MyRoutinesController {
         HelloApplication.changeScene("new_routine/routine-view.fxml");
     }
 
+    @Override
+    public void updateView() {
+        SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
+        List<Routine> routines = dao.getAllRoutines(Optional.ofNullable(Session.getInstance().getCurrentUser().getName()));
+        System.out.println(routines);
+
+        routinesVBox.getChildren().clear();
+
+        for (Routine routine : routines) {
+            routinesVBox.getChildren().add(new RoutinePreviewController(routine, this));
+        }
+    }
 }
