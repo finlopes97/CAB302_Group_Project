@@ -79,12 +79,6 @@ public class HelloApplication extends Application {
 //                        statement.execute(createRoutineTable);
 //                        System.out.println("Routine table created successfully.");
 
-                        // Insert the initial user entry
-                        String insertUser = "INSERT INTO User (Email, Name, Password) VALUES (" +
-                                "'Duncan.zehnder@icloud.com', 'Duncan', 'Cab302!'" +
-                                ");";
-                        statement.execute(insertUser);
-
                         System.out.println("User entry added successfully.");
                     } catch (SQLException e) {
                         e.printStackTrace();

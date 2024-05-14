@@ -9,12 +9,18 @@ import javafx.scene.layout.VBox;
 import org.trainer.interval_trainer.controller.activity.ActivityController;
 import org.trainer.interval_trainer.HelloApplication;
 import org.trainer.interval_trainer.Model.*;
+import org.trainer.interval_trainer.controller.new_routine.BlockController;
+import org.trainer.interval_trainer.controller.new_routine.GroupController;
 import org.trainer.interval_trainer.controller.new_routine.RoutineController;
 
 
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * A controller for the preview of a single routine, typically used in lists of routines.
+ * This controller provides a visual component for interacting with an individual routine.
+ */
 public class RoutinePreviewController extends VBox {
 
     @FXML Label name;
@@ -27,11 +33,14 @@ public class RoutinePreviewController extends VBox {
     private Routine data;
     private RoutineListController controller;
 
+    /**
+     * Constructs a RoutinePreviewController with a specific Routine.
+     * It loads the associated FXML and initializes the display labels with the routine's details.
+     * @param routine The Routine to be displayed and managed by this controller.
+     */
     public RoutinePreviewController(Routine routine, RoutineListController controller) {
         data = routine;
         this.controller = controller;
-
-
 
         FXMLLoader blockLoader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/manage_routines/routine_preview.fxml"));
         blockLoader.setController(this);
@@ -52,6 +61,11 @@ public class RoutinePreviewController extends VBox {
 
     }
 
+    /**
+     * Deletes the routine associated with this controller from the database,
+     * and refreshes the UI to reflect this change.
+     * @param event The event that triggered this method.
+     */
     public void delete(ActionEvent event) {
         new SqliteRoutinesDAO().deleteRoutine(data);
         controller.updateView();
@@ -62,7 +76,23 @@ public class RoutinePreviewController extends VBox {
         HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
         ((ActivityController) loader.getController()).setRoutine(data);
 
+    /**
+     * Initiates the playing or execution of the routine.
+     * This method should handle the logic to start routine activities, such as timing or exercise displays.
+     * @param event The event that triggered this method.
+     */
+    public void play(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/activity-page-view.fxml"));
+        HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
+        ((RoutineController) loader.getController()).setRoutine(data);
     }
+
+    /**
+     * Opens the editing interface for the routine.
+     * Allows the user to modify the details of the routine.
+     * @param event The event that triggered this method.
+     * @throws IOException If the FXML file for the edit view cannot be loaded.
+     */
     public void edit(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/new_routine/routine-view.fxml"));
         HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());

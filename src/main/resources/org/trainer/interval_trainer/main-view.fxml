@@ -30,7 +30,6 @@
           <Button fx:id="myRoutines" text="My Routines" onAction="#onMyRoutinesButtonClick"/>
           <Button text="Search" onAction="#onFindRoutinesButtonClick"/>
           <Button text="Profile" onAction="#onProfileButtonClick"/>
-          <Button text="Settings" onAction="#onSettingsButtonClick"/>
       </HBox>
    </bottom>
 </BorderPane>

@@ -2,12 +2,15 @@ package org.trainer.interval_trainer.Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.trainer.interval_trainer.Model.Session;
 
 public class SqliteConnection {
     private static Connection instance = null;
+    private static Session session;
 
     private SqliteConnection() {
-        String url = "jdbc:sqlite:./src/main/resources/Database.db";
+        session = Session.getInstance();
+        String url = session.getDbUrl;
             try {
                 instance = DriverManager.getConnection(url);
             }

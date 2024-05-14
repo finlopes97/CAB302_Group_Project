@@ -1,7 +1,9 @@
 package org.trainer.interval_trainer.controller;
 
-
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,9 +17,14 @@ import org.trainer.interval_trainer.controller.manage_routines.RoutinePreviewCon
 
 
 import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Controller for the search functionality within the application.
+ * It handles both the display of suggested routines and the execution of search queries against the database.
+ */
 public class SearchController extends RoutineListController {
     public VBox children;
     @FXML
@@ -33,11 +40,13 @@ public class SearchController extends RoutineListController {
     @FXML
     private Button searchButton;
     @FXML
-    private Button profileButton;
-    @FXML
-    private Button settingsButton;
-    @FXML
     private GridPane suggestedRoutinesGrid;
+    @FXML
+    private Label suggestedRoutineLabel;
+    @FXML
+    private Button cancelButton;
+
+    private boolean isSearchMode = false; // Flag to indicate search mode
 
     @FXML
     private Label searchResultLabel;
