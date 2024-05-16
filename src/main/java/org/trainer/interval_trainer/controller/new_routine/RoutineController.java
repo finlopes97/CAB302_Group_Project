@@ -165,7 +165,7 @@ public class RoutineController {
         SqliteRoutinesDAO dao = new SqliteRoutinesDAO();
 
         routine.setCreatedOn(new Timestamp(System.currentTimeMillis()));
-        routine.setCreatedBy("");
+        routine.setCreatedBy(Session.getInstance().getCurrentUser().getName());
         routine.setTotalTime(0);
         if (routine.getId().get() != 0) {
             System.out.println("updated routine");

@@ -17,7 +17,7 @@ public class Group extends BaseItem implements Externalizable {
 
 
     public int getRoutineId() { return RoutineId; }
-    private final IntegerProperty reps = new SimpleIntegerProperty(0);
+    private final IntegerProperty reps = new SimpleIntegerProperty(1);
     public Property<Integer> getRepsObject() {
         return reps.asObject();
     }
