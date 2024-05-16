@@ -79,34 +79,6 @@ public class LoginController {
         HelloApplication.changeScene("sign-up.fxml");
     }
 
-//    public void onLoginButton() {
-//        Platform.runLater(() -> {
-//            String email = emailField.getText();
-//            String password = passwordField.getText();
-//            if (validateCredentials(email, password)) {
-//                // Retrieve user information from the database based on the email
-//                User currentUser = retrieveUser(email);
-//                if (currentUser != null) {
-//                    // Set the current user in the application
-//                    setCurrentUser(currentUser);
-//
-//                    // Navigate to the main view
-//                try {
-//                    HelloApplication.changeScene("main-view.fxml");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                } else {
-//                    // Handle case where user information couldn't be retrieved
-//                    errorMessageLabel.setText("Failed to retrieve user information.");
-//                }
-//            } else {
-//                errorMessageLabel.setText(INCORRECT_DETAILS);
-//            }
-//        });
-//    }
-
-
     public void onLoginButton() {
         Platform.runLater(() -> {
             String email = emailField.getText();

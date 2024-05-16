@@ -67,6 +67,7 @@ public class RoutinePreviewController extends VBox {
         name.setText(data.getName().get());
         description.setText(data.getDescription().get());
 
+        // Set the visibility of edit and delete buttons based on whether the current user is the creator of the routine
         if (!Objects.equals(Session.getInstance().getCurrentUser().getName(), routine.getCreatedBy())) {
             delete.setVisible(false);
             edit.setVisible(false);

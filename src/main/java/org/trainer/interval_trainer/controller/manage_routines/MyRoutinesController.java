@@ -48,7 +48,6 @@ public class MyRoutinesController extends RoutineListController {
         System.out.println(routines);
 
         routinesVBox.getChildren().clear();
-
         for (Routine routine : routines) {
             routinesVBox.getChildren().add(new RoutinePreviewController(routine, this));
         }

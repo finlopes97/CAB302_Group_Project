@@ -6,8 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.Timestamp;
-import java.time.LocalTime;
-import java.util.List;
 
 public class Routine {
     private IntegerProperty id = new SimpleIntegerProperty();
@@ -41,7 +39,6 @@ public class Routine {
         this.totalTime = TotalTime;
     }
 
-
     public Routine(String name, String createdBy, Timestamp createdOn, String description, int totalTime, Group group) {
         this.name.set(name);
         this.createdBy = createdBy;
@@ -55,9 +52,6 @@ public class Routine {
         this.group = new Group();
     }
 
-
-
-
     public String getCreatedBy() {
         return createdBy;
     }
@@ -65,7 +59,4 @@ public class Routine {
     public void setCreatedBy(String CreatedBy) {
         this.createdBy = CreatedBy;
     }
-
-
-
 }

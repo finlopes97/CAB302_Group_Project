@@ -1,7 +1,5 @@
 package org.trainer.interval_trainer.NewRoutine;
 
-import java.util.Timer;
-
 public class Interval {
     public String Title;
     public String getTitle() {return Title;}

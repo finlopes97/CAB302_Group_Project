@@ -17,8 +17,8 @@
       <Label fx:id="description" text="Label" />
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" prefWidth="400.0">
         <buttons>
-            <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" text="delete" />
-            <Button fx:id="edit" mnemonicParsing="false" onAction="#edit" text="edit" />
+            <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" text="Delete" />
+            <Button fx:id="edit" mnemonicParsing="false" onAction="#edit" text="Edit" />
             <Button mnemonicParsing="false" onAction="#play" text="Play" />
         </buttons>
          <cursor>
