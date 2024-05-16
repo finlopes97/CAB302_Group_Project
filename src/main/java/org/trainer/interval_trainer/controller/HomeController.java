@@ -19,12 +19,14 @@ import java.util.Optional;
  * of both user-specific and suggested routines.
  */
 public class HomeController extends RoutineListController {
+
+    @FXML private VBox children2;
     @FXML private VBox children;
     @FXML private VBox suggestedChildren;
     @FXML private Label welcomeText;
     @FXML private GridPane myRoutinesGrid;
     @FXML private GridPane suggestedRoutinesGrid;
-
+    @FXML private GridPane suggestedRoutinesGrid2;
     private Session session;
     private User currentUser;
 
@@ -49,5 +51,16 @@ public class HomeController extends RoutineListController {
         for (Routine routine : routines) {
             children.getChildren().add(new RoutinePreviewController(routine, this));
         }
+
+        //suggested routines
+
+        List<Routine> routines2 = dao.getSomeRoutinesNotByUser(Optional.ofNullable(currentUser.getName()), 5);
+        System.out.println(routines2);
+        children2.getChildren().clear();
+        for (Routine routine : routines2) {
+            children2.getChildren().add(new RoutinePreviewController(routine, this));
+        }
+
+
     }
 }

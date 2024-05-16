@@ -184,7 +184,7 @@ public class ActivityController {
                                 nextItem();
                             }
 
-                            timerLabel.setText(String.valueOf(seconds / 60) + String.valueOf(seconds % 60));
+                            timerLabel.setText(String.valueOf(seconds / 60) + ":" + String.valueOf(seconds % 60));
                         })
         );
         timeline.playFromStart();
