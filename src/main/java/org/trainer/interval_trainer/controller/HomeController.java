@@ -20,6 +20,7 @@ import java.util.Optional;
  */
 public class HomeController extends RoutineListController {
     @FXML private VBox children;
+    @FXML private VBox suggestedChildren;
     @FXML private Label welcomeText;
     @FXML private GridPane myRoutinesGrid;
     @FXML private GridPane suggestedRoutinesGrid;

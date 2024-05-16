@@ -17,31 +17,28 @@
     <VBox>
       <HBox prefHeight="41.0" prefWidth="516.0" spacing="10.0">
          <children>
-            <Button onAction="#exit" mnemonicParsing="false" text=" exit and cancel" />
-             <Button onAction="#save" text=" save and exit" />
+            <Button onAction="#exit" mnemonicParsing="false" text="Exit Without Saving" textFill="crimson"/>
+             <Button onAction="#save" text="Save and Exit" textFill="green"/>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
          </padding>
       </HBox>
         <VBox fx:id="startOfList" spacing="10.0">
-            <HBox>
-                <Label text="Name of Routine" />
-                <TextField fx:id="name" />
-            </HBox>
-            <Label text="description" />
-                <TextArea fx:id="description" />
-            <Separator />
+            <Label text="Name of Routine" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+            <TextField fx:id="name" promptText="Enter the routine name"/>
+            <Label text="Description" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+            <TextArea fx:id="description" promptText="Enter a description about the routine"/>
         </VBox>
         <VBox fx:id="children" prefHeight="35.0" prefWidth="266.0" spacing="3.0">
             <VBox.margin>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
             </VBox.margin>
         </VBox>
         <VBox fx:id="endOfList" prefHeight="0.0" prefWidth="266.0" spacing="10.0">
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                <Button onAction="#addGroup" text="add Group" />
-                <Button onAction="#addBlock" text="add Item" />
+                <Button onAction="#addGroup" text="Add Group" />
+                <Button onAction="#addBlock" text="Add Block" />
             </HBox>
         </VBox>
     </VBox>

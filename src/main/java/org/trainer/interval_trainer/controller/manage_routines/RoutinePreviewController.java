@@ -67,11 +67,13 @@ public class RoutinePreviewController extends VBox {
         name.setText(data.getName().get());
         description.setText(data.getDescription().get());
 
-        if (!Objects.equals(Session.getInstance().getCurrentUser().getName(), routine.getName().get())) {
-            getChildren().remove(delete);
-            getChildren().remove(edit);
-        }
+        boolean isCreator = Objects.equals(Session.getInstance().getCurrentUser().getName(), routine.getCreatedBy());
+
+        // Set the visibility of edit and delete buttons based on whether the current user is the creator of the routine
+        delete.setVisible(isCreator);
+        edit.setVisible(isCreator);
     }
+
 
     /**
      * Deletes the routine associated with this controller from the database,

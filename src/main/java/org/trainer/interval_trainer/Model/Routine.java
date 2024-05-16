@@ -66,6 +66,4 @@ public class Routine {
         this.createdBy = CreatedBy;
     }
 
-
-
 }

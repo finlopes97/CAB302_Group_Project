@@ -18,36 +18,16 @@
             <VBox alignment="TOP_CENTER">
                 <Label fx:id="welcomeText" style="-fx-font-size: 35; -fx-font-weight: bold;" />
             </VBox>
+<!--            <VBox alignment="TOP_LEFT">-->
+<!--                -->
+<!--            </VBox>-->
             <!-- Current Routines -->
-            <VBox alignment="TOP_CENTER" spacing="10">
+            <VBox alignment="TOP_LEFT" spacing="10">
                 <padding>
                     <Insets bottom="20.0" top="20.0"/>
                 </padding>
-                <!-- Grid of My Routines -->
                 <Label text="My Routines" style="-fx-font-size: 25; -fx-font-weight: bold"/>
-                <GridPane fx:id="suggestedRoutinesGrid" alignment="TOP_CENTER" hgap="10" vgap="10">
-                    <Label text="Routine Name" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                    <Label text="User" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                    <Label text="Description" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                    <Label text="Routine Duration" GridPane.columnIndex="3" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>
-                </GridPane>
                 <VBox fx:id="children"/>
-            </VBox>
-
-            <!-- Suggested Routines -->
-            <VBox alignment="TOP_CENTER" spacing="10">
-                <padding>
-                    <Insets bottom="20.0" top="20.0"/>
-                </padding>
-                <Label text="Suggested Routines" style="-fx-font-size: 25; -fx-font-weight: bold" />
-                <!-- Grid of Routines -->
-<!--                <GridPane fx:id="suggestedRoutinesGrid" alignment="TOP_CENTER" hgap="10" vgap="10">-->
-<!--                    <Label text="Routine Name" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>-->
-<!--                    <Label text="User" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>-->
-<!--                    <Label text="Description" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>-->
-<!--                    <Label text="Routine Duration" GridPane.columnIndex="3" GridPane.rowIndex="0" style="-fx-font-size: 14; -fx-font-weight: bold"/>-->
-<!--                </GridPane>-->
-<!--                <VBox fx:id="children"/>-->
             </VBox>
         </VBox>
     </center>
