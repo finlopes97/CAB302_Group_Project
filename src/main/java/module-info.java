@@ -3,6 +3,7 @@ module org.trainer.interval_trainer {
     requires javafx.fxml;
     requires java.sql;
     requires junit;
+    requires org.junit.jupiter.api;
 
     opens org.trainer.interval_trainer to javafx.fxml;
     exports org.trainer.interval_trainer;
