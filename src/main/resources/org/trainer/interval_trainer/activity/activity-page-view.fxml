@@ -9,27 +9,35 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.trainer.interval_trainer.controller.activity.ActivityController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            style="color:#F3F8F5">
 
-
+<!--<style>-->
+<!--    background-color: #F3F8F5;-->
+<!--    primary-colour: #68A281;-->
+<!--    secondary-color: #ABC7CB;-->
+<!--    accent-color: #8CABB8;-->
+<!--    text-color: #090E0B;-->
+<!--    font: Noto Sans Tamil Supplement;-->
+<!--</style>-->
 <VBox alignment="CENTER" spacing="10.0">
     <padding>
         <Insets bottom="180" left="250" right="250" top="180"/>
     </padding>
-    <Label fx:id="name" text="name" style="-fx-font-size: 30;"/>
+    <Label fx:id="name" text="name" style="-fx-font-size: 30;-fx-color:#090E0B;-fx-font-family:Noto Sans Tamil Supplement;"/>
     <Label fx:id="debug" />
-    <Label fx:id="timerLabel" style="-fx-font-size: 35;"/>
-    <VBox alignment="CENTER" spacing="10.0" fx:id="children" style="-fx-font-size: 20;">
+    <Label fx:id="timerLabel" style="-fx-font-size: 35;-fx-color:#090E0B;-fx-font-family:Noto Sans Tamil Supplement;"/>
+    <VBox alignment="CENTER" spacing="10.0" fx:id="children" style="-fx-font-size: 20;-fx-color:#090E0B;-fx-font-family:Noto Sans Tamil Supplement;">
     </VBox>
     <HBox alignment="CENTER" spacing="10.0">
-    <Button text="START" onAction="#onStart" />
-    <Button text="Pause" onAction="#onPauseButtonClick"/>
+    <Button text="START" onAction="#onStart" style="-fx-color:#68A281;"/>
+    <Button text="Pause" onAction="#onPauseButtonClick" style="-fx-color:#68A281;"/>
     </HBox>
     <HBox alignment="CENTER" spacing="20.0">
-        <Button text="Prev" onAction="#onPrev"/>
-    <Button text="Next" onAction="#onNext"/>
+        <Button text="Prev" onAction="#onPrev" style="-fx-color:#ABC7CB"/>
+    <Button text="Next" onAction="#onNext" style="-fx-color:#ABC7CB"/>
     </HBox>
-    <Button text="Back" onAction="#onArrowButtonClick"/>
+    <Button text="Back" onAction="#onArrowButtonClick" style="color:#8CABB8;"/>
 
 </VBox>
 
