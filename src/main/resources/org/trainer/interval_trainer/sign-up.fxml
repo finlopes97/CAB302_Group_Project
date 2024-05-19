@@ -8,29 +8,29 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.CheckBox?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.SignUpController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.SignUpController" style="-fx-font-family: 'Arial'; -fx-background-color: #f3f8f5;">
     <center>
         <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20" />
             </padding>
-            <Label text="Interval Trainer" style="-fx-font-weight: bold; -fx-font-size: 36px;"/>
-            <Label text="Sign Up" style="-fx-font-size: 24px;"/>
+            <Label text="Interval Trainer" style="-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-fill: #090e0b;"/>
+            <Label text="Sign Up" style="-fx-font-size: 24px; -fx-text-fill: #090e0b;"/>
             <TextField fx:id="usernameField" promptText="Name" style="-fx-border-radius: 10px;"/>
             <TextField fx:id="emailField" promptText="Email" style="-fx-border-radius: 10px;"/>
             <PasswordField fx:id="passwordField" promptText="Password" style="-fx-border-radius: 10px;"/>
             <TextField fx:id="visiblePasswordField" promptText="Password" style="-fx-border-radius: 10px;"/>
-            <CheckBox fx:id="hidePasswordCheckbox" text="Hide Password" onAction="#togglePasswordVisibility"/>
+            <CheckBox fx:id="hidePasswordCheckbox" text="Hide Password" onAction="#togglePasswordVisibility" style="-fx-text-fill: #090e0b;"/>
             <Label fx:id="errorMessageLabel"
                    textFill="red"
                    textAlignment="CENTER"
                    wrapText="true"
                    maxWidth="300"
-                   style="-fx-font-weight: bold; -fx-font-size: 14px;"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #090e0b;"
             />
             <HBox spacing="20.0" alignment="CENTER">
-                <Button text="←" style="-fx-font-size: 16px;" onAction="#onBackHomeButton"/>
-                <Button text="Sign Up" style="-fx-border-radius: 16px;" onAction="#onSignUpButton"/>
+                <Button text="←" style="-fx-font-size: 16px; -fx-text-fill: #090e0b;" onAction="#onBackHomeButton"/>
+                <Button text="Sign Up" style="-fx-border-radius: 16px; -fx-text-fill: #f3f8f5; -fx-background-color: #68a281;" onAction="#onSignUpButton"/>
             </HBox>
         </VBox>
     </center>
