@@ -34,13 +34,12 @@ public class BlockDAO implements IGenericDAO<Block> {
                     + "FOREIGN KEY (group_id) REFERENCES groups(id),"
                     + ")";
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            System.err.println("Error: " + sqlException.getMessage());
         }
     }
 
     /**
      * Adds a block to the database.
-     *
      * @param block The block to be added.
      */
     @Override
@@ -51,16 +50,15 @@ public class BlockDAO implements IGenericDAO<Block> {
             statement.setInt(1, block.getRoutineId());
             statement.setInt(2, block.getGroupId());
             statement.setString(3, "");
-            statement.setInt(4, block.getTimeinSeconds().get());
+            statement.setInt(4, block.getTimeInSeconds().get());
             statement.executeUpdate();
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            System.err.println("Error: " + sqlException.getMessage());
         }
     }
 
     /**
      * Updates an existing block in the database.
-     *
      * @param block The block to be updated.
      */
     @Override
@@ -71,17 +69,16 @@ public class BlockDAO implements IGenericDAO<Block> {
             statement.setInt(1, block.getRoutineId());
             statement.setInt(2, block.getGroupId());
             statement.setString(3, "");
-            statement.setInt(4, block.getTimeinSeconds().get());
+            statement.setInt(4, block.getTimeInSeconds().get());
             statement.setInt(5, block.getId());
             statement.executeUpdate();
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            System.err.println("Error: " + sqlException.getMessage());
         }
     }
 
     /**
      * Deletes a block from the database.
-     *
      * @param block The block to be deleted.
      */
     @Override
@@ -91,13 +88,12 @@ public class BlockDAO implements IGenericDAO<Block> {
                     "DELETE FROM blocks WHERE id = ?");
             statement.setInt(1, block.getId());
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            System.err.println("Error: " + sqlException.getMessage());
         }
     }
 
     /**
      * Retrieves a block from the database based on its ID.
-     *
      * @param id The ID of the block to retrieve.
      * @return The retrieved block, or null if not found.
      */
@@ -119,14 +115,13 @@ public class BlockDAO implements IGenericDAO<Block> {
                 return block;
             }
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            System.err.println("Error: " + sqlException.getMessage());
         }
         return null;
     }
 
     /**
      * Retrieves a list of all block from the database.
-     *
      * @return The retrieved list of blocks, or null if not found.
      */
     @Override
@@ -148,7 +143,7 @@ public class BlockDAO implements IGenericDAO<Block> {
             return blocks;
 
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            System.err.println("Error: " + sqlException.getMessage());
         }
         return null;
     }

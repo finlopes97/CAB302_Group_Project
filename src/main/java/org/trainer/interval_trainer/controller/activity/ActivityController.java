@@ -6,9 +6,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.trainer.interval_trainer.HelloApplication;
@@ -131,7 +128,7 @@ public class ActivityController {
     public void setUpNewItem() {
         if (getCurrentItem() instanceof Block) {
             Block block = (Block) getCurrentItem();
-            seconds = ((Block) getCurrentItem()).getTimeinSeconds().get();
+            seconds = ((Block) getCurrentItem()).getTimeInSeconds().get();
 
             name.setText(block.getName().get());
 

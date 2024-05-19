@@ -45,7 +45,6 @@ public class SqliteRoutinesDAO implements IRoutinesDAO {
 
     /**
      * Adds a new routine to the database.
-     *
      * @param routine the routine to add
      */
     @Override
@@ -67,7 +66,6 @@ public class SqliteRoutinesDAO implements IRoutinesDAO {
 
     /**
      * Updates an existing routine in the database.
-     *
      * @param routine the routine to update
      */
     @Override
@@ -90,7 +88,6 @@ public class SqliteRoutinesDAO implements IRoutinesDAO {
 
     /**
      * Converts a Routine object's group data into a byte array and sets it to the prepared statement.
-     *
      * @param routine   the routine whose group data is to be serialized
      * @param statement the prepared statement for database operation
      * @throws IOException  if an I/O error occurs during serialization
@@ -109,7 +106,6 @@ public class SqliteRoutinesDAO implements IRoutinesDAO {
 
     /**
      * Deletes a routine from the database.
-     *
      * @param routine the routine to delete
      */
     @Override
@@ -126,7 +122,6 @@ public class SqliteRoutinesDAO implements IRoutinesDAO {
 
     /**
      * Retrieves a routine from the database by its ID.
-     *
      * @param id the ID of the routine to retrieve
      * @return the routine if found, otherwise null
      */

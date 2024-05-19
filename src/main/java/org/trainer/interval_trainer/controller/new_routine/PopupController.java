@@ -19,8 +19,8 @@ public class PopupController extends Popup {
 
     public void setBlock(Block block) {
         this.block = block;
-        secs.getValueFactory().setValue(block.getTimeinSeconds().get()%60);
-        mins.getValueFactory().setValue(block.getTimeinSeconds().get()/60);
+        secs.getValueFactory().setValue(block.getTimeInSeconds().get()%60);
+        mins.getValueFactory().setValue(block.getTimeInSeconds().get()/60);
     }
 
     private RoutineController routinesController;
@@ -40,7 +40,7 @@ public class PopupController extends Popup {
     }
 
     public void closePopup() {
-        block.getTimeinSeconds().set(((Integer) mins.getValueFactory().getValue()) * 60 + ((Integer) secs.getValueFactory().getValue()));
+        block.getTimeInSeconds().set(((Integer) mins.getValueFactory().getValue()) * 60 + ((Integer) secs.getValueFactory().getValue()));
         hide();
     }
 

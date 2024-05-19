@@ -58,7 +58,7 @@ public class BlockController extends BaseController {
      */
     private void setupBindings() {
         name.textProperty().bindBidirectional(data.getName());
-        data.getTimeinSeconds().addListener((observable, oldValue, newValue) -> updateView());
+        data.getTimeInSeconds().addListener((observable, oldValue, newValue) -> updateView());
     }
 
     /**
@@ -108,7 +108,7 @@ public class BlockController extends BaseController {
      * Updates the view to reflect the current state of the block data, such as timing.
      */
     private void updateView() {
-        int timeInSec = data.getTimeinSeconds().get();
+        int timeInSec = data.getTimeInSeconds().get();
         int mins = timeInSec / 60;
         int secs = timeInSec % 60;
 
