@@ -2,7 +2,6 @@ package org.trainer.interval_trainer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -18,8 +17,8 @@ import java.util.Objects;
 
 public class HelloApplication extends Application {
     private static Stage primaryStage;
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 700;
+    public static final int WIDTH = 360;
+    public static final int HEIGHT = 640;
 
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -32,7 +31,7 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
         BorderPane root = loader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT); // Adjust size as needed
-        scene.getStylesheets().add("/stylesheet.css");
+        scene.getStylesheets().add("src/main/resources/stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -41,7 +40,6 @@ public class HelloApplication extends Application {
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(fxml)));
         primaryStage.getScene().setRoot(pane);
-
     }
 
 
@@ -81,13 +79,13 @@ public class HelloApplication extends Application {
 
                         System.out.println("User entry added successfully.");
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        System.err.println("Error:" + e.getMessage());
                     }
                 } else {
                     System.err.println("Error creating database file.");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Error:" + e.getMessage());
             }
         }
     }

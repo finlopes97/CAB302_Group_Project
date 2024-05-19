@@ -29,8 +29,8 @@
                    style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #090e0b;"
             />
             <HBox spacing="20.0" alignment="CENTER">
-                <Button text="←" style="-fx-font-size: 16px; -fx-text-fill: #090e0b;" onAction="#onBackHomeButton"/>
-                <Button text="Sign Up" style="-fx-border-radius: 16px; -fx-text-fill: #f3f8f5; -fx-background-color: #68a281;" onAction="#onSignUpButton"/>
+                <Button text="←" style="-fx-border-radius: 10px;-fx-font-size: 16px; -fx-text-fill: #090e0b; -fx-background-color: #68a281;" onAction="#onBackHomeButton"/>
+                <Button text="Sign Up" style="-fx-border-radius: 10px; -fx-text-fill: #090e0b; -fx-background-color: #68a281;" onAction="#onSignUpButton"/>
             </HBox>
         </VBox>
     </center>
