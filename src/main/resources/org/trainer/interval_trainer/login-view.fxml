@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.LoginController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.LoginController" style="-fx-font-family: 'Arial'; -fx-background-color: #f3f8f5;">
     <center>
         <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
             <padding>

@@ -1,5 +1,3 @@
-
-
 #item {
     -fx-background-color: lightgrey;
     -fx-background-radius: 10;
@@ -14,11 +12,21 @@
     -fx-background-color: beige;
     -fx-background-radius: 10;
 }
+
 #timerPopout {
     -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-border-color: black;
     -fx-border-width: 2;
     -fx-border-radius: 10;
+}
 
+.root {
+    -fx-background-color: yellow;
+}
+
+.button {
+    -fx-border-color: #8cabb8;
+    -fx-background-color: #f3f8f5;
+    -fx-text-fill: #090e0b;
 }
