@@ -34,7 +34,7 @@
             <StackPane>
                 <Button fx:id="editProfileButton" text="Edit Profile" onAction="#onEditProfileButton" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #68a281; -fx-border-color: #68a281; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
 
-                <HBox fx:id="confirmRevertBox" spacing="10" managed="false">
+                <HBox fx:id="confirmRevertBox" spacing="10" managed="false" alignment="CENTER">
                     <Button fx:id="revertChangesButton" text="Revert Changes" onAction="#onRevertChangesButton" visible="false" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #68a281; -fx-border-color: #68a281; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
                     <Button fx:id="confirmChangesButton" text="Confirm Changes" onAction="#onConfirmChangesButton" visible="false" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #68a281; -fx-border-color: #68a281; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
                 </HBox>
