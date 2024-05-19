@@ -20,7 +20,7 @@
                 <Button fx:id="cancelButton" text="Cancel" onAction="#onCancelButtonClick" visible="false"/>
             </HBox>
             <Label fx:id ="suggestedRoutineLabel"  text="Recently Added" style="-fx-font-size: 25; -fx-font-weight: bold"/>
-            <VBox alignment="TOP_LEFT" fx:id="routinesVBox"/>
+            <VBox alignment="TOP_LEFT" fx:id="routinesVBox" spacing = "2"/>
         </VBox>
     </center>
 </BorderPane>

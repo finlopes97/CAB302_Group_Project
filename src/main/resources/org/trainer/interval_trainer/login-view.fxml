@@ -20,12 +20,12 @@
                    textAlignment="CENTER"
                    wrapText="true"
                    maxWidth="300"
-                   style="-fx-font-weight: bold; -fx-font-size: 14px;"
-            />
+                   style="-fx-font-weight: bold; -fx-font-size: 14px;">
+            </Label>
             <HBox spacing="20.0" alignment="CENTER">
-<!--                <Button text="Forgot Password" />-->
-                <Button text="Login" style="-fx-border-radius: 10px;" onAction="#onLoginButton"/>
-                <Button text="SignUp" style="-fx-border-radius: 10px;" onAction="#onSignUpPageButton"/>
+                <!-- <Button text="Forgot Password" /> -->
+                <Button text="Login" style="-fx-border-radius: 10px; -fx-background-color: #68a281;" onAction ="#onLoginButton"/> <!-- Primary color -->
+                <Button text="SignUp" style="-fx-border-radius: 10px; -fx-background-color: #68a281;" onAction="#onSignUpPageButton"/> <!-- Primary color -->
             </HBox>
         </VBox>
     </center>

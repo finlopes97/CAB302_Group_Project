@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -8,25 +7,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="88.0" prefWidth="383.0" style="-fx-background-color: gray; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="name" text="Label">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font></Label>
-      <Label fx:id="description" text="Label" />
-      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" prefWidth="400.0">
-        <buttons>
-            <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" text="Delete" />
-            <Button fx:id="edit" mnemonicParsing="false" onAction="#edit" text="Edit" />
-            <Button mnemonicParsing="false" onAction="#play" text="Play" />
-        </buttons>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </ButtonBar>
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+<fx:root prefHeight="88.0" prefWidth="383.0" style="-fx-background-color: #68a281; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="name" text="Label" style="-fx-text-fill: #090e0b;">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+        <Label fx:id="description" text="Label" style="-fx-text-fill: #090e0b;" />
+        <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" prefWidth="400.0">
+            <buttons>
+                <Button fx:id="delete" mnemonicParsing="false" onAction="#delete" text="Delete" style="-fx-text-fill: #090e0b; -fx-background-color: #8cabb8;"/>
+                <Button fx:id="edit" mnemonicParsing="false" onAction="#edit" text="Edit" style="-fx-text-fill: #090e0b; -fx-background-color: #8cabb8;"/>
+                <Button mnemonicParsing="false" onAction="#play" text="Play" style="-fx-text-fill: #090e0b; -fx-background-color: #8cabb8;"/>
+            </buttons>
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+        </ButtonBar>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
 </fx:root>

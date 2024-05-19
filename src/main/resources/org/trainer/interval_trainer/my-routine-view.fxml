@@ -21,7 +21,7 @@
             </padding>
             <!-- Welcome Text -->
 
-            <VBox alignment="TOP_LEFT">
+            <VBox alignment="TOP_LEFT" spacing = "2">
                 <Label fx:id="welcomeText" style="-fx-font-size: 35; -fx-font-weight: bold;" />
 
             <Button fx:id="createRoutineButton" text="Create New Routine" onAction="#onCreateRoutinesClick"/>

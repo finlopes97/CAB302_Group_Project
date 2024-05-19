@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.TextArea?>
-<BorderPane fx:id="profileRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.ProfileController" style="-fx-font-family: 'Arial'; -fx-background-color: #f0f0f0;">
+<?import javafx.scene.layout.StackPane?>
+<BorderPane fx:id="profileRoot" xmlns:fx="http://javafx.com/fxml" fx:controller="org.trainer.interval_trainer.controller.ProfileController" style="-fx-font-family: 'Arial'; -fx-background-color: #f3f8f5;">
     <center>
         <VBox alignment="TOP_CENTER" spacing="20.0">
             <padding>
@@ -22,38 +16,32 @@
             </padding>
 
             <!-- User Details -->
-            <VBox alignment="TOP_LEFT" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 20px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-border-color: #ccc;">
-                <Label text="Details" style="-fx-font-size: 22; -fx-text-fill: #666;" />
+            <VBox alignment="TOP_LEFT" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 20px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-border-color: #abc7cb;">
+                <Label text="Details" style="-fx-font-size: 22; -fx-text-fill: #090e0b;" />
                 <HBox spacing="10.0">
-                    <Label text="Name " style="-fx-font-size: 18; -fx-text-fill: #666;" />
-                    <TextField fx:id="editableNameField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #666;" HBox.hgrow="ALWAYS" />
+                    <Label text="Name " style="-fx-font-size: 18; -fx-text-fill: #090e0b;" />
+                    <TextField fx:id="editableNameField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #090e0b;" HBox.hgrow="ALWAYS" />
                 </HBox>
                 <HBox spacing="10.0">
-                    <Label text="Email " style="-fx-font-size: 18; -fx-text-fill: #666;" />
-                    <TextField fx:id="editableEmailField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #666;" HBox.hgrow="ALWAYS" />
+                    <Label text="Email " style="-fx-font-size: 18; -fx-text-fill: #090e0b;" />
+                    <TextField fx:id="editableEmailField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #090e0b;" HBox.hgrow="ALWAYS" />
                 </HBox>
-                <Label text="Fitness Goal " style="-fx-font-size: 18; -fx-text-fill: #666;" />
-                <TextArea fx:id="editableFitnessGoalField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #666;" wrapText="true" prefHeight="100.0" />
+                <Label text="Fitness Goal " style="-fx-font-size: 18; -fx-text-fill: #090e0b;" />
+                <TextArea fx:id="editableFitnessGoalField" editable="false" style="-fx-font-size: 18; -fx-text-fill: #090e0b;" wrapText="true" prefHeight="100.0" />
             </VBox>
-
-
-
-
 
             <!-- Edit Profile Button and Confirm/Revert Changes Buttons -->
             <StackPane>
-                <Button fx:id="editProfileButton" text="Edit Profile" onAction="#onEditProfileButton" style=" -fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+                <Button fx:id="editProfileButton" text="Edit Profile" onAction="#onEditProfileButton" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #68a281; -fx-border-color: #68a281; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
 
                 <HBox fx:id="confirmRevertBox" spacing="10" managed="false">
-                    <Button fx:id="revertChangesButton" text="Revert Changes" onAction="#onRevertChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
-                    <Button fx:id="confirmChangesButton" text="Confirm Changes" onAction="#onConfirmChangesButton" visible="false" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #808080; -fx-border-color: #808080; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+                    <Button fx:id="revertChangesButton" text="Revert Changes" onAction="#onRevertChangesButton" visible="false" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #68a281; -fx-border-color: #68a281; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
+                    <Button fx:id="confirmChangesButton" text="Confirm Changes" onAction="#onConfirmChangesButton" visible="false" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #68a281; -fx-border-color: #68a281; -fx-border-radius: 5px; -fx-padding: 10px 20px;" />
                 </HBox>
             </StackPane>
 
             <!-- Log Out Button -->
-            <Button text="Log Out" onAction="#onLogOutButton" style="-fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-color: #B22222; -fx-border-color: #B22222; -fx-border-radius: 5px; -fx-padding: 10px 20px;" VBox.vgrow="ALWAYS" />
-
-
+            <Button text="Log Out" onAction="#onLogOutButton" style="-fx-text-fill: #f3f8f5; -fx-font-size: 16px; -fx-background-color: #8cabb8; -fx-border-color: #8cabb8; -fx-border-radius: 5px; -fx-padding: 10px 20px;" VBox.vgrow="ALWAYS" />
         </VBox>
     </center>
 </BorderPane>
