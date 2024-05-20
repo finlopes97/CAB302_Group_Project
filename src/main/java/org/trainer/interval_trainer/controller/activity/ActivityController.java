@@ -77,7 +77,7 @@ public class ActivityController {
     protected void onArrowButtonClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/trainer/interval_trainer/main-view.fxml"));
         HelloApplication.getPrimaryStage().getScene().setRoot(loader.load());
-        ((MainController) loader.getController()).switchContent("/org/trainer/interval_trainer/manage_routines/my-routine-view.fxml");
+        ((MainController) loader.getController()).switchContent("/org/trainer/interval_trainer/manage_routines/main-view.fxml");
     }
 
     public void nextItem() {

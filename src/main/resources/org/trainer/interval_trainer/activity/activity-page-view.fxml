@@ -37,7 +37,7 @@
         <Button text="Prev" onAction="#onPrev" style="-fx-color:#ABC7CB"/>
     <Button text="Next" onAction="#onNext" style="-fx-color:#ABC7CB"/>
     </HBox>
-    <Button text="Back" onAction="#onArrowButtonClick" style="color:#8CABB8;"/>
+    <Button text="Home" onAction="#onArrowButtonClick" style="color:#8CABB8;"/>
 
 </VBox>
 
